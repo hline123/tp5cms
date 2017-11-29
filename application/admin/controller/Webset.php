@@ -11,9 +11,27 @@ use app\admin\model\Webset as WebsetModel;
  */
 class Webset extends Base
 {
-
+    /**
+     * 显示配置操作
+     * @return \think\response\View
+     */
     public function confList()
     {
+        // 获取配置所有数据
+        $confRes = db('webset')->select();
+        // 获取网站基本信息
+        $baseInfo = db('webset')->where('cf_type', 1)->select();
+        // 获取联系方式
+        $ways = db('webset')->where('cf_type', 2)->select();
+        // seo 信息
+        $seo = db('webset')->where('cf_type', 3)->select();
+        //halt($baseInfo);
+        $this->assign([
+            'confRes'  => $confRes,
+            'baseInfo' => $baseInfo,
+            'ways'     => $ways,
+            'seo'      => $seo,
+        ]);
         return view('confList');
     }
 
@@ -65,7 +83,7 @@ class Webset extends Base
             }
         }
         // 查询编辑数据
-        $id = input('param.id');
+        $id    = input('param.id');
         $field = db('webset')->find($id);
         $this->assign('field', $field);
         return view('edit');

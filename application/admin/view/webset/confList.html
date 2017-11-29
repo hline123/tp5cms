@@ -25,28 +25,190 @@
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane active" id="tab_1">
+                            {foreach name="baseInfo" item="vo"}
+                            {switch name="$vo.dt_type" }
+                            {case value="1"}
                             <div class="form-group">
-                                <label class="col-sm-2 control-label">标签名称：</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" name="tag_name">
+                                <label class="col-sm-2 control-label">{$vo.cname}：</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" name="{$vo.ename}">
                                 </div>
                             </div>
+                            {/case}
+                            {case value="2"}
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">{$vo.cname}：</label>
+                                <div class="col-sm-9">
+                                    <label class="radio-inline">
+                                        <input type="radio" name="{$vo.ename}"  value="" checked="checked">
+                                        Radio box
+                                    </label>
+                                </div>
+                            </div>
+                            {/case}
+                            {case value="3"}
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">{$vo.cname}：</label>
+                                <div class="col-sm-9">
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" name="{$vo.ename}"  value="" checked="checked">
+                                        checkbox box
+                                    </label>
+                                </div>
+                            </div>
+                            {/case}
+                            {case value="4"}
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">{$vo.cname}：</label>
+                                <div class="col-sm-9">
+                                    <select name="{$vo.ename}" class="form-control">
+                                        <option value=""> -- Select One --</option>
+                                    </select>
+                                </div>
+                            </div>
+                            {/case}
+                            {case value="5"}
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">{$vo.cname}：</label>
+                                <div class="col-sm-9">
+                                    <textarea name="{$vo.ename}" class="form-control" cols="30" rows="3"></textarea>
+                                </div>
+                            </div>
+                            {/case}
+                            {case value="6"}
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">{$vo.cname}：</label>
+                                <div class="col-sm-9">
+                                    <input type="file" name="{$vo.ename}">
+                                </div>
+                            </div>
+                            {/case}
+                            {/switch}
+                            {/foreach}
                         </div>
                         <div class="tab-pane" id="tab_2">
+                            {foreach name="ways" item="vo"}
+                            {switch name="$vo.dt_type" }
+                            {case value="1"}
                             <div class="form-group">
-                                <label class="col-sm-2 control-label">标签名称：</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control" name="tag_name">
+                                <label class="col-sm-2 control-label">{$vo.cname}：</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" name="{$vo.ename}">
                                 </div>
                             </div>
+                            {/case}
+                            {case value="2"}
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">{$vo.cname}：</label>
+                                <div class="col-sm-9">
+                                    <label class="radio-inline">
+                                        <input type="radio" name="{$vo.ename}"  value="" checked="checked">
+                                        Radio box
+                                    </label>
+                                </div>
+                            </div>
+                            {/case}
+                            {case value="3"}
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">{$vo.cname}：</label>
+                                <div class="col-sm-9">
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" name="{$vo.ename}"  value="" checked="checked">
+                                        checkbox box
+                                    </label>
+                                </div>
+                            </div>
+                            {/case}
+                            {case value="4"}
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">{$vo.cname}：</label>
+                                <div class="col-sm-9">
+                                    <select name="{$vo.ename}" class="form-control">
+                                        <option value=""> -- Select One --</option>
+                                    </select>
+                                </div>
+                            </div>
+                            {/case}
+                            {case value="5"}
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">{$vo.cname}：</label>
+                                <div class="col-sm-9">
+                                    <textarea name="{$vo.ename}" class="form-control" cols="30" rows="3"></textarea>
+                                </div>
+                            </div>
+                            {/case}
+                            {case value="6"}
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">{$vo.cname}：</label>
+                                <div class="col-sm-9">
+                                    <input type="file" name="{$vo.ename}">
+                                </div>
+                            </div>
+                            {/case}
+                            {/switch}
+                            {/foreach}
                         </div>
                         <div class="tab-pane" id="tab_3">
+                            {foreach name="seo" item="vo"}
+                            {switch name="$vo.dt_type" }
+                            {case value="1"}
                             <div class="form-group">
-                                <label class="col-sm-2 control-label">标签名称：</label>
-                                <div class="col-sm-10">
-                                    <input type="text" class="form-control"  name="">
+                                <label class="col-sm-2 control-label">{$vo.cname}：</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" name="{$vo.ename}">
                                 </div>
                             </div>
+                            {/case}
+                            {case value="2"}
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">{$vo.cname}：</label>
+                                <div class="col-sm-9">
+                                    <label class="radio-inline">
+                                        <input type="radio" name="{$vo.ename}"  value="" checked="checked">
+                                        Radio box
+                                    </label>
+                                </div>
+                            </div>
+                            {/case}
+                            {case value="3"}
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">{$vo.cname}：</label>
+                                <div class="col-sm-9">
+                                    <label class="checkbox-inline">
+                                        <input type="checkbox" name="{$vo.ename}"  value="" checked="checked">
+                                        checkbox box
+                                    </label>
+                                </div>
+                            </div>
+                            {/case}
+                            {case value="4"}
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">{$vo.cname}：</label>
+                                <div class="col-sm-9">
+                                    <select name="{$vo.ename}" class="form-control">
+                                        <option value=""> -- Select One --</option>
+                                    </select>
+                                </div>
+                            </div>
+                            {/case}
+                            {case value="5"}
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">{$vo.cname}：</label>
+                                <div class="col-sm-9">
+                                    <textarea name="{$vo.ename}" class="form-control" cols="30" rows="3"></textarea>
+                                </div>
+                            </div>
+                            {/case}
+                            {case value="6"}
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">{$vo.cname}：</label>
+                                <div class="col-sm-9">
+                                    <input type="file" name="{$vo.ename}">
+                                </div>
+                            </div>
+                            {/case}
+                            {/switch}
+                            {/foreach}
                         </div>
                     </div>
                     <div class="box-footer">

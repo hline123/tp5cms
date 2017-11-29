@@ -31,4 +31,9 @@ class Webset extends Validate
             'cf_type.require' => '配置分类不能为空',
             'cf_type.number'  => '配置分类必须为数字类型',
         ];
+    protected $scene
+        = [
+            //'store' => ['cname', 'ename'],
+            //'edit'  => ['']
+        ];
 }
