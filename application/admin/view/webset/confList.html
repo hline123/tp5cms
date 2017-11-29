@@ -1,6 +1,11 @@
 {extend name="public/base" /}
 {block name="content"}
-<!-- Content Header (Page header) -->
+<style>
+    .checkbox-inline, .radio-inline {
+        padding-left: 0;
+        padding-right: 20px;
+    }
+</style>
 <section class="content-header">
     <h1>
         系统配置
@@ -8,7 +13,7 @@
     <ol class="breadcrumb">
         <li><a href="{:url('index/index')}"><i class="fa fa-home"></i> Home </a></li>
         <li><a href="{:url('webset/index')}"> <i class="fa fa-cog"></i> Config </a></li>
-        <li class="active"> Setting </li>
+        <li class="active"> Setting</li>
     </ol>
 </section>
 
@@ -39,10 +44,12 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">{$vo.cname}：</label>
                                 <div class="col-sm-9">
+                                    {foreach name="radio" item="ro"}
                                     <label class="radio-inline">
-                                        <input type="radio" name="{$vo.ename}"  value="" checked="checked">
-                                        Radio box
+                                        <input type="radio" name="{$vo.ename}" {if condition="$vo.value eq $ro"}checked{/if}>
+                                        {$ro}
                                     </label>
+                                    {/foreach}
                                 </div>
                             </div>
                             {/case}
@@ -50,10 +57,12 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">{$vo.cname}：</label>
                                 <div class="col-sm-9">
+                                    {foreach name="checkbox" item="v"}
                                     <label class="checkbox-inline">
-                                        <input type="checkbox" name="{$vo.ename}"  value="" checked="checked">
-                                        checkbox box
+                                        <input type="checkbox" name="{$vo.ename}" {if condition="in_array($v, $checkboxValue)"}checked{/if} value="{$v}">
+                                        {$v}
                                     </label>
+                                    {/foreach}
                                 </div>
                             </div>
                             {/case}
@@ -62,7 +71,10 @@
                                 <label class="col-sm-2 control-label">{$vo.cname}：</label>
                                 <div class="col-sm-9">
                                     <select name="{$vo.ename}" class="form-control">
-                                        <option value=""> -- Select One --</option>
+                                        <option value=""> 请选择 </option>
+                                        {foreach name="selected" item="v"}
+                                        <option {if condition="$vo.value eq $v"}selected{/if} value="{$v}"> {$v} </option>
+                                        {/foreach}
                                     </select>
                                 </div>
                             </div>
@@ -79,7 +91,17 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">{$vo.cname}：</label>
                                 <div class="col-sm-9">
-                                    <input type="file" name="{$vo.ename}">
+                                    <div class="input-group">
+                                        <input class="form-control" name="thumb" readonly="" value="">
+                                        <div class="input-group-btn">
+                                            <button onclick="upImagePc(this)" class="btn btn-default" type="button">选择图片</button>
+                                        </div>
+                                    </div>
+                                    <div class="input-group" style="margin-top:5px;">
+                                        <img src="__STATIC__/node_modules/hdjs/dist/static/image/nopic.jpg" class="img-responsive img-thumbnail" width="150">
+                                        <em class="close" style="position:absolute; top: 0px; right: -14px;" title="删除这张图片"
+                                            onclick="removeImg(this)">×</em>
+                                    </div>
                                 </div>
                             </div>
                             {/case}
@@ -101,10 +123,12 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">{$vo.cname}：</label>
                                 <div class="col-sm-9">
+                                    {foreach name="radio" item="ro"}
                                     <label class="radio-inline">
-                                        <input type="radio" name="{$vo.ename}"  value="" checked="checked">
-                                        Radio box
+                                        <input type="radio" name="{$vo.ename}" {if condition="$vo.value eq $ro"}checked{/if}>
+                                        {$ro}
                                     </label>
+                                    {/foreach}
                                 </div>
                             </div>
                             {/case}
@@ -112,10 +136,14 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">{$vo.cname}：</label>
                                 <div class="col-sm-9">
-                                    <label class="checkbox-inline">
-                                        <input type="checkbox" name="{$vo.ename}"  value="" checked="checked">
-                                        checkbox box
-                                    </label>
+                                    <div class="col-sm-9">
+                                        {foreach name="checkbox" item="v"}
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" name="{$vo.ename}" {if condition="in_array($v, $checkboxValue)"}checked{/if} value="{$v}">
+                                            {$v}
+                                        </label>
+                                        {/foreach}
+                                    </div>
                                 </div>
                             </div>
                             {/case}
@@ -124,7 +152,10 @@
                                 <label class="col-sm-2 control-label">{$vo.cname}：</label>
                                 <div class="col-sm-9">
                                     <select name="{$vo.ename}" class="form-control">
-                                        <option value=""> -- Select One --</option>
+                                        <option value=""> 请选择 </option>
+                                        {foreach name="selected" item="v"}
+                                        <option {if condition="$vo.value eq $v"}selected{/if} value="{$v}"> {$v} </option>
+                                        {/foreach}
                                     </select>
                                 </div>
                             </div>
@@ -163,10 +194,12 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">{$vo.cname}：</label>
                                 <div class="col-sm-9">
+                                    {foreach name="radio" item="ro"}
                                     <label class="radio-inline">
-                                        <input type="radio" name="{$vo.ename}"  value="" checked="checked">
-                                        Radio box
+                                        <input type="radio" name="{$vo.ename}" {if condition="$vo.value eq $ro"}checked{/if}>
+                                        {$ro}
                                     </label>
+                                    {/foreach}
                                 </div>
                             </div>
                             {/case}
@@ -174,10 +207,14 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">{$vo.cname}：</label>
                                 <div class="col-sm-9">
-                                    <label class="checkbox-inline">
-                                        <input type="checkbox" name="{$vo.ename}"  value="" checked="checked">
-                                        checkbox box
-                                    </label>
+                                    <div class="col-sm-9">
+                                        {foreach name="checkbox" item="v"}
+                                        <label class="checkbox-inline">
+                                            <input type="checkbox" name="{$vo.ename}" {if condition="in_array($v, $checkboxValue)"}checked{/if} value="{$v}">
+                                            {$v}
+                                        </label>
+                                        {/foreach}
+                                    </div>
                                 </div>
                             </div>
                             {/case}
@@ -186,7 +223,10 @@
                                 <label class="col-sm-2 control-label">{$vo.cname}：</label>
                                 <div class="col-sm-9">
                                     <select name="{$vo.ename}" class="form-control">
-                                        <option value=""> -- Select One --</option>
+                                        <option value=""> 请选择 </option>
+                                        {foreach name="selected" item="v"}
+                                        <option {if condition="$vo.value eq $v"}selected{/if} value="{$v}"> {$v} </option>
+                                        {/foreach}
                                     </select>
                                 </div>
                             </div>
@@ -223,7 +263,46 @@
     </div>
 </section>
 <script>
+    window.hdjs={};
+    //组件目录必须绝对路径(在网站根目录时不用设置)
+    window.hdjs.base = '__STATIC__/node_modules/hdjs';
+    //上传文件后台地址
+    window.hdjs.uploader = '';
+    //获取文件列表的后台地址
+    window.hdjs.filesLists = '';
+</script>
+<script src="__STATIC__/node_modules/hdjs/dist/static/requirejs/require.js"></script>
+<script src="__STATIC__/node_modules/hdjs/dist/static/requirejs/config.js"></script>
+<link rel="stylesheet" href="__STATIC__/admin/css/AdminLTE.min.css">
+<script>
+    $(function () {
+        $('input[type="checkbox"], input[type="radio"]').iCheck({
+            checkboxClass: 'icheckbox_flat-green',
+            radioClass: 'iradio_flat-green'
+        })
+    })
+    require(['hdjs']);
+    //上传图片
+    function upImagePc() {
+        require(['hdjs'], function (hdjs) {
+            var options = {
+                multiple: false,//是否允许多图上传
+                //data是向后台服务器提交的POST数据
+                data: {name: 'test', year: 2099},
+            };
+            hdjs.image(function (images) {
+                //上传成功的图片，数组类型
+                $("[name='thumb']").val(images[0]);
+                $(".img-thumbnail").attr('src', images[0]);
+            }, options)
+        });
+    }
 
+    //移除图片
+    function removeImg(obj) {
+        $(obj).prev('img').attr('src', '../dist/static/image/nopic.jpg');
+        $(obj).parent().prev().find('input').val('');
+    }
 </script>
 <!-- /.content -->
 {/block}

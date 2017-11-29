@@ -15,7 +15,7 @@ class Webset extends Base
      * 显示配置操作
      * @return \think\response\View
      */
-    public function confList()
+    public function confList(WebsetModel $webset)
     {
         // 获取配置所有数据
         $confRes = db('webset')->select();
@@ -25,12 +25,40 @@ class Webset extends Base
         $ways = db('webset')->where('cf_type', 2)->select();
         // seo 信息
         $seo = db('webset')->where('cf_type', 3)->select();
-        //halt($baseInfo);
+        // 查询所有需要分割的values数据
+        // 单选
+        $radios = db('webset')->where("dt_type=2")->select();
+        // 多选
+        $checkboxes = db('webset')->where("dt_type=3")->select();
+        // 下拉框
+        $selects = db('webset')->where("dt_type=4")->select();
+
+        // 将单选配置内容分割成数组
+        $radio = [];
+        foreach ($radios as $k => $v) {
+            $radio = explode(',', $v['values']);
+        }
+        // 将多选配置内容分割成数组
+        $checkbox = [];
+        $checkboxValue = [];
+        foreach ($checkboxes as $k => $v) {
+            $checkbox = explode(',', $v['values']);
+            $checkboxValue = explode(',', $v['value']);
+        }
+        // 将下拉框配置内容分割成数组
+        $selected    = [];
+        foreach ($selects as $k => $v) {
+            $selected    = explode(',', $v['values']);
+        }
         $this->assign([
-            'confRes'  => $confRes,
-            'baseInfo' => $baseInfo,
-            'ways'     => $ways,
-            'seo'      => $seo,
+            'confRes'     => $confRes,
+            'baseInfo'    => $baseInfo,
+            'ways'        => $ways,
+            'seo'         => $seo,
+            'radio'       => $radio,
+            'checkbox'    => $checkbox,
+            'selected'    => $selected,
+            'checkboxValue' => $checkboxValue
         ]);
         return view('confList');
     }

@@ -47,4 +47,8 @@ class Webset extends Model
             return ['valid' => 0, 'msg' => $this->getError()];
         }
     }
+    public function confSet ($data)
+    {
+
+    }
 }
