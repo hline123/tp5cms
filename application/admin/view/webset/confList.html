@@ -36,7 +36,7 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">{$vo.cname}：</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" name="{$vo.ename}">
+                                    <input type="text" class="form-control" name="{$vo.ename}" value="{$vo.value}">
                                 </div>
                             </div>
                             {/case}
@@ -46,7 +46,7 @@
                                 <div class="col-sm-9">
                                     {foreach name="radio" item="ro"}
                                     <label class="radio-inline">
-                                        <input type="radio" name="{$vo.ename}" {if condition="$vo.value eq $ro"}checked{/if}>
+                                        <input type="radio" name="{$vo.ename}" {if condition="$vo.value eq $ro"}checked{/if} value="{$ro}">
                                         {$ro}
                                     </label>
                                     {/foreach}
@@ -83,7 +83,7 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">{$vo.cname}：</label>
                                 <div class="col-sm-9">
-                                    <textarea name="{$vo.ename}" class="form-control" cols="30" rows="3"></textarea>
+                                    <textarea name="{$vo.ename}" class="form-control" cols="30" rows="3">{$vo.value}</textarea>
                                 </div>
                             </div>
                             {/case}
@@ -92,15 +92,14 @@
                                 <label class="col-sm-2 control-label">{$vo.cname}：</label>
                                 <div class="col-sm-9">
                                     <div class="input-group">
-                                        <input class="form-control" name="thumb" readonly="" value="">
+                                        <input class="form-control" name="{$vo.ename}" readonly="" value="">
                                         <div class="input-group-btn">
                                             <button onclick="upImagePc(this)" class="btn btn-default" type="button">选择图片</button>
                                         </div>
                                     </div>
                                     <div class="input-group" style="margin-top:5px;">
                                         <img src="__STATIC__/node_modules/hdjs/dist/static/image/nopic.jpg" class="img-responsive img-thumbnail" width="150">
-                                        <em class="close" style="position:absolute; top: 0px; right: -14px;" title="删除这张图片"
-                                            onclick="removeImg(this)">×</em>
+                                        <em class="close" style="position:absolute; top: 0px; right: -14px;" title="删除这张图片" onclick="removeImg(this)">×</em>
                                     </div>
                                 </div>
                             </div>
@@ -115,7 +114,7 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">{$vo.cname}：</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" name="{$vo.ename}">
+                                    <input type="text" class="form-control" name="{$vo.ename}" value="{$vo.value}">
                                 </div>
                             </div>
                             {/case}
@@ -125,7 +124,7 @@
                                 <div class="col-sm-9">
                                     {foreach name="radio" item="ro"}
                                     <label class="radio-inline">
-                                        <input type="radio" name="{$vo.ename}" {if condition="$vo.value eq $ro"}checked{/if}>
+                                        <input type="radio" name="{$vo.ename}" {if condition="$vo.value eq $ro"}checked{/if} value="{$ro}">
                                         {$ro}
                                     </label>
                                     {/foreach}
@@ -164,7 +163,7 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">{$vo.cname}：</label>
                                 <div class="col-sm-9">
-                                    <textarea name="{$vo.ename}" class="form-control" cols="30" rows="3"></textarea>
+                                    <textarea name="{$vo.ename}" class="form-control" cols="30" rows="3">{$vo.value}</textarea>
                                 </div>
                             </div>
                             {/case}
@@ -172,7 +171,16 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">{$vo.cname}：</label>
                                 <div class="col-sm-9">
-                                    <input type="file" name="{$vo.ename}">
+                                    <div class="input-group">
+                                        <input class="form-control" name="{$vo.ename}" readonly="" value="">
+                                        <div class="input-group-btn">
+                                            <button onclick="upImagePc(this)" class="btn btn-default" type="button">选择图片</button>
+                                        </div>
+                                    </div>
+                                    <div class="input-group" style="margin-top:5px;">
+                                        <img src="__STATIC__/node_modules/hdjs/dist/static/image/nopic.jpg" class="img-responsive img-thumbnail" width="150">
+                                        <em class="close" style="position:absolute; top: 0px; right: -14px;" title="删除这张图片" onclick="removeImg(this)">×</em>
+                                    </div>
                                 </div>
                             </div>
                             {/case}
@@ -186,7 +194,7 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">{$vo.cname}：</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" name="{$vo.ename}">
+                                    <input type="text" class="form-control" name="{$vo.ename}" value="{$vo.value}">
                                 </div>
                             </div>
                             {/case}
@@ -196,7 +204,7 @@
                                 <div class="col-sm-9">
                                     {foreach name="radio" item="ro"}
                                     <label class="radio-inline">
-                                        <input type="radio" name="{$vo.ename}" {if condition="$vo.value eq $ro"}checked{/if}>
+                                        <input type="radio" name="{$vo.ename}" {if condition="$vo.value eq $ro"}checked{/if} value="{$ro}">
                                         {$ro}
                                     </label>
                                     {/foreach}
@@ -235,7 +243,7 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">{$vo.cname}：</label>
                                 <div class="col-sm-9">
-                                    <textarea name="{$vo.ename}" class="form-control" cols="30" rows="3"></textarea>
+                                    <textarea name="{$vo.ename}" class="form-control" cols="30" rows="3">{$vo.value}</textarea>
                                 </div>
                             </div>
                             {/case}
@@ -243,7 +251,16 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">{$vo.cname}：</label>
                                 <div class="col-sm-9">
-                                    <input type="file" name="{$vo.ename}">
+                                    <div class="input-group">
+                                        <input class="form-control" name="{$vo.ename}" readonly="" value="">
+                                        <div class="input-group-btn">
+                                            <button onclick="upImagePc(this)" class="btn btn-default" type="button">选择图片</button>
+                                        </div>
+                                    </div>
+                                    <div class="input-group" style="margin-top:5px;">
+                                        <img src="__STATIC__/node_modules/hdjs/dist/static/image/nopic.jpg" class="img-responsive img-thumbnail" width="150">
+                                        <em class="close" style="position:absolute; top: 0px; right: -14px;" title="删除这张图片" onclick="removeImg(this)">×</em>
+                                    </div>
                                 </div>
                             </div>
                             {/case}
