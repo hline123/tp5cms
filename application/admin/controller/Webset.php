@@ -32,7 +32,6 @@ class Webset extends Base
         $checkboxes = db('webset')->where("dt_type=3")->select();
         // 下拉框
         $selects = db('webset')->where("dt_type=4")->select();
-
         // 将单选配置内容分割成数组
         $radio = [];
         foreach ($radios as $k => $v) {
@@ -63,6 +62,22 @@ class Webset extends Base
         return view('confList');
     }
 
+    /**
+     * 修改展示的配置操作
+     * @param WebsetModel $webset
+     */
+    public function confShow (WebsetModel $webset)
+    {
+        if (request()->isPost()) {
+            $data = input('post.');
+            $res = $webset->confAdd($data);
+            if ($res['valid']) {
+                $this->success($res['msg'], 'confList');
+            } else {
+                $this->error($res['msg']);
+            }
+        }
+    }
     /**
      * 配置列表操作
      * @return \think\response\View
