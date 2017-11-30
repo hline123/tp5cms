@@ -55,12 +55,13 @@ class Webset extends Model
      */
     public function confAdd($data)
     {
-        //dump($data);
         // 验证数据
         // 获取所有的ename
         $eName = $this->column('ename');
         // 获取所有提交过来的ename
         $dataKey = [];
+        // 查询数据库中的所有附件类型
+        $files = db('webset')->where('dt_type', 6)->column('ename');
         // 循环添加修改数据
         foreach ($data as $k => $v) {
             $dataKey[] = $k;
@@ -70,32 +71,26 @@ class Webset extends Model
             }
             $this->where('ename', $k)->update(['value' => $v]);
         }
-        // 循环所有的$eName，判断提交的数据是否在$eName中
+        // 循环所有的$eName，判断提交的数据多选和附件是否在$eName中
         // 没有将他的值赋值为空
         foreach ($eName as $k => $v) {
-            if (!in_array($v, $dataKey)) {
+            if (!in_array($v, $dataKey) && !in_array($v, $files)) {
                 $this->where('ename', $v)->update(['value' => '']);
             }
         }
         // 附件处理
-        $this->fileUpload();
-        return ['valid' => 1, 'msg' => '修改成功'];
-    }
-
-    public function fileUpload()
-    {
-        // 查询数据库中的所有附件类型
-        $files = db('webset')->where('dt_type', 6)->column('ename');
         foreach ($files as $k => $v) {
             if ($_FILES[ $v ]['tmp_name'] != '') {
                 // 获取上传文件
                 $file = request()->file($v);
                 // 移动文件
-                $info = $file ->move(ROOT_PATH . 'public/uploads');
+                $info = $file->validate(['size'=>3000000,'ext'=>'jpg,png,gif'])->move(ROOT_PATH . 'public/uploads');
                 // 获取文件信息，处理文件路径
                 $path = config('uploadPath') . $info->getSaveName();
                 $this->where('ename', $v)->update(['value' => $path]);
             }
         }
+        return ['valid' => 1, 'msg' => '修改成功'];
     }
+
 }
