@@ -87,17 +87,13 @@ class Webset extends Model
         // 查询数据库中的所有附件类型
         $files = db('webset')->where('dt_type', 6)->column('ename');
         foreach ($files as $k => $v) {
-            if (!is_null($_FILES[ $v ]['tmp_name'])) {
+            if ($_FILES[ $v ]['tmp_name'] != '') {
                 // 获取上传文件
                 $file = request()->file($v);
                 // 移动文件
-                $info = $file->validate(['size' => 3000000, 'ext' => 'jpg,png,gif'])
-                    ->move(ROOT_PATH . 'public/uploads');
-                if (!$info) {
-                    return ['valid' => 0, 'msg' => $file->getError()];
-                }
+                $info = $file ->move(ROOT_PATH . 'public/uploads');
                 // 获取文件信息，处理文件路径
-                $path = $info->getSaveName();
+                $path = config('uploadPath') . $info->getSaveName();
                 $this->where('ename', $v)->update(['value' => $path]);
             }
         }
