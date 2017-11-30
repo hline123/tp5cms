@@ -1,8 +1,3 @@
-<style>
-    #menu .treeview-menu {
-        display: block;
-    }
-</style>
 <aside class="main-sidebar">
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
@@ -29,19 +24,31 @@
         <!-- /.search form -->
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu" id="menu" data-widget="tree">
-            <li {if condition="$cont eq 'Index'"}class="treeview-menu active"{else /}class="treeview-menu"{/if} style="display: block">
-                <a href="{:url('Index/index')}"><i class="fa fa-home"></i> Home </a>
+            <li class="treeview-menu active" style="display: block">
+                <a href="{:url('Index/index')}"><i class="fa fa-home"></i> 首页 </a>
             </li>
-            <li {if condition="$cont eq 'Webset'"}class="treeview menu-open active"{else /}class="treeview"{/if}>
+            <li class="treeview">
                 <a href="#">
-                    <i class="fa fa-cog"></i> <span> Config </span>
+                    <i class="fa fa-cog"></i> <span> 网站配置 </span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
-                <ul class="treeview-menu" {if condition="$cont eq 'Webset'"}style="display: block;"{else /}style="display: none;"{/if}>
-                    <li><a href="{:url('webset/confList')}"><i class="fa fa-circle-o"></i> Config list </a></li>
-                    <li><a href="{:url('webset/index')}"><i class="fa fa-circle-o"></i>  Config Management </a></li>
+                <ul class="treeview-menu">
+                    <li><a href="{:url('webset/confList')}"><i class="fa fa-circle-o"></i> 配置管理 </a></li>
+                    <li><a href="{:url('webset/index')}"><i class="fa fa-circle-o"></i>  配置列表 </a></li>
+                </ul>
+            </li>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-th-large"></i> <span> 栏目 </span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href=""><i class="fa fa-circle-o"></i> 栏目列表 </a></li>
+                    <li><a href=""><i class="fa fa-circle-o"></i> 添加栏目 </a></li>
                 </ul>
             </li>
         </ul>
