@@ -29,17 +29,17 @@
         <!-- /.search form -->
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu" id="menu" data-widget="tree">
-            <li class="treeview-menu active" style="display: block">
-                <a href=""><i class="fa fa-home"></i> Home </a>
+            <li {if condition="$cont eq 'Index'"}class="treeview-menu active"{else /}class="treeview-menu"{/if} style="display: block">
+                <a href="{:url('Index/index')}"><i class="fa fa-home"></i> Home </a>
             </li>
-            <li class="treeview menu-open">
+            <li {if condition="$cont eq 'Webset'"}class="treeview menu-open active"{else /}class="treeview"{/if}>
                 <a href="#">
                     <i class="fa fa-cog"></i> <span> Config </span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
-                <ul class="treeview-menu">
+                <ul class="treeview-menu" {if condition="$cont eq 'Webset'"}style="display: block;"{else /}style="display: none;"{/if}>
                     <li><a href="{:url('webset/confList')}"><i class="fa fa-circle-o"></i> Config list </a></li>
                     <li><a href="{:url('webset/index')}"><i class="fa fa-circle-o"></i>  Config Management </a></li>
                 </ul>
