@@ -25,7 +25,7 @@ class Category extends Base
 
     public function store (CategoryModel $category)
     {
-        // 接收栏目添加信息
+        // 接收栏目添加信息eee
         if (request()->isPost()) {
             $data = input('post.');
             $res = $category->store($data);
