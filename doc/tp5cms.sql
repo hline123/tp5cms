@@ -36,7 +36,7 @@ CREATE TABLE `tp_cate` (
   `cate_sort` int(11) NOT NULL DEFAULT '100' COMMENT '栏目排序',
   `cate_pid` int(11) NOT NULL DEFAULT '0' COMMENT '栏目父级ID',
   PRIMARY KEY (`cate_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COMMENT='栏目管理';
+) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COMMENT='栏目管理';
 
 -- ----------------------------
 -- Table structure for tp_webset
@@ -51,4 +51,4 @@ CREATE TABLE `tp_webset` (
   `dt_type` tinyint(1) NOT NULL DEFAULT '1' COMMENT '配置类型 1：文本框\r\n2：单选\r\n3：复选\r\n4：下拉菜单\r\n5：文本域\r\n6：附件',
   `cf_type` tinyint(1) NOT NULL DEFAULT '1' COMMENT '配置分类1：基本信息\r\n2：联系方式\r\n3：SEO设置',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COMMENT='系统配置表';
+) ENGINE=MyISAM AUTO_INCREMENT=0 DEFAULT CHARSET=utf8 COMMENT='系统配置表';

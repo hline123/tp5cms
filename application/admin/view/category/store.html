@@ -51,6 +51,9 @@
                                 <div class="col-sm-9">
                                     <select class="form-control" name="cate_pid">
                                         <option value="0">顶级栏目</option>
+                                        {foreach name="cateRes" item="vo"}
+                                        <option value="{$vo.cate_id}">{$vo._cate_name}</option>
+                                        {/foreach}
                                     </select>
                                 </div>
                             </div>
@@ -225,7 +228,6 @@
     //移除图片
     function removeImg(obj) {
         $(obj).prev('img').attr('src','__STATIC__/admin/images/nopic.jpg');
-
     }
 </script>
 {/block}

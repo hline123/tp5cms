@@ -3,6 +3,7 @@
 namespace app\admin\controller;
 
 use app\admin\model\Category as CategoryModel;
+use houdunwang\arr\Arr;
 
 /**
  * 栏目管理控制器类
@@ -25,7 +26,7 @@ class Category extends Base
 
     public function store (CategoryModel $category)
     {
-        // 接收栏目添加信息eee
+        // 接收栏目添加信息
         if (request()->isPost()) {
             $data = input('post.');
             $res = $category->store($data);
@@ -35,6 +36,13 @@ class Category extends Base
                 $this->error($res['msg']);
             }
         }
+        // 获取栏目数据
+        $cateRes = db('cate')->select();
+        // halt($cateRes);
+        // 变更成树状结构
+        $_cateRes = Arr::tree($cateRes, 'cate_name', 'cate_id', 'cate_pid');
+        //halt($_cateRes);
+        $this->assign('cateRes', $_cateRes);
         return view('store');
     }
     public function upImg ()
