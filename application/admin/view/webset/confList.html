@@ -92,6 +92,7 @@
                                 <label class="col-sm-2 control-label">{$vo.cname}：</label>
                                 <div class="col-sm-9">
                                     <input type="file" name="{$vo.ename}" value="" class="form-control">
+                                    <img src="{$vo.value}" style="width: 100px; padding-top:10px;">
                                 </div>
                             </div>
                             {/case}
@@ -163,6 +164,7 @@
                                 <label class="col-sm-2 control-label">{$vo.cname}：</label>
                                 <div class="col-sm-9">
                                     <input type="file" name="{$vo.ename}" value="" class="form-control">
+                                    <img src="{$vo.value}" style="width: 100px; padding-top:10px;">
                                 </div>
                             </div>
                             {/case}
@@ -234,6 +236,7 @@
                                 <label class="col-sm-2 control-label">{$vo.cname}：</label>
                                 <div class="col-sm-9">
                                     <input type="file" name="{$vo.ename}" value="" >
+                                    <img src="{$vo.value}" style="width: 100px; padding-top:10px;">
                                 </div>
                             </div>
                             {/case}
@@ -260,6 +263,9 @@
             radioClass: 'iradio_flat-green'
         })
     });
+    $('input[type="file"]').change(function () {
+        $(this).next('img').attr('src', '');
+    })
 </script>
 <!-- /.content -->
 {/block}
