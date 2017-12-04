@@ -1,4 +1,4 @@
-{extend name="public/base" /}
+<script src="../../../../public/static/plugins/ueditor/ueditor.all.js"></script>{extend name="public/base" /}
 {block name="content"}
 {load href="__STATIC__/admin/js/common.js"}
 <style>
@@ -57,7 +57,9 @@
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">栏目图片：</label>
-
+                                <div class="col-sm-9">
+                                    <input type="file" class="form-control" name="" value="">
+                                </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">栏目属性：</label>
@@ -112,10 +114,7 @@
                         <div class="tab-pane" id="tab_3">
                             <div class="form-group">
                                 <div class="col-sm-12">
-                                    <textarea id="container" style="height:300px;width:100%;"></textarea>
-                                    <script>
-
-                                    </script>
+                                    <textarea id="container" style="height:400px;width:100%;"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -132,5 +131,12 @@
     </div>
 </section>
 <!-- /.content -->
-
+<!-- 百度编辑器配置文件 -->
+{load href="__STATIC__/plugins/ueditor/ueditor.config.js"}
+<!-- 编辑器源码文件 -->
+{load href="__STATIC__/plugins/ueditor/ueditor.all.min.js"}
+<!-- 实例化编辑器 -->
+<script type="text/javascript">
+    var ue = UE.getEditor('container', {});
+</script>
 {/block}
