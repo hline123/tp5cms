@@ -180,6 +180,7 @@
 <!-- 实例化编辑器 -->
 <script type="text/javascript">
     var ue = UE.getEditor('container', {});
+    // 处理文件上传
     Dropzone.autoDiscover = false;
     $("#drop").dropzone({
         url: "{:url('category/upImg')}",
