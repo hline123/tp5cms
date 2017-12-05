@@ -1,7 +1,5 @@
 {extend name="public/base" /}
 {block name="content"}
-{load href="__STATIC__/node_modules/bootstrap-switch/dist/js/bootstrap-switch.min.js"}
-{load href="__STATIC__/node_modules/bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css"}
 {load href="__STATIC__/admin/js/check_config.js"}
 <style>
     td , tr, th{
@@ -33,10 +31,7 @@
                             <a class="btn btn-primary" href="{:url('store')}">
                                 <i class="fa fa-plus"></i> 添加栏目
                             </a>
-                            <a class="btn btn-warning" href="javascript:;">
-                                <i class="fa fa-random"></i> 排序
-                            </a>
-                            <a class="btn btn-default" href="javascript:;" onclick="delAll()">
+                            <a class="btn btn-danger" href="javascript:;" onclick="delAll()">
                                 <i class="fa fa-trash-o"></i> 删除全部
                             </a>
                         </div>
