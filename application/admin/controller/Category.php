@@ -108,8 +108,58 @@ class Category extends Base
             }
         }
     }
-    public function delete()
+
+    /**
+     * 批量删除
+     * @return int
+     */
+    public function delAll (CategoryModel $category)
     {
-        //
+        if (request()->isAjax()) {
+            $ids = input('param.ids');
+            $arr_id = explode(',',$ids,-1);
+            $arrChild = [];
+            // 获取所选栏目的子集数据
+            foreach ($arr_id as $k => $v) {
+                $arrChild[] = $category->getCateChild($v);
+            }
+            // 将所得的数据变更成一维数组
+            $arrChilds = [];
+            foreach ($arrChild as $k => $v) {
+                if (is_array($v)) {
+                    foreach ($v as $k1 => $item) {
+                        $arrChilds[] = $item;
+                    }
+                }else {
+                    $arrChilds[] = $v;
+                }
+            }
+            // 剔除数组中的重复数据
+            $arrChilds = array_unique($arrChilds);
+            // 执行删除操作
+            $result = db('cate')->delete($arrChilds);
+            if ($result) {
+                return 1;
+            }else {
+                return 0;
+            }
+        }
+    }
+
+    /**
+     * @param CategoryModel $category
+     * @return int
+     */
+    public function delete(CategoryModel $category)
+    {
+        $id = input('param.id');
+        // 根据$id 查找子集数据
+        $cateChild = $category->getCateChild($id);
+        $result = db('cate')->delete($cateChild);
+        if ($result) {
+            return 1;
+        }else {
+            return 0;
+        }
     }
 }
