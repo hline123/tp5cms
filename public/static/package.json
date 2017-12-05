@@ -10,8 +10,8 @@
   "license": "ISC",
   "dependencies": {
     "bootstrap": "^3.3.7",
+    "bootstrap-switch": "^3.3.4",
     "font-awesome": "^4.7.0",
-    "hdjs": "^1.2.93",
     "icheck": "^1.0.2",
     "jquery": "^3.2.1"
   }
