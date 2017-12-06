@@ -9,12 +9,12 @@
 </style>
 <section class="content-header">
     <h1>
-        添加栏目
+        编辑栏目
     </h1>
     <ol class="breadcrumb">
         <li><a href="{:url('index/index')}"><i class="fa fa-home"></i> 首页 </a></li>
         <li><a href="{:url('category/index')}"><i class="fa fa-th-large"></i> 栏目管理</a></li>
-        <li class="active"> 添加栏目</li>
+        <li class="active"> 编辑栏目</li>
     </ol>
 </section>
 <!-- Main content -->
@@ -34,16 +34,16 @@
                                 <label class="col-sm-2 control-label">所属模型：</label>
                                 <div class="col-sm-9">
                                     <select class="form-control" name="model_id">
-                                        <option value="0">选择模型</option>
-                                        <option value="1" selected>文章模型</option>
-                                        <option value="2">管理员模型</option>
+                                        <option {if condition="$oldData.model_id eq 1"}selected{/if} value="1">选择模型</option>
+                                        <option {if condition="$oldData.model_id eq 2"}selected{/if} value="2">文章模型</option>
+                                        <option {if condition="$oldData.model_id eq 3"}selected{/if} value="3">管理员模型</option>
                                     </select>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">栏目名称：</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" name="cate_name">
+                                    <input type="text" class="form-control" name="cate_name" value="{$oldData.cate_name}">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -52,7 +52,7 @@
                                     <select class="form-control" name="cate_pid">
                                         <option value="0">顶级栏目</option>
                                         {foreach name="cateRes" item="vo"}
-                                        <option {if condition="$cateId eq $vo.cate_id"}selected{/if} value="{$vo.cate_id}">{$vo._cate_name}</option>
+                                        <option {if condition="$oldData.cate_pid eq $vo.cate_id"}selected{/if} value="{$vo.cate_id}">{$vo._cate_name}</option>
                                         {/foreach}
                                     </select>
                                 </div>
@@ -60,17 +60,17 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">栏目排序：</label>
                                 <div class="col-sm-9">
-                                    <input type="number" class="form-control" name="cate_sort" value="100">
+                                    <input type="number" class="form-control" name="cate_sort" value="{$oldData.cate_sort}">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">隐藏栏目：</label>
                                 <div class="col-sm-9">
                                     <label class="radio-inline">
-                                        <input type="radio" name="cate_status" value="1" checked> 开启
+                                        <input type="radio" name="cate_status" value="1" {if condition="$oldData.cate_status eq 1"}checked{/if}> 开启
                                     </label>
                                     <label class="radio-inline">
-                                        <input type="radio" name="cate_status" value="0"> 关闭
+                                        <input type="radio" name="cate_status" value="0" {if condition="$oldData.cate_status eq 0"}checked{/if}> 关闭
                                     </label>
                                 </div>
                             </div>
@@ -80,7 +80,11 @@
                                     <a class="btn btn-primary" data-toggle="modal" href="#modals">上传文件</a>
                                     <input type="hidden" name="cate_thumb" id="cate_img" value=""/>
                                     <div class="input-group" style="margin-top:5px;">
+                                        {if condition="$oldData.cate_thumb eq ''"}
                                         <img src="__STATIC__/admin/images/nopic.jpg" class="img-responsive img-thumbnail" width="150">
+                                        {else /}
+                                        <img src="{$oldData.cate_thumb}" class="img-responsive img-thumbnail" width="150">
+                                        {/if}
                                         <em class="close" style="position:absolute; top: 0px; right: -14px;" title="删除这张图片" onclick="removeImg(this)">×</em>
                                     </div>
                                     <div class="modal fade" id="modals">
@@ -105,38 +109,38 @@
                                 <label class="col-sm-2 control-label">栏目属性：</label>
                                 <div class="col-sm-9">
                                     <label class="radio-inline">
-                                        <input type="radio" name="cate_attr" value="1" checked> 列表页栏目(可发布文章)
+                                        <input type="radio" name="cate_attr" value="1" {if condition="$oldData.cate_attr eq 1"}checked{/if}> 列表页栏目(可发布文章)
                                     </label>
                                     <label class="radio-inline">
-                                        <input type="radio" name="cate_attr" value="2"> 封面页栏目
+                                        <input type="radio" name="cate_attr" value="2" {if condition="$oldData.cate_attr eq 2"}checked{/if}> 封面页栏目
                                     </label>
                                     <label class="radio-inline">
-                                        <input type="radio" name="cate_attr" value="3"> 外链栏目
+                                        <input type="radio" name="cate_attr" value="3" {if condition="$oldData.cate_attr eq 3"}checked{/if}> 外链栏目
                                     </label>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">列表页模板：</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" name="list_tmp" value="list.html">
+                                    <input type="text" class="form-control" name="list_tmp" value="{$oldData.list_tmp}">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">内容页模板：</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" name="content_tmp" value="content.html">
+                                    <input type="text" class="form-control" name="content_tmp" value="{$oldData.content_tmp}">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">频道页模板：</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" name="channel_tmp" value="channel.html">
+                                    <input type="text" class="form-control" name="channel_tmp" value="{$oldData.content_tmp}">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-2 control-label">外链地址：</label>
+                                <label class="col-sm-2 control-label">频道页模板：</label>
                                 <div class="col-sm-9">
-                                    <input type="url" class="form-control" name="cate_link" value="" placeholder="如果是外链属性请填写">
+                                    <input type="url" class="form-control" name="cate_link" value="{$oldData.cate_link}">
                                 </div>
                             </div>
                         </div>
@@ -144,33 +148,34 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">栏目标题：</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" name="cate_title" value="">
+                                    <input type="text" class="form-control" name="cate_title" value="{$oldData.cate_title}">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">关键词：</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" name="cate_keywords" value="">
+                                    <input type="text" class="form-control" name="cate_keywords" value="{$oldData.cate_keywords}">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">描述：</label>
                                 <div class="col-sm-9">
-                                    <textarea name="cate_desc" class="form-control" rows="3"></textarea>
+                                    <textarea name="cate_desc" class="form-control" rows="3">{$oldData.cate_desc}</textarea>
                                 </div>
                             </div>
                         </div>
                         <div class="tab-pane" id="tab_3">
                             <div class="form-group">
                                 <div class="col-sm-12">
-                                    <textarea id="container" name="cate_content" style="height:400px;width:100%;"></textarea>
+                                    <textarea id="container" name="cate_content" style="height:400px;width:100%;">{$oldData.cate_content}</textarea>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="box-footer">
                         <div class="col-sm-offset-1">
-                            <button type="submit" class="btn btn-success">添加</button>
+                            <input type="hidden" name="cate_id" value="{$oldData.cate_id}">
+                            <button type="submit" class="btn btn-success">编辑</button>
                             <button type="button" class="btn btn-primary" onclick="window.history.go(-1)">返回</button>
                         </div>
                     </div>
@@ -239,6 +244,5 @@
     function removeImg(obj) {
         $(obj).prev('img').attr('src','__STATIC__/admin/images/nopic.jpg');
     }
-
 </script>
 {/block}

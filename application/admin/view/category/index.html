@@ -12,7 +12,7 @@
 </style>
 <section class="content-header">
     <h1>
-        栏目管理
+        栏目列表
     </h1>
     <ol class="breadcrumb">
         <li><a href="{:url('index/index')}"><i class="fa fa-home"></i> 首页 </a></li>
@@ -83,7 +83,9 @@
                                     <div class="btn-group">
                                         <button data-toggle="dropdown" class="btn btn-success btn-xs dropdown-toggle" aria-expanded="false">操作 <span class="caret"></span></button>
                                         <ul class="dropdown-menu dropdown-menu-right">
-                                            <li><a href="{:url('edit',['id'=>''])}">编辑</a></li>
+                                            <li><a href="{:url('store',['id'=>$vo.cate_id])}">添加子集</a></li>
+                                            <li class="divider"></li>
+                                            <li><a href="{:url('edit',['id'=>$vo.cate_id])}">编辑</a></li>
                                             <li class="divider"></li>
                                             <li><a href="javascript:;" onclick="del(this, '{$vo.cate_id}')">删除</a></li>
                                         </ul>

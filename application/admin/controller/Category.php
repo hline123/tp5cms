@@ -26,6 +26,39 @@ class Category extends Base
     }
 
     /**
+     * ajax 改变栏目状态
+     * @return int
+     */
+    public function changeStatus()
+    {
+        $id = input('param.id');
+        $cateAttr = db('cate')->where('cate_id', $id)->value('cate_status');
+        if ($cateAttr == 1) {
+            db('cate')->where('cate_id', $id)->update(['cate_status'=>0]);
+            return 1;
+        }else {
+            db('cate')->where('cate_id', $id)->update(['cate_status'=>1]);
+            return 0;
+        }
+    }
+
+    /**
+     * ajax 排序
+     * @return int
+     */
+    public function changeSort ()
+    {
+        if (request()->isAjax()) {
+            $data = input('param.');
+            $result = db('cate')->where('cate_id', $data['id'])->update(['cate_sort'=>$data['cate_sort']]);
+            if ($result !== false) {
+                // 倒序排列
+                return 1;
+            }
+        }
+    }
+
+    /**
      * 添加栏目
      * @param CategoryModel $category
      * @return \think\response\View
@@ -42,9 +75,12 @@ class Category extends Base
                 $this->error($res['msg']);
             }
         }
+        // 添加子集数据时
+        $_id = input('param.id');
         // 获取栏目数据
         $_cateRes = $category->getAll();
         $this->assign('cateRes', $_cateRes);
+        $this->assign('cateId', $_id);
         return view('store');
     }
 
@@ -76,37 +112,17 @@ class Category extends Base
         }
     }
 
-    /**
-     * ajax 改变栏目状态
-     * @return int
-     */
-    public function changeStatus()
+    public function edit (CategoryModel $category)
     {
         $id = input('param.id');
-        $cateAttr = db('cate')->where('cate_id', $id)->value('cate_status');
-        if ($cateAttr == 1) {
-            db('cate')->where('cate_id', $id)->update(['cate_status'=>0]);
-            return 1;
-        }else {
-            db('cate')->where('cate_id', $id)->update(['cate_status'=>1]);
-            return 0;
-        }
-    }
-
-    /**
-     * ajax 排序
-     * @return int
-     */
-    public function changeSort ()
-    {
-        if (request()->isAjax()) {
-            $data = input('param.');
-            $result = db('cate')->where('cate_id', $data['id'])->update(['cate_sort'=>$data['cate_sort']]);
-            if ($result !== false) {
-                // 倒序排列
-                return 1;
-            }
-        }
+        // 获取所有数据
+        $oldData = db('cate')->where('cate_id', $id)->find();
+        // 获取所有栏目数据，剔除自己及同级数据
+        // 获取栏目数据
+        $_cateRes = $category->getAll();
+        $this->assign('cateRes', $_cateRes);
+        $this->assign('oldData', $oldData);
+        return view('edit');
     }
 
     /**
