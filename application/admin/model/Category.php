@@ -37,13 +37,12 @@ class Category extends Model
      */
     public function store($data)
     {
-        // 验证数据
-        // 添加数据
-        $result = $this->save($data);
-        if ($result) {
-            return ['valid' => 1, 'msg' => '操作成功'];
+        // 验证数据,添加数据
+        $result = $this->validate('Category.store')->save($data);
+        if ($result === false) {
+            return ['valid' => 0, 'msg' => $this->getError()];
         } else {
-            return ['valid' => 0, 'msg' => 'error'];
+            return ['valid' => 1, 'msg' => '操作成功'];
         }
     }
 
@@ -91,13 +90,30 @@ class Category extends Model
     {
         // 验证数据
         // 添加数据
-        dump($data);
-        $result = $this->save($data, ['cate_id'=> $data['cate_id']]);
+        $result = $this->validate('Category.edit')->save($data, ['cate_id'=> $data['cate_id']]);
         //halt($result);
-        if ($result) {
-            return ['valid' => 1, 'msg' => '操作成功'];
+        if ($result === false) {
+            return ['valid' => 0, 'msg' => $this->getError()];
         } else {
-            return ['valid' => 0, 'msg' => 'error'];
+            return ['valid' => 1, 'msg' => '操作成功'];
         }
+    }
+
+    /**
+     * 编辑获取所有栏目数据
+     * @param $id
+     * @return mixed
+     */
+    public function getCate ($id)
+    {
+        $data = $this->db('cate')->select();
+        // 获取子集数据
+        $cateId = $this->getSon($data, $id);
+        // 将自己追加进去
+        $cateId[] = $id;
+        // 查找自己及子集数据之外的数据
+        $result = db('cate')->whereNotIn('cate_id', $cateId)->select();
+        // 变更成树形结构
+        return Arr::tree($result, 'cate_name', 'cate_id', 'cate_pid');
     }
 }

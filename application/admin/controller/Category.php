@@ -131,8 +131,8 @@ class Category extends Base
         $id = input('param.id');
         // 获取所有数据
         $oldData = db('cate')->where('cate_id', $id)->find();
-        // 获取栏目数据
-        $_cateRes = $category->getAll();
+        // 获取栏目数据, 剔除自己及子集数据
+        $_cateRes = $category->getCate($id);
         $this->assign('cateRes', $_cateRes);
         $this->assign('oldData', $oldData);
         return view('edit');
