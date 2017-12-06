@@ -112,12 +112,25 @@ class Category extends Base
         }
     }
 
+    /**
+     * 编辑当前栏目
+     * @param CategoryModel $category
+     * @return \think\response\View
+     */
     public function edit (CategoryModel $category)
     {
+        if (request()->isPost()) {
+            $data = input('post.');
+            $res = $category->edit($data);
+            if ($res['valid']) {
+                $this->success($res['msg'], 'index');
+            } else {
+                $this->error($res['msg']);
+            }
+        }
         $id = input('param.id');
         // 获取所有数据
         $oldData = db('cate')->where('cate_id', $id)->find();
-        // 获取所有栏目数据，剔除自己及同级数据
         // 获取栏目数据
         $_cateRes = $category->getAll();
         $this->assign('cateRes', $_cateRes);
@@ -163,6 +176,7 @@ class Category extends Base
     }
 
     /**
+     * 删除操作
      * @param CategoryModel $category
      * @return int
      */
@@ -176,6 +190,33 @@ class Category extends Base
             return 1;
         }else {
             return 0;
+        }
+    }
+
+    /**
+     * 删除上传图片
+     * @return int
+     */
+    public function delImg ()
+    {
+        if (request()->isAjax()) {
+            $data = input('post.');
+            $path = $data['path'];
+            $str = config('uploadPath'). 'category/';
+            $path = substr($path, strlen($str));
+            $path = DEL_IMG . $path;
+            // 先删除存储的图片
+            $res = @unlink($path);
+            //
+            if ($data['id'] != '') {
+                // 删除数据库中的数据路径
+                db('cate')->where('cate_id', $data['id'])->delete(['cate_thumb'=>'']);
+            }
+            if ($res) {
+                return 1;
+            }else {
+                return 2;
+            }
         }
     }
 }

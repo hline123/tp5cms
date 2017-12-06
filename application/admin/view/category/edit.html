@@ -78,14 +78,14 @@
                                 <label class="col-sm-2 control-label">栏目图片：</label>
                                 <div class="col-sm-9">
                                     <a class="btn btn-primary" data-toggle="modal" href="#modals">上传文件</a>
-                                    <input type="hidden" name="cate_thumb" id="cate_img" value=""/>
+                                    <input type="hidden" name="cate_thumb" id="cate_img" value="{$oldData.cate_thumb}"/>
                                     <div class="input-group" style="margin-top:5px;">
                                         {if condition="$oldData.cate_thumb eq ''"}
                                         <img src="__STATIC__/admin/images/nopic.jpg" class="img-responsive img-thumbnail" width="150">
                                         {else /}
                                         <img src="{$oldData.cate_thumb}" class="img-responsive img-thumbnail" width="150">
                                         {/if}
-                                        <em class="close" style="position:absolute; top: 0px; right: -14px;" title="删除这张图片" onclick="removeImg(this)">×</em>
+                                        <em class="close" style="position:absolute; top: 0px; right: -14px;" title="删除这张图片" onclick="removeImg(this, '{$oldData.cate_id}')">×</em>
                                     </div>
                                     <div class="modal fade" id="modals">
                                         <div class="modal-dialog">
@@ -241,8 +241,25 @@
         }
     });
     //移除图片
-    function removeImg(obj) {
+    function removeImg(obj, id) {
+        var path = $('#cate_img').val();
+        if (path == '') {
+            layer.alert('暂无图片,请先上传图片');
+            return false;
+        }
         $(obj).prev('img').attr('src','__STATIC__/admin/images/nopic.jpg');
+        $.ajax({
+            url: "{:url('delImg')}",
+            type: 'POST',
+            data: {id:id, path:path},
+            dataType: 'json',
+            success: function (res) {
+                if (res == 1) {
+                    layer.alert('删除图片成功');
+                    $('#cate_img').val('');
+                }
+            }
+        })
     }
 </script>
 {/block}

@@ -81,4 +81,23 @@ class Category extends Model
         }
         return $arr;
     }
+
+    /**
+     * 编辑栏目操作
+     * @param $data
+     * @return array
+     */
+    public function edit ($data)
+    {
+        // 验证数据
+        // 添加数据
+        dump($data);
+        $result = $this->save($data, ['cate_id'=> $data['cate_id']]);
+        //halt($result);
+        if ($result) {
+            return ['valid' => 1, 'msg' => '操作成功'];
+        } else {
+            return ['valid' => 0, 'msg' => 'error'];
+        }
+    }
 }

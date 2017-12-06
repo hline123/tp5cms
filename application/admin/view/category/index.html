@@ -150,7 +150,7 @@
             }
         })
     }
-    // 删除多条数据
+    // 批量删除
     function delAll() {
         // 如果删除的数据小于2条
         var count = $(".check-all:checked").length;
@@ -175,22 +175,24 @@
                     className: 'btn-danger'
                 }
             },
-            callback: function () {
-                $.ajax({
-                    url: "{:url('delAll')}",
-                    type: 'GET',
-                    data: {ids: ids},
-                    dataType: 'json',
-                    success: function (res) {
-                        if (res == 1) {
-                            bootbox.alert('删除成功');
-                            window.setTimeout(function () {
-                                bootbox.hideAll();
-                                location.reload();
-                            }, 1000);
+            callback: function (result) {
+                if (result) {
+                    $.ajax({
+                        url: "{:url('delAll')}",
+                        type: 'GET',
+                        data: {ids: ids},
+                        dataType: 'json',
+                        success: function (res) {
+                            if (res == 1) {
+                                bootbox.alert('删除成功');
+                                window.setTimeout(function () {
+                                    bootbox.hideAll();
+                                    location.reload();
+                                }, 1000);
+                            }
                         }
-                    }
-                })
+                    })
+                }
             }
         });
     }
