@@ -200,6 +200,7 @@ class Category extends Base
     public function delImg ()
     {
         if (request()->isAjax()) {
+
             $data = input('post.');
             $path = $data['path'];
             $str = config('uploadPath'). 'category/';
