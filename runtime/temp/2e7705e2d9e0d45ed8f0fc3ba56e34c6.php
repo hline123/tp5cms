@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:8:{s:74:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\category\index.html";i:1512550043;s:71:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\base.html";i:1512099526;s:77:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\common_css.html";i:1511928198;s:76:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\common_js.html";i:1512357149;s:73:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\header.html";i:1511850195;s:71:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\menu.html";i:1512024453;s:73:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\footer.html";i:1510538016;s:74:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\sidebar.html";i:1510537129;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:8:{s:74:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\category\index.html";i:1512619196;s:71:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\base.html";i:1512099526;s:77:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\common_css.html";i:1511928198;s:76:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\common_js.html";i:1512357149;s:73:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\header.html";i:1511850195;s:71:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\menu.html";i:1512800236;s:73:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\footer.html";i:1510538016;s:74:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\sidebar.html";i:1510537129;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -137,6 +137,18 @@
                     <li><a href="<?php echo url('category/store'); ?>"><i class="fa fa-circle-o"></i> 添加栏目 </a></li>
                 </ul>
             </li>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-bars"></i> <span> 菜单管理 </span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="<?php echo url('menu/index'); ?>"><i class="fa fa-circle-o"></i> 菜单列表 </a></li>
+                    <li><a href="<?php echo url('menu/store'); ?>"><i class="fa fa-circle-o"></i> 添加菜单 </a></li>
+                </ul>
+            </li>
         </ul>
     </section>
     <!-- /.sidebar -->
@@ -154,6 +166,9 @@
     }
     .tbody-box .label:hover {
         cursor: default;
+    }
+    .fa-plus-square-o:hover, .fa-minus-square-o:hover {
+        cursor: pointer;
     }
 </style>
 <section class="content-header">
@@ -188,6 +203,9 @@
                     <table class="table table-bordered">
                         <thead>
                             <tr>
+                                <th style="width: 5%;">
+                                    折叠
+                                </th>
                                 <th style="width:5%;">
                                     <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="fa fa-square-o"></i>
                                     </button>
@@ -203,7 +221,10 @@
                         </thead>
                         <tbody class="tbody-box">
                             <?php if(is_array($lists) || $lists instanceof \think\Collection || $lists instanceof \think\Paginator): if( count($lists)==0 ) : echo "" ;else: foreach($lists as $key=>$vo): ?>
-                            <tr>
+                            <tr cateId="<?php echo $vo['cate_id']; ?>" pid="<?php echo $vo['cate_pid']; ?>">
+                                <td>
+                                    <i class="fa fa-plus-square-o fa-lg open"></i>
+                                </td>
                                 <td><input type="checkbox" name="cate_ids[]" value="<?php echo $vo['cate_id']; ?>" class="check-all"></td>
                                 <td><?php echo $vo['cate_id']; ?></td>
                                 <td style="text-align: left;"><a href=""><?php echo $vo['_cate_name']; ?></a></td>
@@ -257,13 +278,26 @@
         if (clicks) {
             //Uncheck all checkboxes
             $(".tbody-box .check-all").iCheck("uncheck");
-            $(".fa", this).removeClass("fa-check-square-o").addClass('fa-square-o');
+            $(".fa", this).removeClass("fa-check-square-o").addClass('fa-minus-square-o');
         } else {
             //Check all checkboxes
             $(".tbody-box .check-all").iCheck("check");
-            $(".fa", this).removeClass("fa-square-o").addClass('fa-check-square-o');
+            $(".fa", this).removeClass("fa-minus-square-o").addClass('fa-check-square-o');
         }
         $(this).data("clicks", !clicks);
+    });
+    // 处理栏目伸缩
+    $('.tbody-box tr[pid != 0]').hide();
+    $('.tbody-box .open').click(function () {
+        var pid = $(this).parents('tr').attr('pid');
+            id = $(this).parents('tr').attr('cateId');
+        if ($(this).hasClass('fa-plus-square-o')) {
+            $(this).removeClass('fa-plus-square-o').addClass('fa-minus-square-o');
+            $('.tbody-box tr[pid = '+ id +']').slideDown();
+        }else {
+            $(this).removeClass('fa-minus-square-o').addClass('fa-plus-square-o');
+            $('.tbody-box tr[pid = '+ id +']').slideUp();
+        }
     });
     // ajax 改变栏目状态
     function changeStatus(obj, id) {

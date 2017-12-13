@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2017-12-06 16:51:40
+Date: 2017-12-07 13:50:21
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -37,13 +37,36 @@ CREATE TABLE `tp_cate` (
   `cate_pid` int(11) NOT NULL DEFAULT '0' COMMENT '栏目父级ID',
   `cate_link` varchar(100) NOT NULL COMMENT '外链地址',
   PRIMARY KEY (`cate_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=31 DEFAULT CHARSET=utf8 COMMENT='栏目管理';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='栏目管理';
 
 -- ----------------------------
 -- Records of tp_cate
 -- ----------------------------
+INSERT INTO `tp_cate` VALUES ('37', '1', 'aa', '', '', '', '', '1', '', '1', 'list.html', 'channel.html', 'content.html', '100', '0', '');
+INSERT INTO `tp_cate` VALUES ('36', '1', '陕西', '', '', '', '', '1', '', '1', 'list.html', 'channel.html', 'content.html', '100', '31', '');
+INSERT INTO `tp_cate` VALUES ('35', '1', 'ceshi', '', '', '', '', '1', '', '1', 'list.html', 'channel.html', 'content.html', '100', '0', '');
+INSERT INTO `tp_cate` VALUES ('38', '1', '西安', '', '', '', '', '1', '', '1', 'list.html', 'channel.html', 'content.html', '100', '36', '');
 INSERT INTO `tp_cate` VALUES ('29', '1', '美国', '', '', '', '', '1', '', '1', 'list.html', 'channel.html', 'content.html', '100', '0', '');
-INSERT INTO `tp_cate` VALUES ('30', '1', '美国', '美国', '美国', '美国', '<p>美国</p>', '1', '', '1', 'list.html', 'channel.html', 'content.html', '100', '0', '');
+INSERT INTO `tp_cate` VALUES ('30', '1', '华盛顿', '美国', '美国', '美国', '<p>美国</p>', '1', '', '1', 'list.html', 'content.html', 'content.html', '100', '29', '');
+INSERT INTO `tp_cate` VALUES ('31', '1', '中国', '', '', '', '', '1', '', '1', 'list.html', 'channel.html', 'content.html', '100', '0', '');
+INSERT INTO `tp_cate` VALUES ('32', '1', '测试', '', '', '', '', '1', '', '1', 'list.html', 'content.html', 'content.html', '100', '0', '');
+INSERT INTO `tp_cate` VALUES ('39', '1', '唐人街', '', '', '', '', '1', '', '1', 'list.html', 'channel.html', 'content.html', '100', '30', '');
+
+-- ----------------------------
+-- Table structure for tp_menu
+-- ----------------------------
+DROP TABLE IF EXISTS `tp_menu`;
+CREATE TABLE `tp_menu` (
+  `menu_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '侧边栏ID',
+  `menu_name` varchar(60) NOT NULL COMMENT '侧边栏名称',
+  `menu_icon` varchar(45) NOT NULL COMMENT '侧边栏图标',
+  `meun_pid` int(11) NOT NULL DEFAULT '0' COMMENT '侧边栏上级菜单ID',
+  PRIMARY KEY (`menu_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='侧边栏管理';
+
+-- ----------------------------
+-- Records of tp_menu
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for tp_webset
@@ -58,7 +81,7 @@ CREATE TABLE `tp_webset` (
   `dt_type` tinyint(1) NOT NULL DEFAULT '1' COMMENT '配置类型 1：文本框\r\n2：单选\r\n3：复选\r\n4：下拉菜单\r\n5：文本域\r\n6：附件',
   `cf_type` tinyint(1) NOT NULL DEFAULT '1' COMMENT '配置分类1：基本信息\r\n2：联系方式\r\n3：SEO设置',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COMMENT='系统配置表';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='系统配置表';
 
 -- ----------------------------
 -- Records of tp_webset
@@ -68,7 +91,7 @@ INSERT INTO `tp_webset` VALUES ('6', '邮箱', 'email', '1', '', '1', '2');
 INSERT INTO `tp_webset` VALUES ('7', '电话', 'phone', '1', '', '1', '2');
 INSERT INTO `tp_webset` VALUES ('8', '站点跟网址', 'siteurl', '222', '', '1', '1');
 INSERT INTO `tp_webset` VALUES ('9', '静态保存路径', 'path', '2222222222', '', '1', '1');
-INSERT INTO `tp_webset` VALUES ('10', '网站logo', 'logo', 'http://tpcms.com/uploads/20171201\\364a56b26f91f1f0035475a77ededbfa.jpg', '', '6', '1');
+INSERT INTO `tp_webset` VALUES ('10', '网站logo', 'logo', '', '', '6', '1');
 INSERT INTO `tp_webset` VALUES ('11', '备案号', 'copyright', '1', '', '1', '1');
 INSERT INTO `tp_webset` VALUES ('12', '联系人', 'contact', '1', '', '1', '2');
 INSERT INTO `tp_webset` VALUES ('13', '关键词', 'keywords', '1', '', '1', '3');
@@ -76,4 +99,4 @@ INSERT INTO `tp_webset` VALUES ('14', '站点描述', 'description', '1', '', '5
 INSERT INTO `tp_webset` VALUES ('15', '开启缓存', 'iscache', '开启', '开启,关闭', '2', '3');
 INSERT INTO `tp_webset` VALUES ('16', '关闭站点', 'closesite', '开启', '关闭,开启', '4', '1');
 INSERT INTO `tp_webset` VALUES ('17', '联系方式', 'contactway', 'email', '电话,QQ,email,传真', '3', '2');
-INSERT INTO `tp_webset` VALUES ('18', '二维码', 'RQcode', 'http://tpcms.com/uploads/20171201\\8a5446e6cd7bc3f204712809307c5e27.jpg', '', '6', '1');
+INSERT INTO `tp_webset` VALUES ('18', '二维码', 'RQcode', '', '', '6', '1');

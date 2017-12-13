@@ -65,6 +65,7 @@ class Webset extends Base
     /**
      * 修改展示的配置操作
      * @param WebsetModel $webset
+     * @return string
      */
     public function confShow (WebsetModel $webset)
     {
@@ -72,9 +73,9 @@ class Webset extends Base
             $data = input('post.');
             $res = $webset->confAdd($data);
             if ($res['valid']) {
-                $this->success($res['msg'], 'confList');
+                return alert($res['msg'], url('confList'), 6, 3);
             } else {
-                $this->error($res['msg']);
+                return alert($res['msg'], url('confList'), 5, 3);
             }
         }
     }
@@ -93,7 +94,7 @@ class Webset extends Base
     /**
      * 添加系统配置
      * @param WebsetModel $webset
-     * @return \think\response\View
+     * @return string|\think\response\View
      */
     public function store(WebsetModel $webset)
     {
@@ -101,9 +102,9 @@ class Webset extends Base
             $data = input('post.');
             $res  = $webset->store($data);
             if ($res['valid']) {
-                $this->success($res['msg'], 'index');
+                return alert($res['msg'], url('index'), 6, 3);
             } else {
-                $this->error($res['msg']);
+                return alert($res['msg'], url('store'), 5, 3);
             }
         }
         return view('store');
@@ -112,7 +113,7 @@ class Webset extends Base
     /**
      * 编辑系统配置
      * @param WebsetModel $webset
-     * @return \think\response\View
+     * @return string|\think\response\View
      */
     public function edit(WebsetModel $webset)
     {
@@ -120,9 +121,9 @@ class Webset extends Base
             $data = input('post.');
             $res  = $webset->edit($data);
             if ($res['valid']) {
-                $this->success($res['msg'], 'index');
+                return alert($res['msg'], url('index'), 6, 3);
             } else {
-                $this->error($res['msg']);
+                return alert($res['msg'], url('edit'), 5, 3);
             }
         }
         // 查询编辑数据

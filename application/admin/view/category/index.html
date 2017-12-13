@@ -9,6 +9,9 @@
     .tbody-box .label:hover {
         cursor: default;
     }
+    .fa-plus-square-o:hover, .fa-minus-square-o:hover {
+        cursor: pointer;
+    }
 </style>
 <section class="content-header">
     <h1>
@@ -42,6 +45,9 @@
                     <table class="table table-bordered">
                         <thead>
                             <tr>
+                                <th style="width: 5%;">
+                                    折叠
+                                </th>
                                 <th style="width:5%;">
                                     <button type="button" class="btn btn-default btn-sm checkbox-toggle"><i class="fa fa-square-o"></i>
                                     </button>
@@ -57,7 +63,10 @@
                         </thead>
                         <tbody class="tbody-box">
                             {foreach name="lists" item="vo"}
-                            <tr>
+                            <tr cateId="{$vo.cate_id}" pid="{$vo.cate_pid}">
+                                <td>
+                                    <i class="fa fa-plus-square-o fa-lg open"></i>
+                                </td>
                                 <td><input type="checkbox" name="cate_ids[]" value="{$vo.cate_id}" class="check-all"></td>
                                 <td>{$vo.cate_id}</td>
                                 <td style="text-align: left;"><a href="">{$vo._cate_name}</a></td>
@@ -111,13 +120,26 @@
         if (clicks) {
             //Uncheck all checkboxes
             $(".tbody-box .check-all").iCheck("uncheck");
-            $(".fa", this).removeClass("fa-check-square-o").addClass('fa-square-o');
+            $(".fa", this).removeClass("fa-check-square-o").addClass('fa-minus-square-o');
         } else {
             //Check all checkboxes
             $(".tbody-box .check-all").iCheck("check");
-            $(".fa", this).removeClass("fa-square-o").addClass('fa-check-square-o');
+            $(".fa", this).removeClass("fa-minus-square-o").addClass('fa-check-square-o');
         }
         $(this).data("clicks", !clicks);
+    });
+    // 处理栏目伸缩
+    $('.tbody-box tr[pid != 0]').hide();
+    $('.tbody-box .open').click(function () {
+        var pid = $(this).parents('tr').attr('pid');
+            id = $(this).parents('tr').attr('cateId');
+        if ($(this).hasClass('fa-plus-square-o')) {
+            $(this).removeClass('fa-plus-square-o').addClass('fa-minus-square-o');
+            $('.tbody-box tr[pid = '+ id +']').slideDown();
+        }else {
+            $(this).removeClass('fa-minus-square-o').addClass('fa-plus-square-o');
+            $('.tbody-box tr[pid = '+ id +']').slideUp();
+        }
     });
     // ajax 改变栏目状态
     function changeStatus(obj, id) {
