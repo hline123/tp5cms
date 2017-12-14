@@ -4,16 +4,29 @@ Navicat MySQL Data Transfer
 Source Server         : huanglin
 Source Server Version : 50553
 Source Host           : localhost:3306
-Source Database       : tp5cms
+Source Database       : tpcms
 
 Target Server Type    : MYSQL
 Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2017-12-07 13:50:21
+Date: 2017-12-14 17:07:48
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for tp_article
+-- ----------------------------
+DROP TABLE IF EXISTS `tp_article`;
+CREATE TABLE `tp_article` (
+  `article_id` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`article_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of tp_article
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for tp_cate
@@ -37,7 +50,7 @@ CREATE TABLE `tp_cate` (
   `cate_pid` int(11) NOT NULL DEFAULT '0' COMMENT '栏目父级ID',
   `cate_link` varchar(100) NOT NULL COMMENT '外链地址',
   PRIMARY KEY (`cate_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='栏目管理';
+) ENGINE=MyISAM AUTO_INCREMENT=40 DEFAULT CHARSET=utf8 COMMENT='栏目管理';
 
 -- ----------------------------
 -- Records of tp_cate
@@ -69,6 +82,51 @@ CREATE TABLE `tp_menu` (
 -- ----------------------------
 
 -- ----------------------------
+-- Table structure for tp_model
+-- ----------------------------
+DROP TABLE IF EXISTS `tp_model`;
+CREATE TABLE `tp_model` (
+  `model_id` mediumint(9) NOT NULL AUTO_INCREMENT,
+  `model_name` varchar(60) NOT NULL COMMENT '模型名称',
+  `table_name` varchar(60) NOT NULL COMMENT '模型对应数据附加表名称',
+  `model_status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '模型状态 1开启 0 禁用',
+  PRIMARY KEY (`model_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='模型管理';
+
+-- ----------------------------
+-- Records of tp_model
+-- ----------------------------
+INSERT INTO `tp_model` VALUES ('1', '文章管理', 'article', '1');
+INSERT INTO `tp_model` VALUES ('2', '图片管理', 'images', '0');
+INSERT INTO `tp_model` VALUES ('3', '视频管理', 'video', '0');
+
+-- ----------------------------
+-- Table structure for tp_test
+-- ----------------------------
+DROP TABLE IF EXISTS `tp_test`;
+CREATE TABLE `tp_test` (
+  `test_id` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`test_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of tp_test
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for tp_video
+-- ----------------------------
+DROP TABLE IF EXISTS `tp_video`;
+CREATE TABLE `tp_video` (
+  `video_id` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`video_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of tp_video
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for tp_webset
 -- ----------------------------
 DROP TABLE IF EXISTS `tp_webset`;
@@ -81,7 +139,7 @@ CREATE TABLE `tp_webset` (
   `dt_type` tinyint(1) NOT NULL DEFAULT '1' COMMENT '配置类型 1：文本框\r\n2：单选\r\n3：复选\r\n4：下拉菜单\r\n5：文本域\r\n6：附件',
   `cf_type` tinyint(1) NOT NULL DEFAULT '1' COMMENT '配置分类1：基本信息\r\n2：联系方式\r\n3：SEO设置',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='系统配置表';
+) ENGINE=MyISAM AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COMMENT='系统配置表';
 
 -- ----------------------------
 -- Records of tp_webset
@@ -100,3 +158,4 @@ INSERT INTO `tp_webset` VALUES ('15', '开启缓存', 'iscache', '开启', '开�
 INSERT INTO `tp_webset` VALUES ('16', '关闭站点', 'closesite', '开启', '关闭,开启', '4', '1');
 INSERT INTO `tp_webset` VALUES ('17', '联系方式', 'contactway', 'email', '电话,QQ,email,传真', '3', '2');
 INSERT INTO `tp_webset` VALUES ('18', '二维码', 'RQcode', '', '', '6', '1');
+INSERT INTO `tp_webset` VALUES ('19', 'aa', 'aa', 'aa', 'aa', '1', '1');
