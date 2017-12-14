@@ -47,6 +47,20 @@ class Category extends Model
     }
 
     /**
+     * 获取子集栏目数据，不包含自己
+     * @param $id
+     * @return array
+     */
+    public function getSonIds ($id)
+    {
+        // 获取所有id和pid
+        $data = $this->field('cate_id,cate_pid')->select();
+        // 获取子集栏目数据
+        $ids = $this->getSon($data, $id);
+        // 输出数据
+        return $ids;
+    }
+    /**
      * 获取当前栏目id及子集栏目的id集合
      * @param $id
      * @return array

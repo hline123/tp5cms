@@ -8,6 +8,10 @@ namespace app\admin\controller;
  */
 class Index extends Base
 {
+    /**
+     * 首页显示
+     * @return \think\response\View
+     */
     public function index()
     {
         return view('index');

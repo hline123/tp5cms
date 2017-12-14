@@ -222,4 +222,17 @@ class Category extends Base
             }
         }
     }
+
+    /**
+     * 列表折叠处理，获取子集id
+     * @param CategoryModel $category
+     * @return string
+     */
+    public function ajaxList (CategoryModel $category)
+    {
+        $id = input('param.id');
+        // 根据id获取子集栏目数据
+        $res = $category->getSonIds($id);
+        return json_encode($res);
+    }
 }
