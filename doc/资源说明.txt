@@ -1,1 +1,2 @@
 后台模板地址：https://adminlte.io/
+js plugins: jquery、layer、ueditor、Dropzone、icheck、bootstrap-switch

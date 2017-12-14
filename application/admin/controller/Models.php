@@ -12,7 +12,7 @@ use app\admin\model\Models as ModelsModel;
 class Models extends Base
 {
     /**
-     *
+     * 模型首页显示
      * @return \think\response\View
      */
     public function index(ModelsModel $models)
