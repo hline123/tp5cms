@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:8:{s:74:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\category\index.html";i:1513219206;s:71:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\base.html";i:1512099526;s:77:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\common_css.html";i:1511928198;s:76:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\common_js.html";i:1512357149;s:73:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\header.html";i:1511850195;s:71:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\menu.html";i:1512800236;s:73:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\footer.html";i:1510538016;s:74:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\sidebar.html";i:1510537129;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:8:{s:74:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\category\index.html";i:1513232316;s:71:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\base.html";i:1512099526;s:77:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\common_css.html";i:1511928198;s:76:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\common_js.html";i:1512357149;s:73:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\header.html";i:1511850195;s:71:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\menu.html";i:1513231214;s:73:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\footer.html";i:1510538016;s:74:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\sidebar.html";i:1510537129;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -115,19 +115,7 @@
             </li>
             <li class="treeview">
                 <a href="#">
-                    <i class="fa fa-cog"></i> <span> 网站配置 </span>
-                    <span class="pull-right-container">
-                        <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="<?php echo url('webset/confList'); ?>"><i class="fa fa-circle-o"></i> 配置管理 </a></li>
-                    <li><a href="<?php echo url('webset/index'); ?>"><i class="fa fa-circle-o"></i>  配置列表 </a></li>
-                </ul>
-            </li>
-            <li class="treeview">
-                <a href="#">
-                    <i class="fa fa-th-large"></i> <span> 栏目 </span>
+                    <i class="fa fa-th-large"></i> <span> 栏目管理 </span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
@@ -147,6 +135,30 @@
                 <ul class="treeview-menu">
                     <li><a href="<?php echo url('menu/index'); ?>"><i class="fa fa-circle-o"></i> 菜单列表 </a></li>
                     <li><a href="<?php echo url('menu/store'); ?>"><i class="fa fa-circle-o"></i> 添加菜单 </a></li>
+                </ul>
+            </li>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-database"></i> <span> 模型管理 </span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="<?php echo url('models/index'); ?>"><i class="fa fa-circle-o"></i> 模型列表 </a></li>
+                    <li><a href="<?php echo url('models/store'); ?>"><i class="fa fa-circle-o"></i> 添加模型 </a></li>
+                </ul>
+            </li>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-cog"></i> <span> 网站配置 </span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="<?php echo url('webset/confList'); ?>"><i class="fa fa-circle-o"></i> 配置管理 </a></li>
+                    <li><a href="<?php echo url('webset/index'); ?>"><i class="fa fa-circle-o"></i>  配置列表 </a></li>
                 </ul>
             </li>
         </ul>
@@ -293,10 +305,10 @@
             id = $(this).parents('tr').attr('cateId');
         if ($(this).hasClass('fa-plus-square-o')) {
             $(this).removeClass('fa-plus-square-o').addClass('fa-minus-square-o');
-            $('.tbody-box tr[pid = '+ id +']').fadeIn();
+            $('.tbody-box tr[pid = '+ id +']').slideDown();
         }else {
             $(this).removeClass('fa-minus-square-o').addClass('fa-plus-square-o');
-            $('.tbody-box tr[pid = '+ id +']').fadeOut();
+            $('.tbody-box tr[pid = '+ id +']').slideUp();
             $.ajax({
                 url: "<?php echo url('ajaxList'); ?>",
                 type: 'GET',
@@ -311,8 +323,7 @@
                     });
                     $.each($.parseJSON(res), function (k, v) {
                         if ($.inArray(v, cateIds)) {
-                            $('.tbody-box tr[cateId='+v+']').slideUp()
-                                .find('.open').removeClass('fa-minus-square-o').addClass('fa-plus-square-o');
+                            $('.tbody-box tr[cateId='+v+']').slideUp().find;
                         }
                     });
                 }

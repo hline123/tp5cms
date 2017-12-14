@@ -1,0 +1,96 @@
+{extend name="public/base" /}
+{block name="content"}
+{load href="__STATIC__/admin/js/check_config.js"}
+<style>
+    td, tr, th {
+        vertical-align: middle !important;
+        text-align: center;
+    }
+</style>
+<section class="content-header">
+    <h1>
+        模型列表
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="{:url('index/index')}"><i class="fa fa-home"></i> 首页 </a></li>
+        <li><a href="{:url('category/index')}"><i class="fa fa-database"></i>模型管理</a></li>
+        <li class="active">模型列表</li>
+    </ol>
+</section>
+<!-- Main content -->
+<section class="content" id="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-success">
+                <div class="box-header with-border">
+                    <div class="clearflx">
+                        <div class="box-tools pull-left">
+                            <a class="btn btn-primary" href="{:url('store')}">
+                                <i class="fa fa-plus"></i> 添加栏目
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th style="width: 50px">ID</th>
+                            <th>模型名称</th>
+                            <th>附加表名</th>
+                            <th style="width: 10%;">模型状态</th>
+                            <th style="width: 120px;">操作</th>
+                        </tr>
+                        </thead>
+                        <tbody class="tbody-box">
+                        {foreach name="lists" item="vo"}
+                        <tr>
+                            <td>{$vo.model_id}</td>
+                            <td>{$vo.model_name}</td>
+                            <td>{$prefix}{$vo.table_name}</td>
+                            <td>
+                                {if condition="$vo.model_status eq 1"}
+                                <span class="label label-warning" onclick="changeStatus(this, '{$vo.model_id}')">启用</span>
+                                {else /}
+                                <span class="label label-danger" onclick="changeStatus(this, '{$vo.model_id}')">禁用</span>
+                                {/if}
+                            </td>
+                            <td>
+                                <div class="btn-group">
+                                    <button data-toggle="dropdown" class="btn btn-success btn-xs dropdown-toggle"
+                                            aria-expanded="false">操作 <span class="caret"></span></button>
+                                    <ul class="dropdown-menu dropdown-menu-right">
+                                        <li><a href="{:url('edit',['id'=>$vo.model_id])}">编辑</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="javascript:;" onclick="del(this, '{$vo.model_id}')">删除</a></li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                        {/foreach}
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /.box-body -->
+                <div class="box-footer clearfix">
+                    {$lists->render()}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- /.content -->
+{load href="__STATIC__/admin/src/common.js"}
+<script>
+function del(obj, id) {
+    var url = "{:url('delete')}";
+    confirm (url, id);
+    $(obj).parents('tr').remove();
+}
+function changeStatus(obj, id) {
+    var url = "{:url('changeStatus')}";
+    getChangeStatus(obj, url, id);
+}
+</script>
+{/block}

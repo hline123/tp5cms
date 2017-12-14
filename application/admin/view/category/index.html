@@ -135,10 +135,10 @@
             id = $(this).parents('tr').attr('cateId');
         if ($(this).hasClass('fa-plus-square-o')) {
             $(this).removeClass('fa-plus-square-o').addClass('fa-minus-square-o');
-            $('.tbody-box tr[pid = '+ id +']').fadeIn();
+            $('.tbody-box tr[pid = '+ id +']').slideDown();
         }else {
             $(this).removeClass('fa-minus-square-o').addClass('fa-plus-square-o');
-            $('.tbody-box tr[pid = '+ id +']').fadeOut();
+            $('.tbody-box tr[pid = '+ id +']').slideUp();
             $.ajax({
                 url: "{:url('ajaxList')}",
                 type: 'GET',
@@ -153,8 +153,7 @@
                     });
                     $.each($.parseJSON(res), function (k, v) {
                         if ($.inArray(v, cateIds)) {
-                            $('.tbody-box tr[cateId='+v+']').slideUp()
-                                .find('.open').removeClass('fa-minus-square-o').addClass('fa-plus-square-o');
+                            $('.tbody-box tr[cateId='+v+']').slideUp().find;
                         }
                     });
                 }
