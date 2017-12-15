@@ -261,5 +261,29 @@
             }
         })
     }
+    // 修改模板属性
+    function editTemplate() {
+        var pid = $("select[name='cate_pid']").find('option:selected').val();
+        if (pid != 0) {
+            $.ajax({
+                url: "{:url('cateInfo')}",
+                type: 'POST',
+                data: {id:pid},
+                dataType: 'json',
+                success: function (response) {
+                    var res = $.parseJSON(response);
+                    // 修改模板名称
+                    $("input[name='list_tmp']").val(res.list_tmp);
+                    $("input[name='channel_tmp']").val(res.channel_tmp);
+                    $("input[name='content_tmp']").val(res.content_tmp);
+                    // 选定模型
+                    $("select[name='model_id']").val(res.model_id);
+                }
+            })
+        }
+    }
+    $("select[name='cate_pid']").change(function () {
+        editTemplate();
+    })
 </script>
 {/block}

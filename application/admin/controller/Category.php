@@ -238,4 +238,11 @@ class Category extends Base
         $res = $category->getSonIds($id);
         return json_encode($res);
     }
+
+    public function cateInfo ()
+    {
+        $id = input('param.id');
+        $data = db('cate')->find($id);
+        return json_encode($data);
+    }
 }

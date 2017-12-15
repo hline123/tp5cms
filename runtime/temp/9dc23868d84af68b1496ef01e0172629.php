@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:8:{s:73:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\category\edit.html";i:1513307707;s:71:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\base.html";i:1512099526;s:77:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\common_css.html";i:1511928198;s:76:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\common_js.html";i:1512357149;s:73:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\header.html";i:1511850195;s:71:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\menu.html";i:1513231214;s:73:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\footer.html";i:1510538016;s:74:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\sidebar.html";i:1510537129;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:8:{s:73:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\category\edit.html";i:1513321223;s:71:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\base.html";i:1512099526;s:77:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\common_css.html";i:1511928198;s:76:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\common_js.html";i:1512357149;s:73:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\header.html";i:1511850195;s:71:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\menu.html";i:1513231214;s:73:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\footer.html";i:1510538016;s:74:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\sidebar.html";i:1510537129;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -431,6 +431,35 @@
             }
         })
     }
+    // 修改模板属性
+    function editTemplate() {
+        var pid = $("select[name='cate_pid']").find('option:selected').val();
+        if (pid != 0) {
+            $.ajax({
+                url: "<?php echo url('cateInfo'); ?>",
+                type: 'POST',
+                data: {id:pid},
+                dataType: 'json',
+                success: function (response) {
+                    var res = $.parseJSON(response);
+                    // 修改模板名称
+                    $("input[name='list_tmp']").val(res.list_tmp);
+                    $("input[name='channel_tmp']").val(res.channel_tmp);
+                    $("input[name='content_tmp']").val(res.content_tmp);
+                    // 选定模型
+                    $("select[name='model_id']").val(res.model_id);
+                    //console.log(res);
+                    /*if (res == 1) {
+                        layer.alert('删除图片成功');
+                        $('#cate_img').val('');
+                    }*/
+                }
+            })
+        }
+    }
+    $("select[name='cate_pid']").change(function () {
+        editTemplate();
+    })
 </script>
 
   </div>
