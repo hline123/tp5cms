@@ -20,7 +20,6 @@ class Category extends Base
     {
         //输出栏目列表
         $lists = $category->getAll();
-        //halt($lists);
         $this->assign('lists', $lists);
         return view('index');
     }
@@ -81,8 +80,11 @@ class Category extends Base
         $_id = input('param.id');
         // 获取栏目数据
         $_cateRes = $category->getAll();
+        // 获取模型数据
+        $models = db('model')->field('model_id,model_name')->select();
         $this->assign('cateRes', $_cateRes);
         $this->assign('cateId', $_id);
+        $this->assign('models', $models);
         return view('store');
     }
 
@@ -135,8 +137,11 @@ class Category extends Base
         $oldData = db('cate')->where('cate_id', $id)->find();
         // 获取栏目数据, 剔除自己及子集数据
         $_cateRes = $category->getCate($id);
+        // 获取模型数据
+        $models = db('model')->field('model_id,model_name')->select();
         $this->assign('cateRes', $_cateRes);
         $this->assign('oldData', $oldData);
+        $this->assign('models', $models);
         return view('edit');
     }
 
@@ -202,7 +207,6 @@ class Category extends Base
     public function delImg()
     {
         if (request()->isAjax()) {
-
             $data = input('post.');
             $path = $data['path'];
             $str  = config('uploadPath') . 'category/';
@@ -210,7 +214,6 @@ class Category extends Base
             $path = DEL_IMG . $path;
             // 先删除存储的图片
             $res = @unlink($path);
-            //
             if ($data['id'] != '') {
                 // 删除数据库中的数据路径
                 db('cate')->where('cate_id', $data['id'])->delete(['cate_thumb' => '']);
@@ -228,7 +231,7 @@ class Category extends Base
      * @param CategoryModel $category
      * @return string
      */
-    public function ajaxList (CategoryModel $category)
+    public function ajaxList(CategoryModel $category)
     {
         $id = input('param.id');
         // 根据id获取子集栏目数据

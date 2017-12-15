@@ -34,9 +34,9 @@
                                 <label class="col-sm-2 control-label">所属模型：</label>
                                 <div class="col-sm-9">
                                     <select class="form-control" name="model_id">
-                                        <option {if condition="$oldData.model_id eq 1"}selected{/if} value="1">选择模型</option>
-                                        <option {if condition="$oldData.model_id eq 2"}selected{/if} value="2">文章模型</option>
-                                        <option {if condition="$oldData.model_id eq 3"}selected{/if} value="3">管理员模型</option>
+                                        {foreach name="models" item="vo"}
+                                        <option {if condition="$vo.model_id eq $oldData.model_id"}selected{/if} value="{$vo.model_id}">{$vo.model_name}</option>
+                                        {/foreach}
                                     </select>
                                 </div>
                             </div>

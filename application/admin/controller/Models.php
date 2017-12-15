@@ -66,6 +66,32 @@ class Models extends Base
     }
 
     /**
+     * 模型数据编辑操作
+     * @param ModelsModel $models
+     * @return string|\think\response\View
+     */
+    public function edit (ModelsModel $models)
+    {
+        if (request()->isPost()) {
+            $data = input('post.');
+            //halt($data);
+            $res  = $models->edit($data);
+            if ($res['valid']) {
+                return alert($res['msg'], url('index'));
+            } else {
+                return alert($res['msg'], url('store'), 5);
+            }
+        }
+        // 获取编辑数据信息
+        $id = input('param.id');
+        // 查询当前编辑数据
+        $field = db('model')->where('model_id', $id)->find();
+        // 输出到页面
+        $this->assign('field', $field);
+        return view('edit');
+    }
+
+    /**
      * ajax 删除数据, 同时删除数据表
      * @return int
      */

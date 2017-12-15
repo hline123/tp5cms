@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:8:{s:74:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\category\store.html";i:1513307245;s:71:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\base.html";i:1512099526;s:77:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\common_css.html";i:1511928198;s:76:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\common_js.html";i:1512357149;s:73:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\header.html";i:1511850195;s:71:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\menu.html";i:1513231214;s:73:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\footer.html";i:1510538016;s:74:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\sidebar.html";i:1510537129;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:8:{s:73:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\category\edit.html";i:1513307707;s:71:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\base.html";i:1512099526;s:77:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\common_css.html";i:1511928198;s:76:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\common_js.html";i:1512357149;s:73:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\header.html";i:1511850195;s:71:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\menu.html";i:1513231214;s:73:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\footer.html";i:1510538016;s:74:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\sidebar.html";i:1510537129;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -179,12 +179,12 @@
 </style>
 <section class="content-header">
     <h1>
-        添加栏目
+        编辑栏目
     </h1>
     <ol class="breadcrumb">
         <li><a href="<?php echo url('index/index'); ?>"><i class="fa fa-home"></i> 首页 </a></li>
         <li><a href="<?php echo url('category/index'); ?>"><i class="fa fa-th-large"></i> 栏目管理</a></li>
-        <li class="active"> 添加栏目</li>
+        <li class="active"> 编辑栏目</li>
     </ol>
 </section>
 <!-- Main content -->
@@ -204,9 +204,8 @@
                                 <label class="col-sm-2 control-label">所属模型：</label>
                                 <div class="col-sm-9">
                                     <select class="form-control" name="model_id">
-                                        <option value="">选择模型</option>
                                         <?php if(is_array($models) || $models instanceof \think\Collection || $models instanceof \think\Paginator): if( count($models)==0 ) : echo "" ;else: foreach($models as $key=>$vo): ?>
-                                        <option value="<?php echo $vo['model_id']; ?>"><?php echo $vo['model_name']; ?></option>
+                                        <option <?php if($vo['model_id'] == $oldData['model_id']): ?>selected<?php endif; ?> value="<?php echo $vo['model_id']; ?>"><?php echo $vo['model_name']; ?></option>
                                         <?php endforeach; endif; else: echo "" ;endif; ?>
                                     </select>
                                 </div>
@@ -214,7 +213,7 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">栏目名称：</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" name="cate_name">
+                                    <input type="text" class="form-control" name="cate_name" value="<?php echo $oldData['cate_name']; ?>">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -223,7 +222,7 @@
                                     <select class="form-control" name="cate_pid">
                                         <option value="0">顶级栏目</option>
                                         <?php if(is_array($cateRes) || $cateRes instanceof \think\Collection || $cateRes instanceof \think\Paginator): if( count($cateRes)==0 ) : echo "" ;else: foreach($cateRes as $key=>$vo): ?>
-                                        <option <?php if($cateId == $vo['cate_id']): ?>selected<?php endif; ?> value="<?php echo $vo['cate_id']; ?>"><?php echo $vo['_cate_name']; ?></option>
+                                        <option <?php if($oldData['cate_pid'] == $vo['cate_id']): ?>selected<?php endif; ?> value="<?php echo $vo['cate_id']; ?>"><?php echo $vo['_cate_name']; ?></option>
                                         <?php endforeach; endif; else: echo "" ;endif; ?>
                                     </select>
                                 </div>
@@ -231,17 +230,17 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">栏目排序：</label>
                                 <div class="col-sm-9">
-                                    <input type="number" class="form-control" name="cate_sort" value="100">
+                                    <input type="number" class="form-control" name="cate_sort" value="<?php echo $oldData['cate_sort']; ?>">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">隐藏栏目：</label>
                                 <div class="col-sm-9">
                                     <label class="radio-inline">
-                                        <input type="radio" name="cate_status" value="1" checked> 开启
+                                        <input type="radio" name="cate_status" value="1" <?php if($oldData['cate_status'] == 1): ?>checked<?php endif; ?>> 开启
                                     </label>
                                     <label class="radio-inline">
-                                        <input type="radio" name="cate_status" value="0"> 关闭
+                                        <input type="radio" name="cate_status" value="0" <?php if($oldData['cate_status'] == 0): ?>checked<?php endif; ?>> 关闭
                                     </label>
                                 </div>
                             </div>
@@ -249,10 +248,14 @@
                                 <label class="col-sm-2 control-label">栏目图片：</label>
                                 <div class="col-sm-9">
                                     <a class="btn btn-primary" data-toggle="modal" href="#modals">上传文件</a>
-                                    <input type="hidden" name="cate_thumb" id="cate_img" value=""/>
+                                    <input type="hidden" name="cate_thumb" id="cate_img" value="<?php echo $oldData['cate_thumb']; ?>"/>
                                     <div class="input-group" style="margin-top:5px;">
+                                        <?php if($oldData['cate_thumb'] == ''): ?>
                                         <img src="__STATIC__/admin/images/nopic.jpg" class="img-responsive img-thumbnail" width="150">
-                                        <em class="close" style="position:absolute; top: 0px; right: -14px;" title="删除这张图片" onclick="removeImg(this)">×</em>
+                                        <?php else: ?>
+                                        <img src="<?php echo $oldData['cate_thumb']; ?>" class="img-responsive img-thumbnail" width="150">
+                                        <?php endif; ?>
+                                        <em class="close" style="position:absolute; top: 0px; right: -14px;" title="删除这张图片" onclick="removeImg(this, '<?php echo $oldData['cate_id']; ?>')">×</em>
                                     </div>
                                     <div class="modal fade" id="modals">
                                         <div class="modal-dialog">
@@ -276,38 +279,38 @@
                                 <label class="col-sm-2 control-label">栏目属性：</label>
                                 <div class="col-sm-9">
                                     <label class="radio-inline">
-                                        <input type="radio" name="cate_attr" value="1" checked> 列表页栏目(可发布文章)
+                                        <input type="radio" name="cate_attr" value="1" <?php if($oldData['cate_attr'] == 1): ?>checked<?php endif; ?>> 列表页栏目(可发布文章)
                                     </label>
                                     <label class="radio-inline">
-                                        <input type="radio" name="cate_attr" value="2"> 封面页栏目
+                                        <input type="radio" name="cate_attr" value="2" <?php if($oldData['cate_attr'] == 2): ?>checked<?php endif; ?>> 封面页栏目
                                     </label>
                                     <label class="radio-inline">
-                                        <input type="radio" name="cate_attr" value="3"> 外链栏目
+                                        <input type="radio" name="cate_attr" value="3" <?php if($oldData['cate_attr'] == 3): ?>checked<?php endif; ?>> 外链栏目
                                     </label>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">列表页模板：</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" name="list_tmp" value="list.html">
+                                    <input type="text" class="form-control" name="list_tmp" value="<?php echo $oldData['list_tmp']; ?>">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">内容页模板：</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" name="content_tmp" value="content.html">
+                                    <input type="text" class="form-control" name="content_tmp" value="<?php echo $oldData['content_tmp']; ?>">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">频道页模板：</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" name="channel_tmp" value="channel.html">
+                                    <input type="text" class="form-control" name="channel_tmp" value="<?php echo $oldData['content_tmp']; ?>">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-2 control-label">外链地址：</label>
+                                <label class="col-sm-2 control-label">频道页模板：</label>
                                 <div class="col-sm-9">
-                                    <input type="url" class="form-control" name="cate_link" value="" placeholder="如果是外链属性请填写">
+                                    <input type="url" class="form-control" name="cate_link" value="<?php echo $oldData['cate_link']; ?>">
                                 </div>
                             </div>
                         </div>
@@ -315,33 +318,34 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">栏目标题：</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" name="cate_title" value="">
+                                    <input type="text" class="form-control" name="cate_title" value="<?php echo $oldData['cate_title']; ?>">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">关键词：</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" name="cate_keywords" value="">
+                                    <input type="text" class="form-control" name="cate_keywords" value="<?php echo $oldData['cate_keywords']; ?>">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">描述：</label>
                                 <div class="col-sm-9">
-                                    <textarea name="cate_desc" class="form-control" rows="3"></textarea>
+                                    <textarea name="cate_desc" class="form-control" rows="3"><?php echo $oldData['cate_desc']; ?></textarea>
                                 </div>
                             </div>
                         </div>
                         <div class="tab-pane" id="tab_3">
                             <div class="form-group">
                                 <div class="col-sm-12">
-                                    <textarea id="container" name="cate_content" style="height:400px;width:100%;"></textarea>
+                                    <textarea id="container" name="cate_content" style="height:400px;width:100%;"><?php echo $oldData['cate_content']; ?></textarea>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="box-footer">
                         <div class="col-sm-offset-1">
-                            <button type="submit" class="btn btn-success">添加</button>
+                            <input type="hidden" name="cate_id" value="<?php echo $oldData['cate_id']; ?>">
+                            <button type="submit" class="btn btn-success">编辑</button>
                             <button type="button" class="btn btn-primary" onclick="window.history.go(-1)">返回</button>
                         </div>
                     </div>
@@ -407,18 +411,17 @@
         }
     });
     //移除图片
-    function removeImg(obj) {
+    function removeImg(obj, id) {
         var path = $('#cate_img').val();
         if (path == '') {
             layer.alert('暂无图片,请先上传图片');
             return false;
         }
         $(obj).prev('img').attr('src','__STATIC__/admin/images/nopic.jpg');
-        $('#cate_img').val('');
         $.ajax({
             url: "<?php echo url('delImg'); ?>",
             type: 'POST',
-            data: {id:'',path:path},
+            data: {id:id, path:path},
             dataType: 'json',
             success: function (res) {
                 if (res == 1) {

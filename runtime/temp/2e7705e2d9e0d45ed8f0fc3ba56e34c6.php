@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:8:{s:74:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\category\index.html";i:1513232316;s:71:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\base.html";i:1512099526;s:77:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\common_css.html";i:1511928198;s:76:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\common_js.html";i:1512357149;s:73:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\header.html";i:1511850195;s:71:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\menu.html";i:1513231214;s:73:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\footer.html";i:1510538016;s:74:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\sidebar.html";i:1510537129;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:8:{s:74:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\category\index.html";i:1513309162;s:71:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\base.html";i:1512099526;s:77:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\common_css.html";i:1511928198;s:76:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\common_js.html";i:1512357149;s:73:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\header.html";i:1511850195;s:71:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\menu.html";i:1513231214;s:73:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\footer.html";i:1510538016;s:74:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\sidebar.html";i:1510537129;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -247,7 +247,7 @@
                                     频道封面栏目
                                     <?php endif; ?>
                                 </td>
-                                <td><?php echo $vo['model_id']; ?></td>
+                                <td><?php echo $vo['model_name']; ?></td>
                                 <td>
                                     <input type="number" class="form-control" name="cate_sort" value="<?php echo $vo['cate_sort']; ?>" onblur="changeSort(this, '<?php echo $vo['cate_id']; ?>')">
                                 </td>
@@ -305,10 +305,10 @@
             id = $(this).parents('tr').attr('cateId');
         if ($(this).hasClass('fa-plus-square-o')) {
             $(this).removeClass('fa-plus-square-o').addClass('fa-minus-square-o');
-            $('.tbody-box tr[pid = '+ id +']').slideDown();
+            $('.tbody-box tr[pid = '+ id +']').fadeIn();
         }else {
             $(this).removeClass('fa-minus-square-o').addClass('fa-plus-square-o');
-            $('.tbody-box tr[pid = '+ id +']').slideUp();
+            $('.tbody-box tr[pid = '+ id +']').fadeOut();
             $.ajax({
                 url: "<?php echo url('ajaxList'); ?>",
                 type: 'GET',
@@ -323,7 +323,7 @@
                     });
                     $.each($.parseJSON(res), function (k, v) {
                         if ($.inArray(v, cateIds)) {
-                            $('.tbody-box tr[cateId='+v+']').slideUp().find;
+                            $('.tbody-box tr[cateId='+v+']').slideUp().find('.open').removeClass('fa-minus-square-o').addClass('fa-plus-square-o');
                         }
                     });
                 }

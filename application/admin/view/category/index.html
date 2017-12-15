@@ -77,7 +77,7 @@
                                     频道封面栏目
                                     {/if}
                                 </td>
-                                <td>{$vo.model_id}</td>
+                                <td>{$vo.model_name}</td>
                                 <td>
                                     <input type="number" class="form-control" name="cate_sort" value="{$vo.cate_sort}" onblur="changeSort(this, '{$vo.cate_id}')">
                                 </td>
@@ -135,10 +135,10 @@
             id = $(this).parents('tr').attr('cateId');
         if ($(this).hasClass('fa-plus-square-o')) {
             $(this).removeClass('fa-plus-square-o').addClass('fa-minus-square-o');
-            $('.tbody-box tr[pid = '+ id +']').slideDown();
+            $('.tbody-box tr[pid = '+ id +']').fadeIn();
         }else {
             $(this).removeClass('fa-minus-square-o').addClass('fa-plus-square-o');
-            $('.tbody-box tr[pid = '+ id +']').slideUp();
+            $('.tbody-box tr[pid = '+ id +']').fadeOut();
             $.ajax({
                 url: "{:url('ajaxList')}",
                 type: 'GET',
@@ -153,7 +153,8 @@
                     });
                     $.each($.parseJSON(res), function (k, v) {
                         if ($.inArray(v, cateIds)) {
-                            $('.tbody-box tr[cateId='+v+']').slideUp().find;
+                            $('.tbody-box tr[cateId='+v+']').slideUp()
+                                .find('.open').removeClass('fa-minus-square-o').addClass('fa-plus-square-o');
                         }
                     });
                 }

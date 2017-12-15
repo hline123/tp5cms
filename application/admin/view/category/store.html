@@ -34,9 +34,10 @@
                                 <label class="col-sm-2 control-label">所属模型：</label>
                                 <div class="col-sm-9">
                                     <select class="form-control" name="model_id">
-                                        <option value="0">选择模型</option>
-                                        <option value="1" selected>文章模型</option>
-                                        <option value="2">管理员模型</option>
+                                        <option value="">选择模型</option>
+                                        {foreach name="models" item="vo"}
+                                        <option value="{$vo.model_id}">{$vo.model_name}</option>
+                                        {/foreach}
                                     </select>
                                 </div>
                             </div>
