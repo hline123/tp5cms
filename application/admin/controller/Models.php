@@ -3,6 +3,7 @@
 namespace app\admin\controller;
 
 use app\admin\model\Models as ModelsModel;
+use think\Db;
 
 /**
  * 模型管理控制器类
@@ -65,14 +66,22 @@ class Models extends Base
     }
 
     /**
-     * ajax 删除数据
+     * ajax 删除数据, 同时删除数据表
      * @return int
      */
     public function delete()
     {
         $id = input('param.id');
+        // 删除数据表，先行查找当前数据中的附加表
+        $table_name = db('model')->where('model_id', $id)->value('table_name');
+        $table_name = config('database.prefix') . $table_name;
+        // 原生sql 删除数据表
+        $sql = "DROP TABLE {$table_name}";
+        // 执行删除
+        $del = Db::execute($sql);
+        // 删除数据
         $res = db('model')->where('model_id', $id)->delete();
-        if ($res) {
+        if ($res && $del === 0) {
             return 1;
         }else {
             return 0;
