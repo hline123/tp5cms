@@ -92,7 +92,7 @@ class Models extends Base
     }
 
     /**
-     * ajax 删除数据, 同时删除数据表
+     * ajax 删除模型数据操作
      * @return int
      */
     public function delete()

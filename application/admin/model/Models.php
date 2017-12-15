@@ -60,9 +60,9 @@ class Models extends Model
         // 对比原始附加表和编辑之后的附加表名称，不相等修改数据表名称
         if ($old_table_name != $new_table_name) {
             // 修改数据表名称
-            $prefix = config('database.prefix');
+            $prefix     = config('database.prefix');
             $table_name = $prefix . $new_table_name;
-            $old_name = $prefix . $old_table_name;
+            $old_name   = $prefix . $old_table_name;
             // 原生sql修改数据表名称
             $sql = "ALTER TABLE {$old_name} RENAME TO {$table_name};";
             // 执行sql操作，修改表名称
