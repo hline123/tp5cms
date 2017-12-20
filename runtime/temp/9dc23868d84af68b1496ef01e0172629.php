@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:8:{s:73:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\category\edit.html";i:1513321223;s:71:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\base.html";i:1512099526;s:77:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\common_css.html";i:1511928198;s:76:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\common_js.html";i:1512357149;s:73:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\header.html";i:1511850195;s:71:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\menu.html";i:1513231214;s:73:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\footer.html";i:1510538016;s:74:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\sidebar.html";i:1510537129;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:8:{s:73:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\category\edit.html";i:1513321287;s:71:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\base.html";i:1512099526;s:77:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\common_css.html";i:1511928198;s:76:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\common_js.html";i:1512357149;s:73:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\header.html";i:1511850195;s:71:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\menu.html";i:1513323857;s:73:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\footer.html";i:1510538016;s:74:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\sidebar.html";i:1510537129;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -147,6 +147,18 @@
                 <ul class="treeview-menu">
                     <li><a href="<?php echo url('models/index'); ?>"><i class="fa fa-circle-o"></i> 模型列表 </a></li>
                     <li><a href="<?php echo url('models/store'); ?>"><i class="fa fa-circle-o"></i> 添加模型 </a></li>
+                </ul>
+            </li>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-rss-square"></i> <span> 字段管理 </span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="<?php echo url('fields/index'); ?>"><i class="fa fa-circle-o"></i> 字段列表 </a></li>
+                    <li><a href="<?php echo url('fields/store'); ?>"><i class="fa fa-circle-o"></i> 添加字段 </a></li>
                 </ul>
             </li>
             <li class="treeview">
@@ -448,11 +460,6 @@
                     $("input[name='content_tmp']").val(res.content_tmp);
                     // 选定模型
                     $("select[name='model_id']").val(res.model_id);
-                    //console.log(res);
-                    /*if (res == 1) {
-                        layer.alert('删除图片成功');
-                        $('#cate_img').val('');
-                    }*/
                 }
             })
         }
