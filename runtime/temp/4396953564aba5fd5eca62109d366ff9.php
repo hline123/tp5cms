@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:8:{s:72:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\fields\store.html";i:1513736425;s:71:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\base.html";i:1512099526;s:77:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\common_css.html";i:1511928198;s:76:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\common_js.html";i:1512357149;s:73:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\header.html";i:1511850195;s:71:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\menu.html";i:1513323857;s:73:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\footer.html";i:1510538016;s:74:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\sidebar.html";i:1510537129;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:8:{s:72:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\webset\store.html";i:1511855298;s:71:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\base.html";i:1512099526;s:77:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\common_css.html";i:1511928198;s:76:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\common_js.html";i:1512357149;s:73:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\header.html";i:1511850195;s:71:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\menu.html";i:1513323857;s:73:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\footer.html";i:1510538016;s:74:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\sidebar.html";i:1510537129;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -184,22 +184,22 @@
     
 <section class="content-header">
     <h1>
-        字段管理
+        系统配置
     </h1>
     <ol class="breadcrumb">
         <li><a href="<?php echo url('index/index'); ?>"><i class="fa fa-home"></i> 首页 </a></li>
-        <li><a href="<?php echo url('menu/index'); ?>"><i class="fa fa-cog"></i> 字段管理</a></li>
-        <li class="active">添加字段</li>
+        <li><a href="<?php echo url('webset/index'); ?>"><i class="fa fa-cog"></i> 配置管理</a></li>
+        <li class="active">添加配置</li>
     </ol>
 </section>
 
 <!-- Main content -->
-<section class="content" id="menuAdd">
+<section class="content">
     <div class="row">
         <div class="col-sm-12">
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title">添加字段</h3>
+                    <h3 class="box-title">添加配置</h3>
                 </div>
                 <!-- /.box-header -->
                 <!-- form start -->
@@ -208,44 +208,48 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label">中文名称：</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="field_cname">
+                                <input type="text" class="form-control" name="cname">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label">英文名称：</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="field_ename">
+                                <input type="text" class="form-control" value="" name="ename">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">所选模型：</label>
+                            <label class="col-sm-2 control-label">配置类型：</label>
                             <div class="col-sm-9">
-                                <select name="model_id" class="form-control">
-                                    <option value="">选择模型</option>
-                                    <?php if(is_array($models) || $models instanceof \think\Collection || $models instanceof \think\Paginator): if( count($models)==0 ) : echo "" ;else: foreach($models as $key=>$vo): ?>
-                                    <option value="<?php echo $vo['model_id']; ?>"><?php echo $vo['model_name']; ?></option>
-                                    <?php endforeach; endif; else: echo "" ;endif; ?>
+                                <select name="dt_type" class="form-control">
+                                    <option value="1"> 文本框 </option>
+                                    <option value="2"> 单选按钮 </option>
+                                    <option value="3"> 多选按钮 </option>
+                                    <option value="4"> 下拉框 </option>
+                                    <option value="5"> 文本域 </option>
+                                    <option value="6"> 附件 </option>
                                 </select>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">字段类型：</label>
+                            <label class="col-sm-2 control-label">配置分类：</label>
                             <div class="col-sm-9">
-                                <select name="field_type" class="form-control">
-                                    <option value="0">选择字段类型</option>
-                                    <option value="1">文本框</option>
-                                    <option value="2">单选按钮</option>
-                                    <option value="3">复选按钮</option>
-                                    <option value="4">下拉框</option>
-                                    <option value="5">文本域</option>
-                                    <option value="6">附件</option>
+                                <select name="cf_type" class="form-control">
+                                    <option value="1"> 基本信息 </option>
+                                    <option value="2"> 联系方式 </option>
+                                    <option value="3"> SEO设置 </option>
                                 </select>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">字段可选值：</label>
+                            <label class="col-sm-2 control-label">值/默认值：</label>
                             <div class="col-sm-9">
-                                <textarea class="form-control" name="field_values" placeholder="不同选项用 , 分割"></textarea>
+                                <textarea name="value" cols="30" rows="3" class="form-control"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">可选值：</label>
+                            <div class="col-sm-9">
+                                <textarea name="values" cols="30" rows="3" class="form-control"></textarea>
                             </div>
                         </div>
                     </div>
