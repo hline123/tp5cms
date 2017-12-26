@@ -18,9 +18,12 @@ class Fields extends Base
     }
 
     /**
-     * 添加模型字段
+     * 添加模型字段操作
      * @param FieldsModel $fields
      * @return string|\think\response\View
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
      */
     public function store (FieldsModel $fields)
     {
@@ -38,5 +41,13 @@ class Fields extends Base
         $models = db('model')->field('model_id, model_name')->select();
         // 显示模板
         return view('store', compact('models'));
+    }
+
+    public function edit (FieldsModel $fields)
+    {
+        // 查询生成的模型
+        $models = db('model')->field('model_id, model_name')->select();
+        // 显示模板
+        return view('edit', compact('models'));
     }
 }
