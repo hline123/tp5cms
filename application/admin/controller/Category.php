@@ -27,10 +27,12 @@ class Category extends Base
     /**
      * ajax 改变栏目状态
      * @return int
+     * @throws \think\Exception
+     * @throws \think\exception\PDOException
      */
     public function changeStatus()
     {
-        $id       = input('param.id');
+        $id = input('param.id');
         $cateAttr = db('cate')->where('cate_id', $id)->value('cate_status');
         if ($cateAttr == 1) {
             db('cate')->where('cate_id', $id)->update(['cate_status' => 0]);
@@ -44,11 +46,13 @@ class Category extends Base
     /**
      * ajax 排序
      * @return int
+     * @throws \think\Exception
+     * @throws \think\exception\PDOException
      */
     public function changeSort()
     {
         if (request()->isAjax()) {
-            $data   = input('param.');
+            $data = input('param.');
             $result = db('cate')->where('cate_id', $data['id'])->update(['cate_sort' => $data['cate_sort']]);
             if ($result !== false) {
                 // 倒序排列
@@ -60,14 +64,17 @@ class Category extends Base
     /**
      * 添加栏目
      * @param CategoryModel $category
-     * @return \think\response\View
+     * @return string|\think\response\View
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
      */
     public function store(CategoryModel $category)
     {
         // 接收栏目添加信息
         if (request()->isPost()) {
             $data = input('post.');
-            $res  = $category->store($data);
+            $res = $category->store($data);
             if ($res['valid']) {
 //                $this->success($res['msg'], 'index');
                 return alert($res['msg'], url('index'), 6, 3);
@@ -119,13 +126,16 @@ class Category extends Base
     /**
      * 编辑当前栏目
      * @param CategoryModel $category
-     * @return \think\response\View
+     * @return string|\think\response\View
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
      */
     public function edit(CategoryModel $category)
     {
         if (request()->isPost()) {
             $data = input('post.');
-            $res  = $category->edit($data);
+            $res = $category->edit($data);
             if ($res['valid']) {
                 return alert($res['msg'], url('index'), 6, 3);
             } else {
@@ -147,13 +157,16 @@ class Category extends Base
 
     /**
      * 批量删除
+     * @param CategoryModel $category
      * @return int
+     * @throws \think\Exception
+     * @throws \think\exception\PDOException
      */
     public function delAll(CategoryModel $category)
     {
         if (request()->isAjax()) {
-            $ids      = input('param.ids');
-            $arr_id   = explode(',', $ids, -1);
+            $ids = input('param.ids');
+            $arr_id = explode(',', $ids, -1);
             $arrChild = [];
             // 获取所选栏目的子集数据
             foreach ($arr_id as $k => $v) {
@@ -186,13 +199,15 @@ class Category extends Base
      * 删除操作
      * @param CategoryModel $category
      * @return int
+     * @throws \think\Exception
+     * @throws \think\exception\PDOException
      */
     public function delete(CategoryModel $category)
     {
         $id = input('param.id');
         // 根据$id 查找子集数据
         $cateChild = $category->getCateChild($id);
-        $result    = db('cate')->delete($cateChild);
+        $result = db('cate')->delete($cateChild);
         if ($result) {
             return 1;
         } else {
@@ -203,13 +218,15 @@ class Category extends Base
     /**
      * 删除上传图片
      * @return int
+     * @throws \think\Exception
+     * @throws \think\exception\PDOException
      */
     public function delImg()
     {
         if (request()->isAjax()) {
             $data = input('post.');
             $path = $data['path'];
-            $str  = config('uploadPath') . 'category/';
+            $str = config('uploadPath') . 'category/';
             $path = substr($path, strlen($str));
             $path = DEL_IMG . $path;
             // 先删除存储的图片
@@ -239,7 +256,14 @@ class Category extends Base
         return json_encode($res);
     }
 
-    public function cateInfo ()
+    /**
+     * 获取栏目信息
+     * @return string
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
+    public function cateInfo()
     {
         $id = input('param.id');
         $data = db('cate')->find($id);

@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2017-12-26 13:53:48
+Date: 2018-01-03 17:28:31
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -73,7 +73,7 @@ CREATE TABLE `tp_field` (
   `id` mediumint(9) NOT NULL AUTO_INCREMENT COMMENT '字段id',
   `field_cname` varchar(60) NOT NULL COMMENT '字段中文名称',
   `field_ename` varchar(60) NOT NULL COMMENT '字段英文名称',
-  `field_type` tinyint(4) NOT NULL DEFAULT '1' COMMENT '字段类型：1：单行文本 2：单选安按钮 3：复选框 4：下拉菜单 5：文本域 6：附件 7：浮点 8：整型 9：长文本类型 longtext ',
+  `field_type` tinyint(4) NOT NULL DEFAULT '1' COMMENT '字段类型：1：单行文本 2：单选按钮 3：复选框 4：下拉菜单 5：文本域 6：附件 7：浮点 8：整型 9：长文本类型 longtext ',
   `field_values` varchar(255) NOT NULL COMMENT '可选值',
   `model_id` mediumint(9) NOT NULL COMMENT '所属模型',
   PRIMARY KEY (`id`),
@@ -92,15 +92,27 @@ INSERT INTO `tp_field` VALUES ('4', '视频名称', 'video_name', '1', '22', '3'
 DROP TABLE IF EXISTS `tp_menu`;
 CREATE TABLE `tp_menu` (
   `menu_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '侧边栏ID',
-  `menu_name` varchar(60) NOT NULL COMMENT '侧边栏名称',
+  `menu_url` varchar(60) NOT NULL COMMENT '侧边栏名称',
+  `menu_title` varchar(60) NOT NULL COMMENT '菜单导航',
   `menu_icon` varchar(45) NOT NULL COMMENT '侧边栏图标',
-  `meun_pid` int(11) NOT NULL DEFAULT '0' COMMENT '侧边栏上级菜单ID',
+  `menu_pid` int(11) NOT NULL DEFAULT '0' COMMENT '侧边栏上级菜单ID',
+  `menu_nav` varchar(60) NOT NULL COMMENT '菜单模块名称',
+  `state` tinyint(4) NOT NULL COMMENT '是否有子集数据 0 没有 1存在',
   PRIMARY KEY (`menu_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='侧边栏管理';
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COMMENT='侧边栏管理';
 
 -- ----------------------------
 -- Records of tp_menu
 -- ----------------------------
+INSERT INTO `tp_menu` VALUES ('1', 'admin/index/index', 'Home', 'fa-home', '0', '首页', '0');
+INSERT INTO `tp_menu` VALUES ('2', 'javascript:;', 'Base Modules', 'fa-maxcdn', '0', '基础模块', '0');
+INSERT INTO `tp_menu` VALUES ('3', 'admin/category/index', 'Category', 'fa-th-large', '2', '栏目管理', '0');
+INSERT INTO `tp_menu` VALUES ('4', 'admin/menu/index', 'Menu', 'fa-bars', '2', '侧边栏菜单', '0');
+INSERT INTO `tp_menu` VALUES ('5', 'admin/models/index', 'Models', 'fa-database', '2', '模型管理', '0');
+INSERT INTO `tp_menu` VALUES ('6', 'admin/fields/index', 'Fields', 'fa-rss-square', '2', '字段管理', '0');
+INSERT INTO `tp_menu` VALUES ('8', 'javascript:;', 'Websets', 'fa-cog', '0', '网站配置', '0');
+INSERT INTO `tp_menu` VALUES ('9', 'admin/webset/conflist', 'Management', 'fa-circle-o', '8', '配置管理', '0');
+INSERT INTO `tp_menu` VALUES ('10', 'admin/webset/index', 'Websets', 'fa-circle-o', '8', '配置列表', '0');
 
 -- ----------------------------
 -- Table structure for tp_model

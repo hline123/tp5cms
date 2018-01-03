@@ -70,4 +70,12 @@ class Fields extends Model
             return ['valid'=>0, 'msg'=> '操作失败'];
         }
     }
+    /*
+     * 模块字段编辑操作
+     */
+    public function edit ($data)
+    {
+        halt($data);
+        // 查询编辑旧数据
+    }
 }

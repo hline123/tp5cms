@@ -10,11 +10,22 @@ use app\admin\model\Fields as FieldsModel;
  */
 class Fields extends Base
 {
-
+    /**
+     * 字段列表显示
+     * @return \think\response\View
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
     public function index()
     {
+        // 查询数据表
+        // $lists = db('field')->select();
+        // dump($lists);
+        // 根据模型id，查询模型名称
+        $lists = db('field')->alias('f')->join('model m', "f.model_id=m.model_id")->select();
         // 显示模板
-        return view('index');
+        return view('index', compact('lists'));
     }
 
     /**
@@ -45,8 +56,18 @@ class Fields extends Base
 
     public function edit (FieldsModel $fields)
     {
+        /*
+        if (request()->isPost()) {
+            $data = input('post.');
+            $res = $fields->edit($data);
+        }
         // 查询生成的模型
         $models = db('model')->field('model_id, model_name')->select();
+        // 查询字段数据表
+        $oldData = $fields->select();
+         */
+        $id = input('param.id');
+        halt($id);
         // 显示模板
         return view('edit', compact('models'));
     }

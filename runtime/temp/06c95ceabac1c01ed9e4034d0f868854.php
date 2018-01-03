@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:8:{s:72:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\webset\store.html";i:1511855298;s:71:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\base.html";i:1512099526;s:77:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\common_css.html";i:1511928198;s:76:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\common_js.html";i:1512357149;s:73:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\header.html";i:1511850195;s:71:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\menu.html";i:1513323857;s:73:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\footer.html";i:1510538016;s:74:"D:\phpStudy\WWW\tpcms\public/../application/admin\view\public\sidebar.html";i:1510537129;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:8:{s:82:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\menu\store.html";i:1514963843;s:83:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\base.html";i:1512099526;s:89:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\common_css.html";i:1511928198;s:88:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\common_js.html";i:1512357149;s:85:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\header.html";i:1511850195;s:83:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\menu.html";i:1514970408;s:85:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\footer.html";i:1510538016;s:86:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\sidebar.html";i:1510537129;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -109,74 +109,109 @@
         </form>
         <!-- /.search form -->
         <!-- sidebar menu: : style can be found in sidebar.less -->
+        <!--
         <ul class="sidebar-menu" id="menu" data-widget="tree">
-            <li class="treeview-menu active" style="display: block">
-                <a href="<?php echo url('Index/index'); ?>"><i class="fa fa-home"></i> 首页 </a>
+            <li class="active">
+                <a href="<?php echo url('Index/index'); ?>"><i class="fa fa-home"></i> <span> Home </span> </a>
             </li>
             <li class="treeview">
-                <a href="#">
-                    <i class="fa fa-th-large"></i> <span> 栏目管理 </span>
+                <a href="javascript:;">
+                    <i class="fa fa-th-large"></i> <span> Base Modules </span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="<?php echo url('category/index'); ?>"><i class="fa fa-circle-o"></i> 栏目列表 </a></li>
-                    <li><a href="<?php echo url('category/store'); ?>"><i class="fa fa-circle-o"></i> 添加栏目 </a></li>
+                    <li>
+                        <a href="<?php echo url('category/index'); ?>">
+                            <i class="fa fa-th-large"></i>
+                            <span> Category </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="<?php echo url('menu/index'); ?>">
+                            <i class="fa fa-bars"></i>
+                            <span> Menu </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="<?php echo url('models/index'); ?>">
+                            <i class="fa fa-database"></i>
+                            <span> Models </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="<?php echo url('fields/index'); ?>">
+                            <i class="fa fa-rss-square"></i>
+                            <span> Fields </span>
+                        </a>
+                    </li>
                 </ul>
             </li>
             <li class="treeview">
-                <a href="#">
-                    <i class="fa fa-bars"></i> <span> 菜单管理 </span>
+                <a href="javascript:;">
+                    <i class="fa fa-cog"></i> <span> Websets </span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="<?php echo url('menu/index'); ?>"><i class="fa fa-circle-o"></i> 菜单列表 </a></li>
-                    <li><a href="<?php echo url('menu/store'); ?>"><i class="fa fa-circle-o"></i> 添加菜单 </a></li>
+                    <li>
+                        <a href="<?php echo url('webset/confList'); ?>">
+                            <i class="fa fa-circle-o text-aqua"></i>
+                            management
+                        </a>
+                    </li>
+                    <li>
+                        <a href="<?php echo url('webset/index'); ?>">
+                            <i class="fa fa-circle-o text-yellow"></i>
+                            List
+                        </a>
+                    </li>
                 </ul>
             </li>
-            <li class="treeview">
-                <a href="#">
-                    <i class="fa fa-database"></i> <span> 模型管理 </span>
+        </ul>
+        -->
+        <ul class="sidebar-menu" data-widget="tree">
+            <?php if(is_array($menu) || $menu instanceof \think\Collection || $menu instanceof \think\Paginator): if( count($menu)==0 ) : echo "" ;else: foreach($menu as $key=>$vo): if($vo['_level'] == 1 && $vo['menu_url'] == 'admin/index/index'): ?>
+            <li <?php if($route == $vo['menu_url']): ?>class="active"<?php else: ?>class=""<?php endif; ?>>
+                <a href="<?php echo url($vo['menu_url']); ?>">
+                    <i class="fa <?php echo $vo['menu_icon']; ?>"></i>
+                    <span> <?php echo $vo['menu_title']; ?> </span>
+                </a>
+            </li>
+            <?php elseif($vo['_level'] == 1): ?>
+            <li  class="treeview">
+                <a href="<?php echo url($vo['menu_url']); ?>">
+                    <i class="fa <?php echo $vo['menu_icon']; ?>"></i>
+                    <span> <?php echo $vo['menu_title']; ?> </span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="<?php echo url('models/index'); ?>"><i class="fa fa-circle-o"></i> 模型列表 </a></li>
-                    <li><a href="<?php echo url('models/store'); ?>"><i class="fa fa-circle-o"></i> 添加模型 </a></li>
+                    <?php if(is_array($menu) || $menu instanceof \think\Collection || $menu instanceof \think\Paginator): if( count($menu)==0 ) : echo "" ;else: foreach($menu as $key=>$to): if($to['menu_pid'] == $vo['menu_id']): ?>
+                    <li <?php if($route == $to['menu_url']): ?>class="active"<?php else: ?>class=""<?php endif; ?>>
+                        <a href="<?php echo url($to['menu_url']); ?>">
+                            <i class="fa <?php echo $to['menu_icon']; ?>"></i>
+                            <?php echo $to['menu_title']; ?>
+                        </a>
+                    </li>
+                    <?php endif; endforeach; endif; else: echo "" ;endif; ?>
                 </ul>
             </li>
-            <li class="treeview">
-                <a href="#">
-                    <i class="fa fa-rss-square"></i> <span> 字段管理 </span>
-                    <span class="pull-right-container">
-                        <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="<?php echo url('fields/index'); ?>"><i class="fa fa-circle-o"></i> 字段列表 </a></li>
-                    <li><a href="<?php echo url('fields/store'); ?>"><i class="fa fa-circle-o"></i> 添加字段 </a></li>
-                </ul>
-            </li>
-            <li class="treeview">
-                <a href="#">
-                    <i class="fa fa-cog"></i> <span> 网站配置 </span>
-                    <span class="pull-right-container">
-                        <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="<?php echo url('webset/confList'); ?>"><i class="fa fa-circle-o"></i> 配置管理 </a></li>
-                    <li><a href="<?php echo url('webset/index'); ?>"><i class="fa fa-circle-o"></i>  配置列表 </a></li>
-                </ul>
-            </li>
+            <?php endif; endforeach; endif; else: echo "" ;endif; ?>
         </ul>
     </section>
     <!-- /.sidebar -->
 </aside>
+<script>
+    $(function () {
+        if ($('.treeview-menu li').hasClass('active')) {
+            $('.treeview-menu li.active').parents('.treeview').addClass('active').addClass('menu-open');
+        }
+    })
+</script>
 
 
   <!-- Content Wrapper. Contains page content -->
@@ -184,72 +219,60 @@
     
 <section class="content-header">
     <h1>
-        系统配置
+        侧边栏菜单
     </h1>
     <ol class="breadcrumb">
         <li><a href="<?php echo url('index/index'); ?>"><i class="fa fa-home"></i> 首页 </a></li>
-        <li><a href="<?php echo url('webset/index'); ?>"><i class="fa fa-cog"></i> 配置管理</a></li>
+        <li><a href="<?php echo url('menu/index'); ?>"><i class="fa fa-cog"></i> 菜单管理</a></li>
         <li class="active">添加配置</li>
     </ol>
 </section>
 
 <!-- Main content -->
-<section class="content">
+<section class="content" id="menuAdd">
     <div class="row">
         <div class="col-sm-12">
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title">添加配置</h3>
+                    <h3 class="box-title">添加菜单</h3>
                 </div>
                 <!-- /.box-header -->
                 <!-- form start -->
                 <form role="form" class="form-horizontal" method="post">
                     <div class="box-body">
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">中文名称：</label>
+                            <label class="col-sm-2 control-label">菜单名称：</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="cname">
+                                <input type="text" class="form-control" name="menu_title">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">英文名称：</label>
+                            <label class="col-sm-2 control-label">菜单链接：</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" value="" name="ename">
+                                <input type="text" class="form-control" name="menu_url">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">配置类型：</label>
+                            <label class="col-sm-2 control-label">菜单图标：</label>
                             <div class="col-sm-9">
-                                <select name="dt_type" class="form-control">
-                                    <option value="1"> 文本框 </option>
-                                    <option value="2"> 单选按钮 </option>
-                                    <option value="3"> 多选按钮 </option>
-                                    <option value="4"> 下拉框 </option>
-                                    <option value="5"> 文本域 </option>
-                                    <option value="6"> 附件 </option>
+                                <input type="text" class="form-control" name="menu_icon">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">上级菜单：</label>
+                            <div class="col-sm-9">
+                                <select name="menu_pid" class="form-control">
+                                    <option value="0"> 顶级菜单 </option>
+                                    <?php if(is_array($menus) || $menus instanceof \think\Collection || $menus instanceof \think\Paginator): if( count($menus)==0 ) : echo "" ;else: foreach($menus as $key=>$vo): ?>
+                                    <option value="<?php echo $vo['menu_id']; ?>"> <?php echo $vo['_menu_title']; ?> </option>
+                                    <?php endforeach; endif; else: echo "" ;endif; ?>
                                 </select>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">配置分类：</label>
+                            <label class="col-sm-2 control-label">模块名称：</label>
                             <div class="col-sm-9">
-                                <select name="cf_type" class="form-control">
-                                    <option value="1"> 基本信息 </option>
-                                    <option value="2"> 联系方式 </option>
-                                    <option value="3"> SEO设置 </option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">值/默认值：</label>
-                            <div class="col-sm-9">
-                                <textarea name="value" cols="30" rows="3" class="form-control"></textarea>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">可选值：</label>
-                            <div class="col-sm-9">
-                                <textarea name="values" cols="30" rows="3" class="form-control"></textarea>
+                                <input type="text" class="form-control" value="" name="menu_nav">
                             </div>
                         </div>
                     </div>

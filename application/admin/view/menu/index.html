@@ -37,13 +37,16 @@
                         <tr>
                             <th style="width: 50px">ID</th>
                             <th>菜单名称</th>
+                            <th>菜单标识</th>
                             <th>菜单图标</th>
                             <th style="width: 160px;">操作</th>
                         </tr>
+                        {foreach name="lists" item="vo"}
                         <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td>{$vo.menu_id}</td>
+                            <td>{$vo._menu_title}</td>
+                            <td>{$vo.menu_url}</td>
+                            <td>{$vo.menu_icon}</td>
                             <td>
                                 <div class="btn-group">
                                     <button data-toggle="dropdown" class="btn btn-success btn-xs dropdown-toggle" aria-expanded="false">操作 <span class="caret"></span></button>
@@ -55,6 +58,7 @@
                                 </div>
                             </td>
                         </tr>
+                        {/foreach}
                     </table>
                 </div>
                 <!-- /.box-body -->
