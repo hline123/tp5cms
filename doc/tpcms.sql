@@ -78,13 +78,13 @@ CREATE TABLE `tp_field` (
   `model_id` mediumint(9) NOT NULL COMMENT '所属模型',
   PRIMARY KEY (`id`),
   KEY `model_id` (`model_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of tp_field
 -- ----------------------------
 INSERT INTO `tp_field` VALUES ('1', '视频封面', 'video_img', '6', '112', '3');
-INSERT INTO `tp_field` VALUES ('3', '视频名称', 'video_name', '1', '12,fasd,asdf', '3');
+INSERT INTO `tp_field` VALUES ('2', '视频名称', 'video_name', '1', '12,fasd,asdf', '3');
 
 -- ----------------------------
 -- Table structure for tp_menu
