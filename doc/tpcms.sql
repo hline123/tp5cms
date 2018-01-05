@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2018-01-03 17:28:31
+Date: 2018-01-05 17:35:25
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -83,8 +83,8 @@ CREATE TABLE `tp_field` (
 -- ----------------------------
 -- Records of tp_field
 -- ----------------------------
-INSERT INTO `tp_field` VALUES ('3', '视频封面', 'video_img', '6', '11', '3');
-INSERT INTO `tp_field` VALUES ('4', '视频名称', 'video_name', '1', '22', '3');
+INSERT INTO `tp_field` VALUES ('1', '视频封面', 'video_img', '6', '112', '3');
+INSERT INTO `tp_field` VALUES ('3', '视频名称', 'video_name', '1', '12,fasd,asdf', '3');
 
 -- ----------------------------
 -- Table structure for tp_menu
@@ -97,22 +97,22 @@ CREATE TABLE `tp_menu` (
   `menu_icon` varchar(45) NOT NULL COMMENT '侧边栏图标',
   `menu_pid` int(11) NOT NULL DEFAULT '0' COMMENT '侧边栏上级菜单ID',
   `menu_nav` varchar(60) NOT NULL COMMENT '菜单模块名称',
-  `state` tinyint(4) NOT NULL COMMENT '是否有子集数据 0 没有 1存在',
+  `module` char(60) NOT NULL COMMENT '菜单模块',
   PRIMARY KEY (`menu_id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COMMENT='侧边栏管理';
 
 -- ----------------------------
 -- Records of tp_menu
 -- ----------------------------
-INSERT INTO `tp_menu` VALUES ('1', 'admin/index/index', 'Home', 'fa-home', '0', '首页', '0');
-INSERT INTO `tp_menu` VALUES ('2', 'javascript:;', 'Base Modules', 'fa-maxcdn', '0', '基础模块', '0');
-INSERT INTO `tp_menu` VALUES ('3', 'admin/category/index', 'Category', 'fa-th-large', '2', '栏目管理', '0');
-INSERT INTO `tp_menu` VALUES ('4', 'admin/menu/index', 'Menu', 'fa-bars', '2', '侧边栏菜单', '0');
-INSERT INTO `tp_menu` VALUES ('5', 'admin/models/index', 'Models', 'fa-database', '2', '模型管理', '0');
-INSERT INTO `tp_menu` VALUES ('6', 'admin/fields/index', 'Fields', 'fa-rss-square', '2', '字段管理', '0');
-INSERT INTO `tp_menu` VALUES ('8', 'javascript:;', 'Websets', 'fa-cog', '0', '网站配置', '0');
-INSERT INTO `tp_menu` VALUES ('9', 'admin/webset/conflist', 'Management', 'fa-circle-o', '8', '配置管理', '0');
-INSERT INTO `tp_menu` VALUES ('10', 'admin/webset/index', 'Websets', 'fa-circle-o', '8', '配置列表', '0');
+INSERT INTO `tp_menu` VALUES ('1', 'admin/index/index', 'Home', 'fa-home', '0', '首页', 'index');
+INSERT INTO `tp_menu` VALUES ('2', 'javascript:;', 'Base Modules', 'fa-maxcdn', '0', '基础模块', '');
+INSERT INTO `tp_menu` VALUES ('3', 'admin/category/index', 'Category', 'fa-th-large', '2', '栏目管理', 'category');
+INSERT INTO `tp_menu` VALUES ('4', 'admin/menu/index', 'Menu', 'fa-bars', '2', '侧边栏菜单', 'menu');
+INSERT INTO `tp_menu` VALUES ('5', 'admin/models/index', 'Models', 'fa-database', '2', '模型管理', 'models');
+INSERT INTO `tp_menu` VALUES ('6', 'admin/fields/index', 'Fields', 'fa-rss-square', '2', '字段管理', 'fields');
+INSERT INTO `tp_menu` VALUES ('8', 'javascript:;', 'Websets', 'fa-cog', '0', '网站配置', '');
+INSERT INTO `tp_menu` VALUES ('9', 'admin/webset/confList', 'Management', 'fa-circle-o', '8', '配置管理', 'webset');
+INSERT INTO `tp_menu` VALUES ('10', 'admin/webset/index', 'Websets', 'fa-circle-o', '8', '配置列表', 'webset');
 
 -- ----------------------------
 -- Table structure for tp_model
@@ -153,7 +153,7 @@ DROP TABLE IF EXISTS `tp_video`;
 CREATE TABLE `tp_video` (
   `video_id` int(11) NOT NULL AUTO_INCREMENT,
   `video_img` varchar(150) NOT NULL DEFAULT '',
-  `video_name` varchar(600) NOT NULL DEFAULT '',
+  `video_name` varchar(150) NOT NULL DEFAULT '',
   PRIMARY KEY (`video_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

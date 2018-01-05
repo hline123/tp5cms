@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:8:{s:84:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\fields\store.html";i:1515144354;s:83:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\base.html";i:1512099526;s:89:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\common_css.html";i:1511928198;s:88:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\common_js.html";i:1515144126;s:85:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\header.html";i:1511850195;s:83:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\menu.html";i:1515139596;s:85:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\footer.html";i:1510538016;s:86:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\sidebar.html";i:1510537129;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:8:{s:83:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\fields\edit.html";i:1515144203;s:83:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\base.html";i:1512099526;s:89:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\common_css.html";i:1511928198;s:88:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\common_js.html";i:1515144126;s:85:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\header.html";i:1511850195;s:83:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\menu.html";i:1515139596;s:85:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\footer.html";i:1510538016;s:86:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\sidebar.html";i:1510537129;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -229,42 +229,43 @@ $(function () {
     </h1>
     <ol class="breadcrumb">
         <li><a href="<?php echo url('index/index'); ?>"><i class="fa fa-home"></i> 首页 </a></li>
-        <li><a href="<?php echo url('fields/index'); ?>"><i class="fa fa-cog"></i> 字段管理</a></li>
-        <li class="active">添加字段</li>
+        <li><a href="<?php echo url('menu/index'); ?>"><i class="fa fa-cog"></i> 字段管理</a></li>
+        <li class="active">编辑字段</li>
     </ol>
 </section>
 
 <!-- Main content -->
-<section class="content" id="menuAdd">
+<section class="content">
     <div class="row">
         <div class="col-sm-12">
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title">添加字段</h3>
+                    <h3 class="box-title">编辑字段</h3>
                 </div>
                 <!-- /.box-header -->
                 <!-- form start -->
                 <form role="form" class="form-horizontal" method="post">
                     <div class="box-body">
+                        <input type="hidden" name="id" value="<?php echo $field['id']; ?>" />
                         <div class="form-group">
                             <label class="col-sm-2 control-label">中文名称：</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="field_cname">
+                                <input type="text" class="form-control" name="field_cname" value="<?php echo $field['field_cname']; ?>">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label">英文名称：</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="field_ename">
+                                <input type="text" class="form-control" name="field_ename" value="<?php echo $field['field_ename']; ?>">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label">所选模型：</label>
                             <div class="col-sm-9">
-                                <select name="model_id" class="form-control">
+                                <select name="model_id" disabled class="form-control">
                                     <option value="">选择模型</option>
                                     <?php if(is_array($models) || $models instanceof \think\Collection || $models instanceof \think\Paginator): if( count($models)==0 ) : echo "" ;else: foreach($models as $key=>$vo): ?>
-                                    <option value="<?php echo $vo['model_id']; ?>"><?php echo $vo['model_name']; ?></option>
+                                    <option <?php if($field['model_id'] == $vo['model_id']): ?>selected<?php endif; ?> value="<?php echo $vo['model_id']; ?>"><?php echo $vo['model_name']; ?></option>
                                     <?php endforeach; endif; else: echo "" ;endif; ?>
                                 </select>
                             </div>
@@ -289,7 +290,8 @@ $(function () {
                         <div class="form-group">
                             <label class="col-sm-2 control-label">字段可选值：</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="field_values" data-role="tagsinput" style="width: 100%;">
+                                <!--<textarea class="form-control" name="field_values" data-role="tagsinput" placeholder="不同选项用 , 分割"><?php echo $field['field_values']; ?></textarea>-->
+                                <input type="text" class="form-control" name="field_values" data-role="tagsinput" value="<?php echo $field['field_values']; ?>" style="width: 100%;">
                             </div>
                         </div>
                     </div>
@@ -307,9 +309,10 @@ $(function () {
 </section>
 <!-- /.content -->
 <script>
-    $("input[name='field_values']").tagsinput({
-        tagClass: 'label label-primary'
-    });
+$("select[name='field_type'] option[value=<?php echo $field['field_type']; ?>]").attr('selected', true);
+$("input[name='field_values']").tagsinput({
+    tagClass: 'label label-primary'
+});
 </script>
 
   </div>

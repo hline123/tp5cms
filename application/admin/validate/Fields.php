@@ -26,7 +26,7 @@ class Fields extends Validate
             'field_cname.require' => '字段中文名称不得为空',
             'field_cname.unique'  => '字段中文名称不得重复',
             'field_type.require'  => '字段类型不得为空',
-            'model_id.require'    => '模型ID不得为空',
+            'model_id.require'    => '模型不得为空',
         ];
 
     protected $scene

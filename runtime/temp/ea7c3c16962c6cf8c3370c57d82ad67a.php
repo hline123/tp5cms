@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:8:{s:81:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\menu\edit.html";i:1514972957;s:83:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\base.html";i:1512099526;s:89:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\common_css.html";i:1511928198;s:88:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\common_js.html";i:1512357149;s:85:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\header.html";i:1511850195;s:83:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\menu.html";i:1514970408;s:85:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\footer.html";i:1510538016;s:86:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\sidebar.html";i:1510537129;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:8:{s:81:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\menu\edit.html";i:1514972957;s:83:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\base.html";i:1512099526;s:89:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\common_css.html";i:1511928198;s:88:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\common_js.html";i:1512357149;s:85:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\header.html";i:1511850195;s:83:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\menu.html";i:1515139596;s:85:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\footer.html";i:1510538016;s:86:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\sidebar.html";i:1510537129;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -174,7 +174,7 @@
         -->
         <ul class="sidebar-menu" data-widget="tree">
             <?php if(is_array($menu) || $menu instanceof \think\Collection || $menu instanceof \think\Paginator): if( count($menu)==0 ) : echo "" ;else: foreach($menu as $key=>$vo): if($vo['_level'] == 1 && $vo['menu_url'] == 'admin/index/index'): ?>
-            <li <?php if($route == $vo['menu_url']): ?>class="active"<?php else: ?>class=""<?php endif; ?>>
+            <li <?php if($route == $vo['module']): ?>class="active"<?php else: ?>class=""<?php endif; ?>>
                 <a href="<?php echo url($vo['menu_url']); ?>">
                     <i class="fa <?php echo $vo['menu_icon']; ?>"></i>
                     <span> <?php echo $vo['menu_title']; ?> </span>
@@ -191,7 +191,7 @@
                 </a>
                 <ul class="treeview-menu">
                     <?php if(is_array($menu) || $menu instanceof \think\Collection || $menu instanceof \think\Paginator): if( count($menu)==0 ) : echo "" ;else: foreach($menu as $key=>$to): if($to['menu_pid'] == $vo['menu_id']): ?>
-                    <li <?php if($route == $to['menu_url']): ?>class="active"<?php else: ?>class=""<?php endif; ?>>
+                    <li <?php if($route == $to['module']): ?>class="active"<?php else: ?>class=""<?php endif; ?>>
                         <a href="<?php echo url($to['menu_url']); ?>">
                             <i class="fa <?php echo $to['menu_icon']; ?>"></i>
                             <?php echo $to['menu_title']; ?>
@@ -206,11 +206,11 @@
     <!-- /.sidebar -->
 </aside>
 <script>
-    $(function () {
-        if ($('.treeview-menu li').hasClass('active')) {
-            $('.treeview-menu li.active').parents('.treeview').addClass('active').addClass('menu-open');
-        }
-    })
+$(function () {
+    if ($('.treeview-menu li').hasClass('active')) {
+        $('.treeview-menu li.active').parents('.treeview').addClass('active').addClass('menu-open');
+    }
+})
 </script>
 
 

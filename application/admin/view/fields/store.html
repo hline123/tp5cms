@@ -1,12 +1,17 @@
 {extend name="public/base" /}
 {block name="content"}
+{load href="__STATIC__/node_modules/bootstrap-tagsinput/dist/bootstrap-tagsinput.css"}
+{load href="__STATIC__/node_modules/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js"}
+<style>
+    .bootstrap-tagsinput { width: 100%; }
+</style>
 <section class="content-header">
     <h1>
         字段管理
     </h1>
     <ol class="breadcrumb">
         <li><a href="{:url('index/index')}"><i class="fa fa-home"></i> 首页 </a></li>
-        <li><a href="{:url('menu/index')}"><i class="fa fa-cog"></i> 字段管理</a></li>
+        <li><a href="{:url('fields/index')}"><i class="fa fa-cog"></i> 字段管理</a></li>
         <li class="active">添加字段</li>
     </ol>
 </section>
@@ -66,7 +71,7 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label">字段可选值：</label>
                             <div class="col-sm-9">
-                                <textarea class="form-control" name="field_values" placeholder="不同选项用 , 分割"></textarea>
+                                <input type="text" class="form-control" name="field_values" data-role="tagsinput" style="width: 100%;">
                             </div>
                         </div>
                     </div>
@@ -84,6 +89,8 @@
 </section>
 <!-- /.content -->
 <script>
-
+    $("input[name='field_values']").tagsinput({
+        tagClass: 'label label-primary'
+    });
 </script>
 {/block}

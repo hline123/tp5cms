@@ -89,7 +89,7 @@
         <ul class="sidebar-menu" data-widget="tree">
             {foreach name="menu" item="vo"}
             {if condition="$vo._level eq 1 && $vo.menu_url eq 'admin/index/index'"}
-            <li {if condition="$route eq $vo.menu_url"}class="active"{else/}class=""{/if}>
+            <li {if condition="$route eq $vo.module"}class="active"{else/}class=""{/if}>
                 <a href="{:url($vo.menu_url)}">
                     <i class="fa {$vo.menu_icon}"></i>
                     <span> {$vo.menu_title} </span>
@@ -107,7 +107,7 @@
                 <ul class="treeview-menu">
                     {foreach name="menu" item="to"}
                     {if condition="$to.menu_pid == $vo.menu_id"}
-                    <li {if condition="$route eq $to.menu_url"}class="active"{else/}class=""{/if}>
+                    <li {if condition="$route eq $to.module"}class="active"{else/}class=""{/if}>
                         <a href="{:url($to.menu_url)}">
                             <i class="fa {$to.menu_icon}"></i>
                             {$to.menu_title}

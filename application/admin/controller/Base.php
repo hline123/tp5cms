@@ -41,7 +41,8 @@ class Base extends Controller
         $module = $request->module();
         $controller = $request->controller();
         $action = $request->action();
-        $router = $module . '/' . $controller . '/' . $action;
+        // $router = $module . '/' . $controller . '/' . $action;
+        $router = $controller;
         return $router;
     }
 }

@@ -1,5 +1,10 @@
 {extend name="public/base" /}
 {block name="content"}
+{load href="__STATIC__/node_modules/bootstrap-tagsinput/dist/bootstrap-tagsinput.css"}
+{load href="__STATIC__/node_modules/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js"}
+<style>
+    .bootstrap-tagsinput { width: 100%; }
+</style>
 <section class="content-header">
     <h1>
         字段管理
@@ -12,7 +17,7 @@
 </section>
 
 <!-- Main content -->
-<section class="content" id="menuAdd">
+<section class="content">
     <div class="row">
         <div class="col-sm-12">
             <div class="box box-primary">
@@ -23,25 +28,26 @@
                 <!-- form start -->
                 <form role="form" class="form-horizontal" method="post">
                     <div class="box-body">
+                        <input type="hidden" name="id" value="{$field.id}" />
                         <div class="form-group">
                             <label class="col-sm-2 control-label">中文名称：</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="field_cname">
+                                <input type="text" class="form-control" name="field_cname" value="{$field.field_cname}">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label">英文名称：</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="field_ename">
+                                <input type="text" class="form-control" name="field_ename" value="{$field.field_ename}">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label">所选模型：</label>
                             <div class="col-sm-9">
-                                <select name="model_id" class="form-control">
+                                <select name="model_id" disabled class="form-control">
                                     <option value="">选择模型</option>
                                     {foreach name="models" item="vo"}
-                                    <option value="{$vo.model_id}">{$vo.model_name}</option>
+                                    <option {if condition="$field.model_id eq $vo.model_id"}selected{/if} value="{$vo.model_id}">{$vo.model_name}</option>
                                     {/foreach}
                                 </select>
                             </div>
@@ -50,7 +56,7 @@
                             <label class="col-sm-2 control-label">字段类型：</label>
                             <div class="col-sm-9">
                                 <select name="field_type" class="form-control">
-                                    <option value="0">选择字段类型</option>
+                                    <option value="">选择字段类型</option>
                                     <option value="1">文本框</option>
                                     <option value="2">单选按钮</option>
                                     <option value="3">复选按钮</option>
@@ -66,7 +72,8 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label">字段可选值：</label>
                             <div class="col-sm-9">
-                                <textarea class="form-control" name="field_values" placeholder="不同选项用 , 分割"></textarea>
+                                <!--<textarea class="form-control" name="field_values" data-role="tagsinput" placeholder="不同选项用 , 分割">{$field.field_values}</textarea>-->
+                                <input type="text" class="form-control" name="field_values" data-role="tagsinput" value="{$field.field_values}" style="width: 100%;">
                             </div>
                         </div>
                     </div>
@@ -84,6 +91,9 @@
 </section>
 <!-- /.content -->
 <script>
-
+$("select[name='field_type'] option[value={$field.field_type}]").attr('selected', true);
+$("input[name='field_values']").tagsinput({
+    tagClass: 'label label-primary'
+});
 </script>
 {/block}
