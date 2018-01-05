@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:8:{s:84:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\webset\index.html";i:1512462241;s:83:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\base.html";i:1512099526;s:89:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\common_css.html";i:1511928198;s:88:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\common_js.html";i:1512357149;s:85:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\header.html";i:1511850195;s:83:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\menu.html";i:1515029281;s:85:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\footer.html";i:1510538016;s:86:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\sidebar.html";i:1510537129;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:8:{s:84:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\fields\index.html";i:1514862701;s:83:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\base.html";i:1512099526;s:89:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\common_css.html";i:1511928198;s:88:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\common_js.html";i:1512357149;s:85:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\header.html";i:1511850195;s:83:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\menu.html";i:1515029281;s:85:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\footer.html";i:1510538016;s:86:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\sidebar.html";i:1510537129;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -217,7 +217,7 @@ $(function () {
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     
-<script type="text/javascript" src="__STATIC__/admin/js/common.js"></script>
+<!--<script type="text/javascript" src="__STATIC__/admin/js/common.js"></script>-->
 <style>
     td , tr{
         vertical-align: middle !important;
@@ -225,11 +225,11 @@ $(function () {
 </style>
 <section class="content-header">
     <h1>
-        配置列表
+        字段管理
     </h1>
     <ol class="breadcrumb">
         <li><a href="<?php echo url('index/index'); ?>"><i class="fa fa-home"></i> 首页 </a></li>
-        <li><a href="<?php echo url('webset/index'); ?>"><i class="fa fa-cog"></i> 配置管理</a></li>
+        <li><a href="<?php echo url('fields/index'); ?>"><i class="fa fa-cog"></i> 字段管理</a></li>
     </ol>
 </section>
 <!-- Main content -->
@@ -242,7 +242,7 @@ $(function () {
                         <div class="box-tools pull-left">
                             <div class="btn-group">
                                 <a class="btn btn-primary" href="<?php echo url('store'); ?>">
-                                    <i class="fa fa-plus"></i> 添加配置
+                                    <i class="fa fa-plus"></i> 添加字段
                                 </a>
                             </div>
                         </div>
@@ -255,24 +255,27 @@ $(function () {
                             <th style="width: 50px">ID</th>
                             <th>中文名称</th>
                             <th>英文名称</th>
-                            <th>默认值</th>
-                            <th>可选值</th>
+                            <th>字段类型</th>
+                            <th>所属模型</th>
                             <th style="width: 160px;">操作</th>
                         </tr>
                         <?php if(is_array($lists) || $lists instanceof \think\Collection || $lists instanceof \think\Paginator): if( count($lists)==0 ) : echo "" ;else: foreach($lists as $key=>$vo): ?>
                         <tr>
                             <td><?php echo $vo['id']; ?></td>
-                            <td><?php echo $vo['cname']; ?></td>
-                            <td><?php echo $vo['ename']; ?></td>
-                            <td><?php echo !empty($vo['value'])?$vo['value'] : '未定义'; ?></td>
-                            <td><?php echo !empty($vo['values'])?$vo['values'] : '未定义'; ?></td>
+                            <td><?php echo $vo['field_cname']; ?></td>
+                            <td><?php echo $vo['field_ename']; ?></td>
+                            <td>
+                                <?php switch($vo['field_type']): case "1": ?>文本框<?php break; case "2": ?>单选按钮<?php break; case "3": ?>复选框<?php break; case "4": ?>下拉框<?php break; case "5": ?>文本域<?php break; case "6": ?>附件<?php break; case "7": ?>浮点型<?php break; case "8": ?>整形<?php break; case "9": ?>长文本(LONGTEXT)<?php break; default: ?> 其他
+                                <?php endswitch; ?>
+                            </td>
+                            <td><?php echo $vo['model_name']; ?></td>
                             <td>
                                 <div class="btn-group">
                                     <button data-toggle="dropdown" class="btn btn-success btn-xs dropdown-toggle" aria-expanded="false">操作 <span class="caret"></span></button>
                                     <ul class="dropdown-menu dropdown-menu-right">
-                                        <li><a href="<?php echo url('edit',['id'=>$vo['id']]); ?>">编辑</a></li>
+                                        <li><a href="<?php echo url('edit', ['id'=>$vo['id']]); ?>">编辑</a></li>
                                         <li class="divider"></li>
-                                        <li><a href="javascript:;" onclick="del(this, '<?php echo $vo['id']; ?>', '<?php echo url('delete'); ?>')">删除</a></li>
+                                        <li><a href="javascript:;">删除</a></li>
                                     </ul>
                                 </div>
                             </td>
@@ -282,7 +285,6 @@ $(function () {
                 </div>
                 <!-- /.box-body -->
                 <div class="box-footer clearfix">
-                    <?php echo $lists->render(); ?>
                 </div>
             </div>
         </div>

@@ -67,4 +67,9 @@ class Menu extends Model
             return ['valid' => 0, 'msg' => '操作失败'];
         }
     }
+
+    public function edit ($data)
+    {
+
+    }
 }

@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:8:{s:84:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\webset\index.html";i:1512462241;s:83:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\base.html";i:1512099526;s:89:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\common_css.html";i:1511928198;s:88:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\common_js.html";i:1512357149;s:85:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\header.html";i:1511850195;s:83:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\menu.html";i:1515029281;s:85:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\footer.html";i:1510538016;s:86:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\sidebar.html";i:1510537129;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:8:{s:81:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\menu\edit.html";i:1514972957;s:83:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\base.html";i:1512099526;s:89:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\common_css.html";i:1511928198;s:88:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\common_js.html";i:1512357149;s:85:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\header.html";i:1511850195;s:83:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\menu.html";i:1514970408;s:85:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\footer.html";i:1510538016;s:86:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\sidebar.html";i:1510537129;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -206,90 +206,92 @@
     <!-- /.sidebar -->
 </aside>
 <script>
-$(function () {
-    if ($('.treeview-menu li').hasClass('active')) {
-        $('.treeview-menu li.active').parents('.treeview').addClass('active').addClass('menu-open');
-    }
-})
+    $(function () {
+        if ($('.treeview-menu li').hasClass('active')) {
+            $('.treeview-menu li.active').parents('.treeview').addClass('active').addClass('menu-open');
+        }
+    })
 </script>
 
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     
-<script type="text/javascript" src="__STATIC__/admin/js/common.js"></script>
-<style>
-    td , tr{
-        vertical-align: middle !important;
-    }
-</style>
 <section class="content-header">
     <h1>
-        配置列表
+        侧边栏菜单
     </h1>
     <ol class="breadcrumb">
         <li><a href="<?php echo url('index/index'); ?>"><i class="fa fa-home"></i> 首页 </a></li>
-        <li><a href="<?php echo url('webset/index'); ?>"><i class="fa fa-cog"></i> 配置管理</a></li>
+        <li><a href="<?php echo url('menu/index'); ?>"><i class="fa fa-cog"></i> 菜单管理</a></li>
+        <li class="active">编辑菜单</li>
     </ol>
 </section>
+
 <!-- Main content -->
-<section class="content" id="content">
+<section class="content" id="menuAdd">
     <div class="row">
-        <div class="col-md-12">
-            <div class="box box-success">
+        <div class="col-sm-12">
+            <div class="box box-primary">
                 <div class="box-header with-border">
-                    <div class="clearflx">
-                        <div class="box-tools pull-left">
-                            <div class="btn-group">
-                                <a class="btn btn-primary" href="<?php echo url('store'); ?>">
-                                    <i class="fa fa-plus"></i> 添加配置
-                                </a>
+                    <h3 class="box-title">编辑菜单</h3>
+                </div>
+                <!-- /.box-header -->
+                <!-- form start -->
+                <form role="form" class="form-horizontal" method="post">
+                    <div class="box-body">
+                        <input type="hidden" name="menu_id" value="<?php echo $field['menu_id']; ?>" />
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">菜单名称：</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" name="menu_title" value="<?php echo $field['menu_title']; ?>">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">菜单链接：</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" value="<?php echo $field['menu_url']; ?>" name="menu_url">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">菜单图标：</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" value="<?php echo $field['menu_icon']; ?>" name="menu_icon">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">上级菜单：</label>
+                            <div class="col-sm-9">
+                                <select name="menu_pid" class="form-control">
+                                    <option value="0"> 顶级菜单 </option>
+                                    <?php if(is_array($menus) || $menus instanceof \think\Collection || $menus instanceof \think\Paginator): if( count($menus)==0 ) : echo "" ;else: foreach($menus as $key=>$vo): ?>
+                                    <option <?php if($field['menu_pid'] == $vo['menu_id']): ?>selected<?php endif; ?> value="<?php echo $vo['menu_id']; ?>"> <?php echo $vo['_menu_title']; ?> </option>
+                                    <?php endforeach; endif; else: echo "" ;endif; ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">模块名称：</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" value="<?php echo $field['menu_nav']; ?>" name="menu_nav">
                             </div>
                         </div>
                     </div>
-                </div>
-                <!-- /.box-header -->
-                <div class="box-body">
-                    <table class="table table-bordered">
-                        <tr>
-                            <th style="width: 50px">ID</th>
-                            <th>中文名称</th>
-                            <th>英文名称</th>
-                            <th>默认值</th>
-                            <th>可选值</th>
-                            <th style="width: 160px;">操作</th>
-                        </tr>
-                        <?php if(is_array($lists) || $lists instanceof \think\Collection || $lists instanceof \think\Paginator): if( count($lists)==0 ) : echo "" ;else: foreach($lists as $key=>$vo): ?>
-                        <tr>
-                            <td><?php echo $vo['id']; ?></td>
-                            <td><?php echo $vo['cname']; ?></td>
-                            <td><?php echo $vo['ename']; ?></td>
-                            <td><?php echo !empty($vo['value'])?$vo['value'] : '未定义'; ?></td>
-                            <td><?php echo !empty($vo['values'])?$vo['values'] : '未定义'; ?></td>
-                            <td>
-                                <div class="btn-group">
-                                    <button data-toggle="dropdown" class="btn btn-success btn-xs dropdown-toggle" aria-expanded="false">操作 <span class="caret"></span></button>
-                                    <ul class="dropdown-menu dropdown-menu-right">
-                                        <li><a href="<?php echo url('edit',['id'=>$vo['id']]); ?>">编辑</a></li>
-                                        <li class="divider"></li>
-                                        <li><a href="javascript:;" onclick="del(this, '<?php echo $vo['id']; ?>', '<?php echo url('delete'); ?>')">删除</a></li>
-                                    </ul>
-                                </div>
-                            </td>
-                        </tr>
-                        <?php endforeach; endif; else: echo "" ;endif; ?>
-                    </table>
-                </div>
-                <!-- /.box-body -->
-                <div class="box-footer clearfix">
-                    <?php echo $lists->render(); ?>
-                </div>
+                    <!-- /.box-body -->
+                    <div class="box-footer">
+                        <div class="col-md-offset-1">
+                            <button type="submit" class="btn btn-success">添加</button>
+                            <button type="button" class="btn btn-primary" onclick="window.history.go(-1)">返回</button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 </section>
 <!-- /.content -->
 <script>
+
 </script>
 
   </div>
