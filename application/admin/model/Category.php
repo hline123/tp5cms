@@ -24,10 +24,11 @@ class Category extends Model
     public function getAll()
     {
         // 获取栏目数据
-        // $data = $this->order('cate_sort desc,cate_id')->select();
+//         $data = $this->order('cate_sort desc,cate_id')->select();
         // 链表查询模型名称
-        $data = db('cate')->alias('c')->field('c.*,m.model_name')->join('tp_model m', 'c.model_id=m.model_id')->order('cate_sort desc')->select();
+        $data = db('cate')->alias('c')->field('c.*,m.model_name, m.model_id')->join('tp_model m', 'c.model_id=m.model_id')->order('cate_sort desc')->select();
         // 变更树形结构
+
         $result = Arr::tree($data, 'cate_name', 'cate_id', 'cate_pid');
         return $result;
     }

@@ -109,13 +109,13 @@ class Category extends Base
             return json_encode(['valid' => 0, 'msg' => '上传文件不存在']);
         }
         // 移动至uploads/category目录下
-        $info = $file->validate(['size' => 3000000, 'ext' => 'jpg,png,gif'])->move(ROOT_PATH . 'public/uploads/category');
+        $info = $file->validate(['size' => 3000000, 'ext' => 'jpg,png,gif'])->move(ROOT_PATH . 'public/uploads/admin');
         // 判断处理文件
         if ($info) {
             $data = $info->getSaveName();
             // 返回文件信息
             //db('cate')->insert(['cate_thumb' => $data]);
-            $path = config('uploadPath') . 'category/' . $info->getSaveName();
+            $path = config('uploadPath') . 'admin/' . $info->getSaveName();
             //halt($path);
             return json_encode(['valid' => 1, 'msg' => $path]);
         } else {
@@ -226,9 +226,9 @@ class Category extends Base
         if (request()->isAjax()) {
             $data = input('post.');
             $path = $data['path'];
-            $str = config('uploadPath') . 'category/';
+            $str = config('uploadPath') . 'admin/';
             $path = substr($path, strlen($str));
-            $path = DEL_IMG . $path;
+            $path = DEL_IMG_ADMIN . $path;
             // 先删除存储的图片
             $res = @unlink($path);
             if ($data['id'] != '') {

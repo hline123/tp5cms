@@ -14,6 +14,7 @@
 // 定义应用目录
 define('APP_PATH', __DIR__ . '/../application/');
 // 定义删除文件目录
-define('DEL_IMG', __DIR__ . '/../public/uploads/category/');
+define('DEL_IMG_ADMIN', __DIR__ . '/../public/uploads/admin/');
+define('DEL_IMG_HOME', __DIR__ . '/../public/uploads/home/');
 // 加载框架引导文件
 require __DIR__ . '/../thinkphp/start.php';

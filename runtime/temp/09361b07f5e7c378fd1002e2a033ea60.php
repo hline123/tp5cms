@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:8:{s:87:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\webset\confList.html";i:1512625072;s:83:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\base.html";i:1512099526;s:89:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\common_css.html";i:1511928198;s:88:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\common_js.html";i:1515144126;s:85:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\header.html";i:1511850195;s:83:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\menu.html";i:1515224134;s:85:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\footer.html";i:1510538016;s:86:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\sidebar.html";i:1510537129;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:8:{s:86:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\category\store.html";i:1513321138;s:83:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\base.html";i:1512099526;s:89:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\common_css.html";i:1511928198;s:88:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\common_js.html";i:1515144126;s:85:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\header.html";i:1511850195;s:83:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\menu.html";i:1515224134;s:85:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\footer.html";i:1510538016;s:86:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\sidebar.html";i:1510537129;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -221,6 +221,7 @@ $(function () {
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     
+<script type="text/javascript" src="__STATIC__/admin/js/common.js"></script>
 <style>
     .checkbox-inline, .radio-inline {
         padding-left: 0;
@@ -229,219 +230,170 @@ $(function () {
 </style>
 <section class="content-header">
     <h1>
-        配置管理
+        添加栏目
     </h1>
     <ol class="breadcrumb">
-        <li><a href="<?php echo url('index/index'); ?>"><i class="fa fa-home"></i> Home </a></li>
-        <li><a href="<?php echo url('webset/index'); ?>"> <i class="fa fa-cog"></i> Config </a></li>
-        <li class="active"> Setting</li>
+        <li><a href="<?php echo url('index/index'); ?>"><i class="fa fa-home"></i> 首页 </a></li>
+        <li><a href="<?php echo url('category/index'); ?>"><i class="fa fa-th-large"></i> 栏目管理</a></li>
+        <li class="active"> 添加栏目</li>
     </ol>
 </section>
-
 <!-- Main content -->
 <section class="content">
     <div class="row">
         <div class="col-sm-12">
-            <form action="<?php echo url('confShow'); ?>" method="post" class="form-horizontal" role="form" enctype="multipart/form-data">
+            <form action="" method="post" class="form-horizontal" role="form">
                 <div class="nav-tabs-custom">
                     <ul class="nav nav-tabs">
                         <li class="active"><a href="#tab_1" data-toggle="tab">基本设置</a></li>
-                        <li><a href="#tab_2" data-toggle="tab">联系方式</a></li>
-                        <li><a href="#tab_3" data-toggle="tab">SEO设置</a></li>
+                        <li><a href="#tab_2" data-toggle="tab">SEO设置</a></li>
+                        <li><a href="#tab_3" data-toggle="tab">栏目内容</a></li>
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane active" id="tab_1">
-                            <?php if(is_array($baseInfo) || $baseInfo instanceof \think\Collection || $baseInfo instanceof \think\Paginator): if( count($baseInfo)==0 ) : echo "" ;else: foreach($baseInfo as $key=>$vo): switch($vo['dt_type']): case "1": ?>
                             <div class="form-group">
-                                <label class="col-sm-2 control-label"><?php echo $vo['cname']; ?>：</label>
+                                <label class="col-sm-2 control-label">所属模型：</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" name="<?php echo $vo['ename']; ?>" value="<?php echo $vo['value']; ?>">
-                                </div>
-                            </div>
-                            <?php break; case "2": ?>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label"><?php echo $vo['cname']; ?>：</label>
-                                <div class="col-sm-9">
-                                    <?php if(is_array($radio) || $radio instanceof \think\Collection || $radio instanceof \think\Paginator): if( count($radio)==0 ) : echo "" ;else: foreach($radio as $key=>$ro): ?>
-                                    <label class="radio-inline">
-                                        <input type="radio" name="<?php echo $vo['ename']; ?>" <?php if($vo['value'] == $ro): ?>checked<?php endif; ?> value="<?php echo $ro; ?>">
-                                        <?php echo $ro; ?>
-                                    </label>
-                                    <?php endforeach; endif; else: echo "" ;endif; ?>
-                                </div>
-                            </div>
-                            <?php break; case "3": ?>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label"><?php echo $vo['cname']; ?>：</label>
-                                <div class="col-sm-9">
-                                    <?php if(is_array($checkbox) || $checkbox instanceof \think\Collection || $checkbox instanceof \think\Paginator): if( count($checkbox)==0 ) : echo "" ;else: foreach($checkbox as $key=>$v): ?>
-                                    <label class="checkbox-inline">
-                                        <input type="checkbox" name="<?php echo $vo['ename']; ?>[]" <?php if(in_array($v, $checkboxValue)): ?>checked<?php endif; ?> value="<?php echo $v; ?>">
-                                        <?php echo $v; ?>
-                                    </label>
-                                    <?php endforeach; endif; else: echo "" ;endif; ?>
-                                </div>
-                            </div>
-                            <?php break; case "4": ?>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label"><?php echo $vo['cname']; ?>：</label>
-                                <div class="col-sm-9">
-                                    <select name="<?php echo $vo['ename']; ?>" class="form-control">
-                                        <option value=""> 请选择 </option>
-                                        <?php if(is_array($selected) || $selected instanceof \think\Collection || $selected instanceof \think\Paginator): if( count($selected)==0 ) : echo "" ;else: foreach($selected as $key=>$v): ?>
-                                        <option <?php if($vo['value'] == $v): ?>selected<?php endif; ?> value="<?php echo $v; ?>"> <?php echo $v; ?> </option>
+                                    <select class="form-control" name="model_id">
+                                        <option value="">选择模型</option>
+                                        <?php if(is_array($models) || $models instanceof \think\Collection || $models instanceof \think\Paginator): if( count($models)==0 ) : echo "" ;else: foreach($models as $key=>$vo): ?>
+                                        <option value="<?php echo $vo['model_id']; ?>"><?php echo $vo['model_name']; ?></option>
                                         <?php endforeach; endif; else: echo "" ;endif; ?>
                                     </select>
                                 </div>
                             </div>
-                            <?php break; case "5": ?>
                             <div class="form-group">
-                                <label class="col-sm-2 control-label"><?php echo $vo['cname']; ?>：</label>
+                                <label class="col-sm-2 control-label">栏目名称：</label>
                                 <div class="col-sm-9">
-                                    <textarea name="<?php echo $vo['ename']; ?>" class="form-control" cols="30" rows="3"><?php echo $vo['value']; ?></textarea>
+                                    <input type="text" class="form-control" name="cate_name">
                                 </div>
                             </div>
-                            <?php break; case "6": ?>
                             <div class="form-group">
-                                <label class="col-sm-2 control-label"><?php echo $vo['cname']; ?>：</label>
+                                <label class="col-sm-2 control-label">上级栏目：</label>
                                 <div class="col-sm-9">
-                                    <input type="file" name="<?php echo $vo['ename']; ?>" value="" class="form-control">
-                                    <img src="<?php echo $vo['value']; ?>" style="width: 100px; padding-top:10px;">
+                                    <select class="form-control" name="cate_pid">
+                                        <option value="0">顶级栏目</option>
+                                        <?php if(is_array($cateRes) || $cateRes instanceof \think\Collection || $cateRes instanceof \think\Paginator): if( count($cateRes)==0 ) : echo "" ;else: foreach($cateRes as $key=>$vo): ?>
+                                        <option <?php if($cateId == $vo['cate_id']): ?>selected<?php endif; ?> value="<?php echo $vo['cate_id']; ?>"><?php echo $vo['_cate_name']; ?></option>
+                                        <?php endforeach; endif; else: echo "" ;endif; ?>
+                                    </select>
                                 </div>
                             </div>
-                            <?php break; endswitch; endforeach; endif; else: echo "" ;endif; ?>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">栏目排序：</label>
+                                <div class="col-sm-9">
+                                    <input type="number" class="form-control" name="cate_sort" value="100">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">隐藏栏目：</label>
+                                <div class="col-sm-9">
+                                    <label class="radio-inline">
+                                        <input type="radio" name="cate_status" value="1" checked> 开启
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="cate_status" value="0"> 关闭
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">栏目图片：</label>
+                                <div class="col-sm-9">
+                                    <a class="btn btn-primary" data-toggle="modal" href="#modals">上传文件</a>
+                                    <input type="hidden" name="cate_thumb" id="cate_img" value=""/>
+                                    <div class="input-group" style="margin-top:5px;">
+                                        <img src="__STATIC__/admin/images/nopic.jpg" class="img-responsive img-thumbnail" width="150">
+                                        <em class="close" style="position:absolute; top: 0px; right: -14px;" title="删除这张图片" onclick="removeImg(this)">×</em>
+                                    </div>
+                                    <div class="modal fade" id="modals">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title">文件上传</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="dropzone" id="drop"></div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" id="remove-all">取消</button>
+                                                    <button type="button" class="btn btn-default" id="submit-all">确定上传</button>
+                                                </div>
+                                            </div><!-- /.modal-content -->
+                                        </div><!-- /.modal-dialog -->
+                                    </div><!-- /.modal -->
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">栏目属性：</label>
+                                <div class="col-sm-9">
+                                    <label class="radio-inline">
+                                        <input type="radio" name="cate_attr" value="1" checked> 列表页栏目(可发布文章)
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="cate_attr" value="2"> 封面页栏目
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="cate_attr" value="3"> 外链栏目
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">列表页模板：</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" name="list_tmp" value="list.html">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">内容页模板：</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" name="content_tmp" value="content.html">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">频道页模板：</label>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control" name="channel_tmp" value="channel.html">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">外链地址：</label>
+                                <div class="col-sm-9">
+                                    <input type="url" class="form-control" name="cate_link" value="" placeholder="如果是外链属性请填写">
+                                </div>
+                            </div>
                         </div>
                         <div class="tab-pane" id="tab_2">
-                            <?php if(is_array($ways) || $ways instanceof \think\Collection || $ways instanceof \think\Paginator): if( count($ways)==0 ) : echo "" ;else: foreach($ways as $key=>$vo): switch($vo['dt_type']): case "1": ?>
                             <div class="form-group">
-                                <label class="col-sm-2 control-label"><?php echo $vo['cname']; ?>：</label>
+                                <label class="col-sm-2 control-label">栏目标题：</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" name="<?php echo $vo['ename']; ?>" value="<?php echo $vo['value']; ?>">
+                                    <input type="text" class="form-control" name="cate_title" value="">
                                 </div>
                             </div>
-                            <?php break; case "2": ?>
                             <div class="form-group">
-                                <label class="col-sm-2 control-label"><?php echo $vo['cname']; ?>：</label>
+                                <label class="col-sm-2 control-label">关键词：</label>
                                 <div class="col-sm-9">
-                                    <?php if(is_array($radio) || $radio instanceof \think\Collection || $radio instanceof \think\Paginator): if( count($radio)==0 ) : echo "" ;else: foreach($radio as $key=>$ro): ?>
-                                    <label class="radio-inline">
-                                        <input type="radio" name="<?php echo $vo['ename']; ?>" <?php if($vo['value'] == $ro): ?>checked<?php endif; ?> value="<?php echo $ro; ?>">
-                                        <?php echo $ro; ?>
-                                    </label>
-                                    <?php endforeach; endif; else: echo "" ;endif; ?>
+                                    <input type="text" class="form-control" name="cate_keywords" value="">
                                 </div>
                             </div>
-                            <?php break; case "3": ?>
                             <div class="form-group">
-                                <label class="col-sm-2 control-label"><?php echo $vo['cname']; ?>：</label>
+                                <label class="col-sm-2 control-label">描述：</label>
                                 <div class="col-sm-9">
-                                    <div class="col-sm-9">
-                                        <?php if(is_array($checkbox) || $checkbox instanceof \think\Collection || $checkbox instanceof \think\Paginator): if( count($checkbox)==0 ) : echo "" ;else: foreach($checkbox as $key=>$v): ?>
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox" name="<?php echo $vo['ename']; ?>[]" <?php if(in_array($v, $checkboxValue)): ?>checked<?php endif; ?> value="<?php echo $v; ?>">
-                                            <?php echo $v; ?>
-                                        </label>
-                                        <?php endforeach; endif; else: echo "" ;endif; ?>
-                                    </div>
+                                    <textarea name="cate_desc" class="form-control" rows="3"></textarea>
                                 </div>
                             </div>
-                            <?php break; case "4": ?>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label"><?php echo $vo['cname']; ?>：</label>
-                                <div class="col-sm-9">
-                                    <select name="<?php echo $vo['ename']; ?>" class="form-control">
-                                        <option value=""> 请选择 </option>
-                                        <?php if(is_array($selected) || $selected instanceof \think\Collection || $selected instanceof \think\Paginator): if( count($selected)==0 ) : echo "" ;else: foreach($selected as $key=>$v): ?>
-                                        <option <?php if($vo['value'] == $v): ?>selected<?php endif; ?> value="<?php echo $v; ?>"> <?php echo $v; ?> </option>
-                                        <?php endforeach; endif; else: echo "" ;endif; ?>
-                                    </select>
-                                </div>
-                            </div>
-                            <?php break; case "5": ?>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label"><?php echo $vo['cname']; ?>：</label>
-                                <div class="col-sm-9">
-                                    <textarea name="<?php echo $vo['ename']; ?>" class="form-control" cols="30" rows="3"><?php echo $vo['value']; ?></textarea>
-                                </div>
-                            </div>
-                            <?php break; case "6": ?>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label"><?php echo $vo['cname']; ?>：</label>
-                                <div class="col-sm-9">
-                                    <input type="file" name="<?php echo $vo['ename']; ?>" value="" class="form-control">
-                                    <img src="<?php echo $vo['value']; ?>" style="width: 100px; padding-top:10px;">
-                                </div>
-                            </div>
-                            <?php break; endswitch; endforeach; endif; else: echo "" ;endif; ?>
                         </div>
                         <div class="tab-pane" id="tab_3">
-                            <?php if(is_array($seo) || $seo instanceof \think\Collection || $seo instanceof \think\Paginator): if( count($seo)==0 ) : echo "" ;else: foreach($seo as $key=>$vo): switch($vo['dt_type']): case "1": ?>
                             <div class="form-group">
-                                <label class="col-sm-2 control-label"><?php echo $vo['cname']; ?>：</label>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control" name="<?php echo $vo['ename']; ?>" value="<?php echo $vo['value']; ?>">
+                                <div class="col-sm-12">
+                                    <textarea id="container" name="cate_content" style="height:400px;width:100%;"></textarea>
                                 </div>
                             </div>
-                            <?php break; case "2": ?>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label"><?php echo $vo['cname']; ?>：</label>
-                                <div class="col-sm-9">
-                                    <?php if(is_array($radio) || $radio instanceof \think\Collection || $radio instanceof \think\Paginator): if( count($radio)==0 ) : echo "" ;else: foreach($radio as $key=>$ro): ?>
-                                    <label class="radio-inline">
-                                        <input type="radio" name="<?php echo $vo['ename']; ?>" <?php if($vo['value'] == $ro): ?>checked<?php endif; ?> value="<?php echo $ro; ?>">
-                                        <?php echo $ro; ?>
-                                    </label>
-                                    <?php endforeach; endif; else: echo "" ;endif; ?>
-                                </div>
-                            </div>
-                            <?php break; case "3": ?>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label"><?php echo $vo['cname']; ?>：</label>
-                                <div class="col-sm-9">
-                                    <div class="col-sm-9">
-                                        <?php if(is_array($checkbox) || $checkbox instanceof \think\Collection || $checkbox instanceof \think\Paginator): if( count($checkbox)==0 ) : echo "" ;else: foreach($checkbox as $key=>$v): ?>
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox" name="<?php echo $vo['ename']; ?>[]" <?php if(in_array($v, $checkboxValue)): ?>checked<?php endif; ?> value="<?php echo $v; ?>">
-                                            <?php echo $v; ?>
-                                        </label>
-                                        <?php endforeach; endif; else: echo "" ;endif; ?>
-                                    </div>
-                                </div>
-                            </div>
-                            <?php break; case "4": ?>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label"><?php echo $vo['cname']; ?>：</label>
-                                <div class="col-sm-9">
-                                    <select name="<?php echo $vo['ename']; ?>" class="form-control">
-                                        <option value=""> 请选择 </option>
-                                        <?php if(is_array($selected) || $selected instanceof \think\Collection || $selected instanceof \think\Paginator): if( count($selected)==0 ) : echo "" ;else: foreach($selected as $key=>$v): ?>
-                                        <option <?php if($vo['value'] == $v): ?>selected<?php endif; ?> value="<?php echo $v; ?>"> <?php echo $v; ?> </option>
-                                        <?php endforeach; endif; else: echo "" ;endif; ?>
-                                    </select>
-                                </div>
-                            </div>
-                            <?php break; case "5": ?>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label"><?php echo $vo['cname']; ?>：</label>
-                                <div class="col-sm-9">
-                                    <textarea name="<?php echo $vo['ename']; ?>" class="form-control" cols="30" rows="3"><?php echo $vo['value']; ?></textarea>
-                                </div>
-                            </div>
-                            <?php break; case "6": ?>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label"><?php echo $vo['cname']; ?>：</label>
-                                <div class="col-sm-9">
-                                    <input type="file" name="<?php echo $vo['ename']; ?>" value="" >
-                                    <img src="<?php echo $vo['value']; ?>" style="width: 100px; padding-top:10px;">
-                                </div>
-                            </div>
-                            <?php break; endswitch; endforeach; endif; else: echo "" ;endif; ?>
                         </div>
                     </div>
                     <div class="box-footer">
                         <div class="col-sm-offset-1">
                             <button type="submit" class="btn btn-success">添加</button>
-                            <button type="reset" class="btn btn-primary">重置</button>
+                            <button type="button" class="btn btn-primary" onclick="window.history.go(-1)">返回</button>
                         </div>
                     </div>
                 </div>
@@ -449,19 +401,117 @@ $(function () {
         </div>
     </div>
 </section>
-
-<script>
-    $(function () {
-        $('input[type="checkbox"], input[type="radio"]').iCheck({
-            checkboxClass: 'icheckbox_flat-green',
-            radioClass: 'iradio_flat-green'
-        })
+<!-- /.content -->
+<!-- 百度编辑器配置文件 -->
+<script type="text/javascript" src="__STATIC__/plugins/ueditor/ueditor.config.js"></script>
+<!-- 编辑器源码文件 -->
+<script type="text/javascript" src="__STATIC__/plugins/ueditor/ueditor.all.min.js"></script>
+<link rel="stylesheet" type="text/css" href="__STATIC__/plugins/dropzone/dropzone.css" />
+<script type="text/javascript" src="__STATIC__/plugins/dropzone/dropzone.js"></script>
+<!-- 实例化编辑器 -->
+<script type="text/javascript">
+    var ue = UE.getEditor('container', {});
+    // 处理文件上传
+    Dropzone.autoDiscover = false;
+    $("#drop").dropzone({
+        url: "<?php echo url('category/upImg'); ?>",
+        paramName: 'cate_thumb',
+        acceptedFiles: "image/*",
+        addRemoveLinks: true,
+        uploadMultiple: false,
+        maxFilesize: 3,
+        maxFiles: 1,
+        autoProcessQueue: false,
+        dictDefaultMessage: "选择上传文件",
+        dictRemoveFile: '移除',
+        dictCancelUpload: '取消',
+        dictInvalidFileType: '请上传图片',
+        init: function() {
+            var submitButton = document.querySelector("#submit-all");
+            var removeButton = document.querySelector("#remove-all");
+            var myDropzone = this;
+            submitButton.addEventListener("click", function() {
+                myDropzone.processQueue();
+            });
+            //只显示限定的文件数量
+            this.on("maxfilesexceeded", function(file) {
+                myDropzone.removeFile(file);
+            });
+            // 上传成功时清空预览区域，关闭模态框
+            myDropzone.on("complete", function(file) {
+                myDropzone.removeFile(file);
+                $('#modals').modal('hide');
+            });
+            // 移除文件
+            removeButton.addEventListener("click", function() {
+                myDropzone.removeAllFiles();
+                $('#modals').modal('hide');
+            });
+            // 成功后的回调
+            this.on("success", function(file, res) {
+                var path = $.parseJSON( res );
+                if (path.valid == 1) {
+                    $('.img-thumbnail').attr('src', path.msg);
+                    $('#cate_img').val(path.msg);
+                }
+            });
+        }
     });
-    $('input[type="file"]').change(function () {
-        $(this).next('img').attr('src', '');
+    //移除图片
+    function removeImg(obj) {
+        var path = $('#cate_img').val();
+        if (path == '') {
+            layer.alert('暂无图片,请先上传图片');
+            return false;
+        }
+        $(obj).prev('img').attr('src','__STATIC__/admin/images/nopic.jpg');
+        $('#cate_img').val('');
+        $.ajax({
+            url: "<?php echo url('delImg'); ?>",
+            type: 'POST',
+            data: {id:'',path:path},
+            dataType: 'json',
+            success: function (res) {
+                if (res == 1) {
+                    layer.alert('删除图片成功');
+                    $('#cate_img').val('');
+                }
+            }
+        })
+    }
+    // 修改模板属性
+    function editTemplate() {
+        var pid = $("select[name='cate_pid']").find('option:selected').val();
+        if (pid != 0) {
+            $.ajax({
+                url: "<?php echo url('cateInfo'); ?>",
+                type: 'POST',
+                data: {id:pid},
+                dataType: 'json',
+                success: function (response) {
+                    var res = $.parseJSON(response);
+                    // 修改模板名称
+                    $("input[name='list_tmp']").val(res.list_tmp);
+                    $("input[name='channel_tmp']").val(res.channel_tmp);
+                    $("input[name='content_tmp']").val(res.content_tmp);
+                    // 选定模型
+                    $("select[name='model_id']").val(res.model_id);
+                    //console.log(res);
+                    /*if (res == 1) {
+                        layer.alert('删除图片成功');
+                        $('#cate_img').val('');
+                    }*/
+                }
+            })
+        }
+    }
+    if ($("select[name='cate_pid']").find('option:selected').val() != 0) {
+        editTemplate();
+    }
+    $("select[name='cate_pid']").change(function () {
+        editTemplate();
     })
 </script>
-<!-- /.content -->
 
   </div>
   <!-- /.content-wrapper -->

@@ -11,3 +11,19 @@ function alert($msg = '', $url = '', $icon = '6', $time = 3)
     $str .= '<script>$(function(){layer.msg("' . $msg . '",{icon:' . $icon . ',time:' . ($time * 1000) . '});setTimeout(function(){self.location.href="' . $url . '"},2000)});</script>';
     return $str;
 }
+// 获取百度编辑器
+function get_ueditor ($name) {
+    $str = <<<UEDITOR
+    <textarea name="$name" id="$name" style="height:300px;width:100%;"></textarea>
+    <script>
+        UE.getEditor('$name', {
+            toolbars: [[
+            'fullscreen', 'source', '|', 'undo', 'redo', '|',
+            'bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc', '|',
+            'rowspacingtop', 'rowspacingbottom', 'lineheight'
+            ]]
+        });
+    </script>
+UEDITOR;
+    return $str;
+}

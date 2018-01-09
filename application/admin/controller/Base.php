@@ -18,6 +18,7 @@ class Base extends Controller
         $route = strtolower($this->getRouter());
         // 侧边栏菜单
         $menu = $this->leftMenu();
+//        halt($menu);
         $this->assign('menu', $menu);
         $this->assign('route', $route);
     }
@@ -45,4 +46,5 @@ class Base extends Controller
         $router = $controller;
         return $router;
     }
+
 }

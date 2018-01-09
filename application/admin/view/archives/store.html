@@ -1,0 +1,297 @@
+{extend name="public/base" /}
+{block name="content"}
+{load href="__STATIC__/admin/js/common.js"}
+<style>
+    .checkbox-inline, .radio-inline {
+        padding-left: 0;
+        padding-right: 20px;
+    }
+</style>
+<section class="content-header">
+    <h1>
+        添加文档
+    </h1>
+    <ol class="breadcrumb">
+        <li><a href="{:url('index/index')}"><i class="fa fa-home"></i> 首页 </a></li>
+        <li><a href="{:url('archives/index')}"><i class="fa fa-database"></i> 文档管理</a></li>
+        <li class="active"> 添加文档</li>
+    </ol>
+</section>
+<!-- Main content -->
+<section class="content">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">添加文档</h3>
+                </div>
+                <!-- /.box-header -->
+                <!-- form start -->
+                <form role="form" class="form-horizontal" method="post">
+                    <div class="box-body">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">文档标题：</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" name="title">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">关键字：</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" name="keywords">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">文档作者：</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" name="author">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">所属栏目：</label>
+                            <div class="col-sm-9">
+                                {foreach name="cates" item="vo"}
+                                {if condition="$cate_id eq $vo.cate_id"}
+                                <input type="text" class="form-control" name="cate_id" value="{$vo._cate_name}" disabled >
+                                {/if}
+                                {/foreach}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">点击数：</label>
+                            <div class="col-sm-9">
+                                <input type="number" class="form-control" name="click" value="50">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">文档来源：</label>
+                            <div class="col-sm-9">
+                                <input type="url" class="form-control" name="source">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">文档描述：</label>
+                            <div class="col-sm-9">
+                                <textarea class="form-control" name="desc"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">文档属性：</label>
+                            <div class="col-sm-9">
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" name="attr[]" value=""> 文档属性1
+                                </label>
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" name="attr[]" value=""> 文档属性2
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group" >
+                            <label for="" class="col-sm-2 control-label" >自定义字段</label >
+                            <div class="col-sm-9" >
+                                <div class="panel panel-default" >
+                                    <div class="panel-body" >
+                                        {foreach name="diyFields" item="vo"}
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">{$vo.field_cname}：</label>
+                                            <div class="col-sm-9">
+                                                {switch name="$vo.field_type"}
+                                                {case value="1"}
+                                                <input type="text" class="form-control" name="{$vo.field_ename}">
+                                                {/case}
+                                                {case value="2"}
+                                                {php}
+                                                if ($vo['field_values']) {
+                                                    $arr = explode(',', $vo['field_values']);
+                                                    foreach ($arr as $k1 => $v1) {
+                                                        echo '<label class="radio-inline">';
+                                                        echo "<input type='radio' name='".$vo['field_ename']."' class='form-control' /> $v1 ";
+                                                        echo '</label>';
+                                                    }
+                                                }
+                                                {/php}
+                                                {/case}
+                                                {case value="3"}
+                                                {php}
+                                                if ($vo['field_values']) {
+                                                $arr = explode(',', $vo['field_values']);
+                                                foreach ($arr as $k1 => $v1) {
+                                                echo '<label class="checkbox-inline">';
+                                                echo "<input type='checkbox' name='".$vo['field_ename']."[]' class='form-control' /> $v1 ";
+                                                echo '</label>';
+                                                }
+                                                }
+                                                {/php}
+                                                {/case}
+                                                {case value="4"}
+                                                {php}
+                                                if($vo['field_values']){
+                                                    $arr=explode(',', $vo['field_values']);
+                                                    echo "<select  class='form-control' name='".$vo['field_ename']."'>";
+                                                    foreach ($arr as $k1 => $v1) {
+                                                        echo "<option value='".$v1."'>".$v1."</option>";
+                                                    }
+                                                    echo "</select>";
+                                                }
+                                                {/php}
+                                                {/case}
+                                                {case value="6"}
+                                                <input type="file" class="form-control" name="{$vo.field_ename}">
+                                                {/case}
+                                                {case value="5"}
+                                                <textarea class="form-control" name="{$vo.field_ename}"></textarea>
+                                                {/case}
+                                                {case value="7"}
+                                                <input type="number" class="form-control" name="{$vo.field_ename}">
+                                                {/case}
+                                                {case value="8"}
+                                                <input type="number" class="form-control" name="{$vo.field_ename}">
+                                                {/case}
+                                                {case value="9"}
+                                                <textarea name="content" id="{$vo.field_ename}" style="height:280px;width:100%;"></textarea>
+                                                {/case}
+                                                {default /}
+                                                <input type="text" class="form-control" name="{$vo.field_ename}">
+                                                {/switch}
+                                            </div>
+                                        </div>
+                                        {/foreach}
+                                    </div >
+                                </div >
+                            </div >
+                        </div >
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">文档缩略图：</label>
+                            <div class="col-sm-9">
+                                <a class="btn btn-primary" data-toggle="modal" href="#modals">上传文件</a>
+                                <input type="hidden" name="pic" id="pic" value=""/>
+                                <div class="input-group" style="margin-top:5px;">
+                                    <img src="__STATIC__/admin/images/nopic.jpg" class="img-responsive img-thumbnail" width="150">
+                                    <em class="close" style="position:absolute; top: 0px; right: -14px;" title="删除这张图片" onclick="removeImg(this)">×</em>
+                                </div>
+                                <div class="modal fade" id="modals">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">文件上传</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="dropzone" id="drop"></div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" id="remove-all">取消</button>
+                                                <button type="button" class="btn btn-default" id="submit-all">确定上传</button>
+                                            </div>
+                                        </div><!-- /.modal-content -->
+                                    </div><!-- /.modal-dialog -->
+                                </div><!-- /.modal -->
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">文档内容：</label>
+                            <div class="col-sm-9">
+                                <textarea id="container" name="content" style="height:400px;width:100%;"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+                    <div class="box-footer">
+                        <div class="col-md-offset-1">
+                            <button type="submit" class="btn btn-success">添加</button>
+                            <button type="button" class="btn btn-primary" onclick="window.history.go(-1)">返回</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- /.content -->
+<!-- 百度编辑器配置文件 -->
+{load href="__STATIC__/plugins/ueditor/ueditor.config.js"}
+<!-- 编辑器源码文件 -->
+{load href="__STATIC__/plugins/ueditor/ueditor.all.min.js"}
+{load href="__STATIC__/plugins/dropzone/dropzone.css"}
+{load href="__STATIC__/plugins/dropzone/dropzone.js"}
+<script type="text/javascript">
+    var ue = UE.getEditor('container', {});
+    // 处理文件上传
+    Dropzone.autoDiscover = false;
+    $("#drop").dropzone({
+        url: "{:url('archives/upImg')}",
+        paramName: 'pic',
+        acceptedFiles: "image/*",
+        addRemoveLinks: true,
+        uploadMultiple: false,
+        maxFilesize: 3,
+        maxFiles: 1,
+        autoProcessQueue: false,
+        dictDefaultMessage: "选择上传文件",
+        dictRemoveFile: '移除',
+        dictCancelUpload: '取消',
+        dictInvalidFileType: '请上传图片',
+        init: function() {
+            var submitButton = document.querySelector("#submit-all");
+            var removeButton = document.querySelector("#remove-all");
+            var myDropzone = this;
+            submitButton.addEventListener("click", function() {
+                myDropzone.processQueue();
+            });
+            //只显示限定的文件数量
+            this.on("maxfilesexceeded", function(file) {
+                myDropzone.removeFile(file);
+            });
+            // 上传成功时清空预览区域，关闭模态框
+            myDropzone.on("complete", function(file) {
+                myDropzone.removeFile(file);
+                $('#modals').modal('hide');
+            });
+            // 移除文件
+            removeButton.addEventListener("click", function() {
+                myDropzone.removeAllFiles();
+                $('#modals').modal('hide');
+            });
+            // 成功后的回调
+            this.on("success", function(file, res) {
+                var path = $.parseJSON( res );
+                if (path.valid == 1) {
+                    $('.img-thumbnail').attr('src', path.msg);
+                    $('#pic').val(path.msg);
+                }
+            });
+        }
+    });
+    //移除图片
+    function removeImg(obj) {
+        var path = $('#pic').val();
+        if (path == '') {
+            layer.alert('暂无图片,请先上传图片');
+            return false;
+        }
+        $('#pic').val('');
+        $.ajax({
+            url: "{:url('delImg')}",
+            type: 'POST',
+            data: {id:'',path:path},
+            dataType: 'json',
+            success: function (res) {
+                if (res == 1) {
+                    layer.alert('删除图片成功');
+                    $('#pic').val('');
+                    $(obj).prev('img').attr('src','__STATIC__/admin/images/nopic.jpg');
+                }
+            }
+        })
+    }
+</script>
+<?php foreach($longText as $k => $v):?>
+<script>
+    UE.getEditor('{$v.field_ename}', {toolbars:[[
+            'fullscreen', 'source', '|', 'undo', 'redo', '|',
+            'bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc', '|',
+            'rowspacingtop', 'rowspacingbottom', 'lineheight', '|',
+            'customstyle', 'paragraph', 'fontfamily', 'fontsize'
+        ]]});
+</script>
+<?php endforeach;?>
+{/block}

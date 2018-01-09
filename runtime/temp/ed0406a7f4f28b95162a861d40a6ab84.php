@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:8:{s:86:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\category\index.html";i:1513309202;s:83:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\base.html";i:1512099526;s:89:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\common_css.html";i:1511928198;s:88:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\common_js.html";i:1512357149;s:85:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\header.html";i:1511850195;s:83:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\menu.html";i:1515029281;s:85:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\footer.html";i:1510538016;s:86:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\sidebar.html";i:1510537129;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:8:{s:86:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\category\index.html";i:1515207834;s:83:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\base.html";i:1512099526;s:89:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\common_css.html";i:1511928198;s:88:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\common_js.html";i:1515144126;s:85:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\header.html";i:1511850195;s:83:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\menu.html";i:1515224134;s:85:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\footer.html";i:1510538016;s:86:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\sidebar.html";i:1510537129;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,7 +21,8 @@
   <!-- jQuery 3 -->
 <script src="__STATIC__/node_modules/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
-<script src="__STATIC__/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<!--<script src="__STATIC__/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>-->
+<script type="text/javascript" src="__STATIC__/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- SlimScroll -->
 <script src="__STATIC__/plugins/jquery-slimscroll/jquery.slimscroll.min.js"></script>
 <!--layer-->
@@ -174,7 +175,7 @@
         -->
         <ul class="sidebar-menu" data-widget="tree">
             <?php if(is_array($menu) || $menu instanceof \think\Collection || $menu instanceof \think\Paginator): if( count($menu)==0 ) : echo "" ;else: foreach($menu as $key=>$vo): if($vo['_level'] == 1 && $vo['menu_url'] == 'admin/index/index'): ?>
-            <li <?php if($route == $vo['menu_url']): ?>class="active"<?php else: ?>class=""<?php endif; ?>>
+            <li <?php if($route == $vo['module']): ?>class="active"<?php else: ?>class=""<?php endif; ?>>
                 <a href="<?php echo url($vo['menu_url']); ?>">
                     <i class="fa <?php echo $vo['menu_icon']; ?>"></i>
                     <span> <?php echo $vo['menu_title']; ?> </span>
@@ -191,7 +192,7 @@
                 </a>
                 <ul class="treeview-menu">
                     <?php if(is_array($menu) || $menu instanceof \think\Collection || $menu instanceof \think\Paginator): if( count($menu)==0 ) : echo "" ;else: foreach($menu as $key=>$to): if($to['menu_pid'] == $vo['menu_id']): ?>
-                    <li <?php if($route == $to['menu_url']): ?>class="active"<?php else: ?>class=""<?php endif; ?>>
+                    <li <?php if($route == $to['module']): ?>class="active"<?php else: ?>class=""<?php endif; ?>>
                         <a href="<?php echo url($to['menu_url']); ?>">
                             <i class="fa <?php echo $to['menu_icon']; ?>"></i>
                             <?php echo $to['menu_title']; ?>
@@ -212,6 +213,9 @@ $(function () {
     }
 })
 </script>
+<div>
+
+</div>
 
 
   <!-- Content Wrapper. Contains page content -->
@@ -286,7 +290,9 @@ $(function () {
                                 </td>
                                 <td><input type="checkbox" name="cate_ids[]" value="<?php echo $vo['cate_id']; ?>" class="check-all"></td>
                                 <td><?php echo $vo['cate_id']; ?></td>
-                                <td style="text-align: left;"><a href=""><?php echo $vo['_cate_name']; ?></a></td>
+                                <td style="text-align: left;">
+                                    <a href="<?php echo url('admin/archives/index',['cate_id'=>$vo['cate_id'],'model_id'=>$vo['model_id']]); ?>"><?php echo $vo['_cate_name']; ?></a>
+                                </td>
                                 <td>
                                     <?php if($vo['cate_attr'] == 1): ?>
                                     列表栏目

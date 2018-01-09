@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:8:{s:84:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\fields\store.html";i:1515144354;s:83:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\base.html";i:1512099526;s:89:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\common_css.html";i:1511928198;s:88:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\common_js.html";i:1515144126;s:85:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\header.html";i:1511850195;s:83:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\menu.html";i:1515224134;s:85:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\footer.html";i:1510538016;s:86:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\sidebar.html";i:1510537129;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:8:{s:83:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\models\edit.html";i:1513303088;s:83:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\base.html";i:1512099526;s:89:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\common_css.html";i:1511928198;s:88:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\common_js.html";i:1515144126;s:85:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\header.html";i:1511850195;s:83:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\menu.html";i:1515224134;s:85:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\footer.html";i:1510538016;s:86:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\sidebar.html";i:1510537129;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -221,85 +221,64 @@ $(function () {
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     
-<link rel="stylesheet" type="text/css" href="__STATIC__/node_modules/bootstrap-tagsinput/dist/bootstrap-tagsinput.css" />
-<script type="text/javascript" src="__STATIC__/node_modules/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js"></script>
+<script type="text/javascript" src="__STATIC__/admin/js/common.js"></script>
 <style>
-    .bootstrap-tagsinput { width: 100%; }
+    .checkbox-inline, .radio-inline {
+        padding-left: 0;
+        padding-right: 20px;
+    }
 </style>
 <section class="content-header">
     <h1>
-        字段管理
+        编辑模型
     </h1>
     <ol class="breadcrumb">
         <li><a href="<?php echo url('index/index'); ?>"><i class="fa fa-home"></i> 首页 </a></li>
-        <li><a href="<?php echo url('fields/index'); ?>"><i class="fa fa-cog"></i> 字段管理</a></li>
-        <li class="active">添加字段</li>
+        <li><a href="<?php echo url('models/index'); ?>"><i class="fa fa-database"></i> 模型管理</a></li>
+        <li class="active"> 编辑模型</li>
     </ol>
 </section>
-
 <!-- Main content -->
-<section class="content" id="menuAdd">
+<section class="content">
     <div class="row">
         <div class="col-sm-12">
             <div class="box box-primary">
                 <div class="box-header with-border">
-                    <h3 class="box-title">添加字段</h3>
+                    <h3 class="box-title">编辑模型</h3>
                 </div>
                 <!-- /.box-header -->
                 <!-- form start -->
                 <form role="form" class="form-horizontal" method="post">
                     <div class="box-body">
+                        <input type="hidden" name="model_id" value="<?php echo $field['model_id']; ?>">
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">中文名称：</label>
+                            <label class="col-sm-2 control-label">模型名称：</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="field_cname">
+                                <input type="text" class="form-control" name="model_name" value="<?php echo $field['model_name']; ?>">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">英文名称：</label>
+                            <label class="col-sm-2 control-label">模型附加表：</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="field_ename">
+                                <input type="text" class="form-control" value="<?php echo $field['table_name']; ?>" name="table_name" />
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">所选模型：</label>
+                            <label class="col-sm-2 control-label">模型状态：</label>
                             <div class="col-sm-9">
-                                <select name="model_id" class="form-control">
-                                    <option value="">选择模型</option>
-                                    <?php if(is_array($models) || $models instanceof \think\Collection || $models instanceof \think\Paginator): if( count($models)==0 ) : echo "" ;else: foreach($models as $key=>$vo): ?>
-                                    <option value="<?php echo $vo['model_id']; ?>"><?php echo $vo['model_name']; ?></option>
-                                    <?php endforeach; endif; else: echo "" ;endif; ?>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">字段类型：</label>
-                            <div class="col-sm-9">
-                                <select name="field_type" class="form-control">
-                                    <option value="">选择字段类型</option>
-                                    <option value="1">文本框</option>
-                                    <option value="2">单选按钮</option>
-                                    <option value="3">复选按钮</option>
-                                    <option value="4">下拉框</option>
-                                    <option value="5">文本域</option>
-                                    <option value="6">附件</option>
-                                    <option value="7">浮点型</option>
-                                    <option value="8">整形</option>
-                                    <option value="9">长文本LONGTEXT</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">字段可选值：</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control" name="field_values" data-role="tagsinput" style="width: 100%;">
+                                <label class="radio-inline">
+                                    <input type="radio" name="model_status" value="1" <?php if($field['model_status'] == 1): ?> checked <?php endif; ?>> 开启
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="model_status" value="0" <?php if($field['model_status'] == 0): ?> checked <?php endif; ?>> 禁用
+                                </label>
                             </div>
                         </div>
                     </div>
                     <!-- /.box-body -->
                     <div class="box-footer">
                         <div class="col-md-offset-1">
-                            <button type="submit" class="btn btn-success">添加</button>
+                            <button type="submit" class="btn btn-success">编辑</button>
                             <button type="button" class="btn btn-primary" onclick="window.history.go(-1)">返回</button>
                         </div>
                     </div>
@@ -309,10 +288,9 @@ $(function () {
     </div>
 </section>
 <!-- /.content -->
-<script>
-    $("input[name='field_values']").tagsinput({
-        tagClass: 'label label-primary'
-    });
+<!-- 实例化编辑器 -->
+<script type="text/javascript">
+    //移除图片
 </script>
 
   </div>

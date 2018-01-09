@@ -69,7 +69,9 @@
                                 </td>
                                 <td><input type="checkbox" name="cate_ids[]" value="{$vo.cate_id}" class="check-all"></td>
                                 <td>{$vo.cate_id}</td>
-                                <td style="text-align: left;"><a href="">{$vo._cate_name}</a></td>
+                                <td style="text-align: left;">
+                                    <a href="{:url('admin/archives/index',['cate_id'=>$vo.cate_id,'model_id'=>$vo.model_id])}">{$vo._cate_name}</a>
+                                </td>
                                 <td>
                                     {if condition="$vo.cate_attr eq 1"}
                                     列表栏目
