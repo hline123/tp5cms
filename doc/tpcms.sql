@@ -10,10 +10,35 @@ Target Server Type    : MYSQL
 Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2018-01-05 17:35:25
+Date: 2018-01-09 15:12:42
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for tp_archives
+-- ----------------------------
+DROP TABLE IF EXISTS `tp_archives`;
+CREATE TABLE `tp_archives` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '文档ID',
+  `title` varchar(150) NOT NULL COMMENT '文档标题',
+  `keywords` varchar(150) NOT NULL COMMENT '关键词',
+  `desc` varchar(255) NOT NULL COMMENT '描述',
+  `author` varchar(60) NOT NULL COMMENT '作者',
+  `source` varchar(150) NOT NULL COMMENT '来源',
+  `pic` varchar(150) NOT NULL COMMENT '文档缩略图',
+  `attr` varchar(60) NOT NULL COMMENT '属性',
+  `click` mediumint(9) NOT NULL DEFAULT '50' COMMENT '点击数',
+  `content` longtext NOT NULL COMMENT '文档内容',
+  `cate_id` mediumint(9) NOT NULL COMMENT '所属栏目',
+  `model_id` mediumint(9) NOT NULL COMMENT '所属模型',
+  `time` varchar(11) NOT NULL COMMENT '文档发布时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of tp_archives
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for tp_article
@@ -21,6 +46,12 @@ SET FOREIGN_KEY_CHECKS=0;
 DROP TABLE IF EXISTS `tp_article`;
 CREATE TABLE `tp_article` (
   `article_id` int(11) NOT NULL AUTO_INCREMENT,
+  `arc_title` varchar(150) NOT NULL DEFAULT '',
+  `arc_author` varchar(150) NOT NULL DEFAULT '',
+  `arc_content` longtext,
+  `arc_cate` varchar(150) NOT NULL DEFAULT '',
+  `arc_desc` varchar(600) NOT NULL DEFAULT '',
+  `intro` longtext,
   PRIMARY KEY (`article_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -50,20 +81,22 @@ CREATE TABLE `tp_cate` (
   `cate_pid` int(11) NOT NULL DEFAULT '0' COMMENT '栏目父级ID',
   `cate_link` varchar(100) NOT NULL COMMENT '外链地址',
   PRIMARY KEY (`cate_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=40 DEFAULT CHARSET=utf8 COMMENT='栏目管理';
+) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COMMENT='栏目管理';
 
 -- ----------------------------
 -- Records of tp_cate
 -- ----------------------------
-INSERT INTO `tp_cate` VALUES ('37', '1', 'aa', '', '', '', '', '1', '', '1', 'list.html', 'channel.html', 'content.html', '100', '0', '');
-INSERT INTO `tp_cate` VALUES ('36', '1', '陕西', '', '', '', '', '1', '', '1', 'list.html', 'channel.html', 'content.html', '100', '31', '');
-INSERT INTO `tp_cate` VALUES ('35', '1', 'ceshi', '', '', '', '', '1', '', '1', 'list.html', 'channel.html', 'content.html', '100', '0', '');
-INSERT INTO `tp_cate` VALUES ('38', '1', '西安', '', '', '', '', '1', '', '1', 'list.html', 'channel.html', 'content.html', '100', '36', '');
-INSERT INTO `tp_cate` VALUES ('29', '1', '美国', '', '', '', '', '1', '', '1', 'list.html', 'channel.html', 'content.html', '100', '0', '');
-INSERT INTO `tp_cate` VALUES ('30', '1', '华盛顿', '美国', '美国', '美国', '<p>美国</p>', '1', '', '1', 'list.html', 'content.html', 'content.html', '100', '29', '');
-INSERT INTO `tp_cate` VALUES ('31', '1', '中国', '', '', '', '', '1', '', '1', 'list.html', 'channel.html', 'content.html', '100', '0', '');
-INSERT INTO `tp_cate` VALUES ('32', '1', '测试', '', '', '', '', '1', '', '1', 'list.html', 'content.html', 'content.html', '100', '0', '');
-INSERT INTO `tp_cate` VALUES ('39', '1', '唐人街', '', '', '', '', '1', '', '1', 'list.html', 'channel.html', 'content.html', '100', '30', '');
+INSERT INTO `tp_cate` VALUES ('1', '1', '公司动态', '公司动态', '公司动态', '公司动态', '<p>公司动态</p>', '1', '', '1', 'list.html', 'channel.html', 'content.html', '100', '0', '');
+INSERT INTO `tp_cate` VALUES ('2', '1', '元旦活动', '元旦活动', '元旦活动', '元旦活动', '<p>元旦活动</p>', '1', '', '1', 'list.html', 'channel.html', 'content.html', '100', '1', '');
+INSERT INTO `tp_cate` VALUES ('3', '1', '表演节目', '表演节目', '表演节目', '表演节目', '<p>表演节目</p>', '1', '', '1', 'list.html', 'channel.html', 'content.html', '100', '2', '');
+INSERT INTO `tp_cate` VALUES ('4', '1', '下乡', '下乡', '下乡', '下乡', '<p>下乡</p>', '1', '', '1', 'list.html', 'channel.html', 'content.html', '100', '1', '');
+INSERT INTO `tp_cate` VALUES ('5', '2', '视频资源', '视频资源', '视频资源', '视频资源', '<p>视频资源</p>', '1', '', '1', 'list.html', 'channel.html', 'content.html', '100', '0', '');
+INSERT INTO `tp_cate` VALUES ('6', '2', 'PHP视频', 'PHP视频', 'PHP视频', 'PHP视频', '<p>PHP视频</p>', '1', '', '1', 'list.html', 'channel.html', 'content.html', '100', '5', '');
+INSERT INTO `tp_cate` VALUES ('7', '3', '图片资源', '图片资源', '图片资源', '图片资源', '<p>图片资源</p>', '1', '', '1', 'list.html', 'channel.html', 'content.html', '100', '0', '');
+INSERT INTO `tp_cate` VALUES ('8', '3', '公司简介图片', '公司简介图片', '公司简介图片', '公司简介图片', '<p>公司简介图片</p>', '1', '', '1', 'list.html', 'channel.html', 'content.html', '100', '7', '');
+INSERT INTO `tp_cate` VALUES ('9', '3', 'banner图', 'banner图', 'banner图', 'banner图', '<p>banner图</p>', '1', '', '1', 'list.html', 'channel.html', 'content.html', '100', '7', '');
+INSERT INTO `tp_cate` VALUES ('10', '3', '小banner图', '小banner图', '小banner图', '小banner图', '<p>小banner图</p>', '1', '', '1', 'list.html', 'channel.html', 'content.html', '100', '9', '');
+INSERT INTO `tp_cate` VALUES ('11', '1', '公司地址', '公司地址', '公司地址', '公司地址', '<p>公司地址</p>', '1', 'http://tpcms.com/uploads/admin/20180109\\3bb263f046980d71eecdc39aed0b2569.jpg', '3', 'list.html', 'channel.html', 'content.html', '100', '1', '');
 
 -- ----------------------------
 -- Table structure for tp_field
@@ -78,13 +111,40 @@ CREATE TABLE `tp_field` (
   `model_id` mediumint(9) NOT NULL COMMENT '所属模型',
   PRIMARY KEY (`id`),
   KEY `model_id` (`model_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of tp_field
 -- ----------------------------
-INSERT INTO `tp_field` VALUES ('1', '视频封面', 'video_img', '6', '112', '3');
-INSERT INTO `tp_field` VALUES ('2', '视频名称', 'video_name', '1', '12,fasd,asdf', '3');
+INSERT INTO `tp_field` VALUES ('1', '视频名称', 'video_name', '1', '', '2');
+INSERT INTO `tp_field` VALUES ('2', '视频大小', 'video_size', '1', '', '2');
+INSERT INTO `tp_field` VALUES ('3', '视频来源', 'video_url', '1', '', '2');
+INSERT INTO `tp_field` VALUES ('4', '图片大小', 'img_size', '1', '', '3');
+INSERT INTO `tp_field` VALUES ('5', '图片来源', 'img_url', '1', '', '3');
+INSERT INTO `tp_field` VALUES ('6', '文章标题', 'arc_title', '1', '', '1');
+INSERT INTO `tp_field` VALUES ('7', '文章作者', 'arc_author', '1', '', '1');
+INSERT INTO `tp_field` VALUES ('8', '文章内容', 'arc_content', '9', '', '1');
+INSERT INTO `tp_field` VALUES ('9', '文章类别', 'arc_cate', '3', '原创,转载', '1');
+INSERT INTO `tp_field` VALUES ('10', '视频类别', 'video_cate', '3', 'php,js,html5', '2');
+INSERT INTO `tp_field` VALUES ('11', '文章描述', 'arc_desc', '5', '', '1');
+INSERT INTO `tp_field` VALUES ('12', '视频封面', 'video_img', '6', '', '2');
+INSERT INTO `tp_field` VALUES ('13', '公司简介', 'intro', '9', '', '1');
+INSERT INTO `tp_field` VALUES ('14', '视频标签', 'video_tag', '4', 'js,bootstrap,php', '2');
+
+-- ----------------------------
+-- Table structure for tp_images
+-- ----------------------------
+DROP TABLE IF EXISTS `tp_images`;
+CREATE TABLE `tp_images` (
+  `images_id` int(11) NOT NULL AUTO_INCREMENT,
+  `img_size` varchar(150) NOT NULL DEFAULT '',
+  `img_url` varchar(150) NOT NULL DEFAULT '',
+  PRIMARY KEY (`images_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of tp_images
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for tp_menu
@@ -99,7 +159,7 @@ CREATE TABLE `tp_menu` (
   `menu_nav` varchar(60) NOT NULL COMMENT '菜单模块名称',
   `module` char(60) NOT NULL COMMENT '菜单模块',
   PRIMARY KEY (`menu_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COMMENT='侧边栏管理';
+) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COMMENT='侧边栏管理';
 
 -- ----------------------------
 -- Records of tp_menu
@@ -113,6 +173,7 @@ INSERT INTO `tp_menu` VALUES ('6', 'admin/fields/index', 'Fields', 'fa-rss-squar
 INSERT INTO `tp_menu` VALUES ('8', 'javascript:;', 'Websets', 'fa-cog', '0', '网站配置', '');
 INSERT INTO `tp_menu` VALUES ('9', 'admin/webset/confList', 'Management', 'fa-circle-o', '8', '配置管理', 'webset');
 INSERT INTO `tp_menu` VALUES ('10', 'admin/webset/index', 'Websets', 'fa-circle-o', '8', '配置列表', 'webset');
+INSERT INTO `tp_menu` VALUES ('11', 'admin/archives/index', 'Archives', 'fa-book', '2', '文档管理', 'archives');
 
 -- ----------------------------
 -- Table structure for tp_model
@@ -124,27 +185,14 @@ CREATE TABLE `tp_model` (
   `table_name` varchar(60) NOT NULL COMMENT '模型对应数据附加表名称',
   `model_status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '模型状态 1开启 0 禁用',
   PRIMARY KEY (`model_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='模型管理';
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='模型管理';
 
 -- ----------------------------
 -- Records of tp_model
 -- ----------------------------
 INSERT INTO `tp_model` VALUES ('1', '文章管理', 'article', '1');
-INSERT INTO `tp_model` VALUES ('2', '图片管理', 'images', '0');
-INSERT INTO `tp_model` VALUES ('3', '视频管理', 'video', '0');
-
--- ----------------------------
--- Table structure for tp_test
--- ----------------------------
-DROP TABLE IF EXISTS `tp_test`;
-CREATE TABLE `tp_test` (
-  `test_id` int(11) NOT NULL AUTO_INCREMENT,
-  PRIMARY KEY (`test_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of tp_test
--- ----------------------------
+INSERT INTO `tp_model` VALUES ('2', '视频管理', 'video', '1');
+INSERT INTO `tp_model` VALUES ('3', '图片管理', 'images', '1');
 
 -- ----------------------------
 -- Table structure for tp_video
@@ -152,8 +200,12 @@ CREATE TABLE `tp_test` (
 DROP TABLE IF EXISTS `tp_video`;
 CREATE TABLE `tp_video` (
   `video_id` int(11) NOT NULL AUTO_INCREMENT,
-  `video_img` varchar(150) NOT NULL DEFAULT '',
   `video_name` varchar(150) NOT NULL DEFAULT '',
+  `video_size` varchar(150) NOT NULL DEFAULT '',
+  `video_url` varchar(150) NOT NULL DEFAULT '',
+  `video_cate` varchar(150) NOT NULL DEFAULT '',
+  `video_img` varchar(150) NOT NULL DEFAULT '',
+  `video_tag` varchar(150) NOT NULL DEFAULT '',
   PRIMARY KEY (`video_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
