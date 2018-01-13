@@ -19,6 +19,7 @@ class Webset extends Base
     {
         // 获取配置所有数据
         $confRes = db('webset')->select();
+        /*
         // 获取网站基本信息
         $baseInfo = db('webset')->where('cf_type', 1)->select();
         // 获取联系方式
@@ -28,6 +29,7 @@ class Webset extends Base
         // 查询所有需要分割的values数据
         // 单选
         $radios = db('webset')->where("dt_type=2")->select();
+        //halt($radios);
         // 多选
         $checkboxes = db('webset')->where("dt_type=3")->select();
         // 下拉框
@@ -35,7 +37,10 @@ class Webset extends Base
         // 将单选配置内容分割成数组
         $radio = [];
         foreach ($radios as $k => $v) {
-            $radio = explode(',', $v['values']);
+            $radio[] = explode(',', $v['values']);
+            foreach ($radio as $k1 => $v1) {
+
+            }
         }
         // 将多选配置内容分割成数组
         $checkbox = [];
@@ -49,15 +54,9 @@ class Webset extends Base
         foreach ($selects as $k => $v) {
             $selected    = explode(',', $v['values']);
         }
+        */
         $this->assign([
             'confRes'     => $confRes,
-            'baseInfo'    => $baseInfo,
-            'ways'        => $ways,
-            'seo'         => $seo,
-            'radio'       => $radio,
-            'checkbox'    => $checkbox,
-            'selected'    => $selected,
-            'checkboxValue' => $checkboxValue
         ]);
         return view('confList');
     }

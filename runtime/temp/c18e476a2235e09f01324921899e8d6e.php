@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:8:{s:87:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\webset\confList.html";i:1512625072;s:83:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\base.html";i:1512099526;s:89:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\common_css.html";i:1511928198;s:88:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\common_js.html";i:1515144126;s:85:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\header.html";i:1511850195;s:83:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\menu.html";i:1515224134;s:85:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\footer.html";i:1510538016;s:86:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\sidebar.html";i:1510537129;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:8:{s:87:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\webset\confList.html";i:1515827224;s:83:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\base.html";i:1512099526;s:89:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\common_css.html";i:1511928198;s:88:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\common_js.html";i:1515144126;s:85:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\header.html";i:1511850195;s:83:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\menu.html";i:1515224134;s:85:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\footer.html";i:1510538016;s:86:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\sidebar.html";i:1510537129;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -251,191 +251,142 @@ $(function () {
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane active" id="tab_1">
-                            <?php if(is_array($baseInfo) || $baseInfo instanceof \think\Collection || $baseInfo instanceof \think\Paginator): if( count($baseInfo)==0 ) : echo "" ;else: foreach($baseInfo as $key=>$vo): switch($vo['dt_type']): case "1": ?>
+                            <?php foreach( $confRes as $k=>$v):if($v['cf_type']==1):?>
                             <div class="form-group">
-                                <label class="col-sm-2 control-label"><?php echo $vo['cname']; ?>：</label>
+                                <label class="col-sm-2 control-label"><?php echo $v['cname'];?>：</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" name="<?php echo $vo['ename']; ?>" value="<?php echo $vo['value']; ?>">
-                                </div>
-                            </div>
-                            <?php break; case "2": ?>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label"><?php echo $vo['cname']; ?>：</label>
-                                <div class="col-sm-9">
-                                    <?php if(is_array($radio) || $radio instanceof \think\Collection || $radio instanceof \think\Paginator): if( count($radio)==0 ) : echo "" ;else: foreach($radio as $key=>$ro): ?>
-                                    <label class="radio-inline">
-                                        <input type="radio" name="<?php echo $vo['ename']; ?>" <?php if($vo['value'] == $ro): ?>checked<?php endif; ?> value="<?php echo $ro; ?>">
-                                        <?php echo $ro; ?>
-                                    </label>
-                                    <?php endforeach; endif; else: echo "" ;endif; ?>
-                                </div>
-                            </div>
-                            <?php break; case "3": ?>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label"><?php echo $vo['cname']; ?>：</label>
-                                <div class="col-sm-9">
-                                    <?php if(is_array($checkbox) || $checkbox instanceof \think\Collection || $checkbox instanceof \think\Paginator): if( count($checkbox)==0 ) : echo "" ;else: foreach($checkbox as $key=>$v): ?>
-                                    <label class="checkbox-inline">
-                                        <input type="checkbox" name="<?php echo $vo['ename']; ?>[]" <?php if(in_array($v, $checkboxValue)): ?>checked<?php endif; ?> value="<?php echo $v; ?>">
-                                        <?php echo $v; ?>
-                                    </label>
-                                    <?php endforeach; endif; else: echo "" ;endif; ?>
-                                </div>
-                            </div>
-                            <?php break; case "4": ?>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label"><?php echo $vo['cname']; ?>：</label>
-                                <div class="col-sm-9">
-                                    <select name="<?php echo $vo['ename']; ?>" class="form-control">
-                                        <option value=""> 请选择 </option>
-                                        <?php if(is_array($selected) || $selected instanceof \think\Collection || $selected instanceof \think\Paginator): if( count($selected)==0 ) : echo "" ;else: foreach($selected as $key=>$v): ?>
-                                        <option <?php if($vo['value'] == $v): ?>selected<?php endif; ?> value="<?php echo $v; ?>"> <?php echo $v; ?> </option>
-                                        <?php endforeach; endif; else: echo "" ;endif; ?>
+                                    <?php if($v['dt_type']==1):?> <!-- 单行文本 -->
+                                    <input class="form-control" name="<?php echo $v['ename'];?>"  value="<?php echo $v['value'];?>" type="text">
+                                    <?php endif;if($v['dt_type']==2):
+                                            $valuesArr=explode(',', $v['values']);
+                                            foreach($valuesArr as $k1=>$v1):
+                                    ?> <!-- 单选按钮 -->
+                                    <div class="radio-inline">
+                                        <label>
+                                            <input <?php if($v1 == $v['value']): ?> checked="checked" <?php endif; ?> name="<?php echo $v['ename'];?>" value="<?php echo $v1;?>" type="radio">
+                                            <?php echo $v1;?>
+                                        </label>
+                                    </div>
+                                    <?php endforeach; endif;if($v['dt_type']==3):
+                                            $valuesArr=explode(',', $v['values']);
+                                            $valueArr=explode(',', $v['value']);
+                                            foreach($valuesArr as $k1=>$v1):
+                                    ?> <!-- 复选框 -->
+                                    <div class="checkbox-inline">
+                                        <label>
+                                            <input name="<?php echo $v['ename'];?>[]" <?php if(in_array($v1, $valueArr)){echo 'checked="checked"';}?> value="<?php echo $v1;?>"  type="checkbox">
+                                            <?php echo $v1;?>
+                                        </label>
+                                    </div>
+                                    <?php endforeach; endif;if($v['dt_type']==4):?> <!-- 下拉菜单 -->
+                                    <select name="<?php echo $v['ename'];?>" class="form-control">
+                                        <option value="">请选择</option>
+                                        <?php $valuesArr=explode(',', $v['values']);
+                                                foreach($valuesArr as $k1=>$v1):
+                                        ?>
+                                        <option <?php if($v1==$v['value']){echo 'selected="selected"';}?> value="<?php echo $v1;?>"><?php echo $v1;?></option>
+                                        <?php endforeach;?>
                                     </select>
+                                    <?php endif;if($v['dt_type']==5):?> <!-- 文本域 -->
+                                        <textarea name="<?php echo $v['ename'];?>" class="form-control" cols="3"> <?php echo $v['value'];?> </textarea>
+                                    <?php endif;if($v['dt_type']==6):?> <!-- 附件类型 -->
+                                        <input class="form-control" value=""  name="<?php echo $v['ename'];?>"  type="file">
+                                        <?php if($v['value']): ?><img height="30" src="<?php echo $v['value']; ?>"><?php else: endif; endif;?>
                                 </div>
                             </div>
-                            <?php break; case "5": ?>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label"><?php echo $vo['cname']; ?>：</label>
-                                <div class="col-sm-9">
-                                    <textarea name="<?php echo $vo['ename']; ?>" class="form-control" cols="30" rows="3"><?php echo $vo['value']; ?></textarea>
-                                </div>
-                            </div>
-                            <?php break; case "6": ?>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label"><?php echo $vo['cname']; ?>：</label>
-                                <div class="col-sm-9">
-                                    <input type="file" name="<?php echo $vo['ename']; ?>" value="" class="form-control">
-                                    <img src="<?php echo $vo['value']; ?>" style="width: 100px; padding-top:10px;">
-                                </div>
-                            </div>
-                            <?php break; endswitch; endforeach; endif; else: echo "" ;endif; ?>
+                            <?php endif;endforeach;?>
                         </div>
                         <div class="tab-pane" id="tab_2">
-                            <?php if(is_array($ways) || $ways instanceof \think\Collection || $ways instanceof \think\Paginator): if( count($ways)==0 ) : echo "" ;else: foreach($ways as $key=>$vo): switch($vo['dt_type']): case "1": ?>
+                            <?php foreach( $confRes as $k=>$v):if($v['cf_type']==2):?>
                             <div class="form-group">
-                                <label class="col-sm-2 control-label"><?php echo $vo['cname']; ?>：</label>
+                                <label class="col-sm-2 control-label"><?php echo $v['cname'];?>：</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" name="<?php echo $vo['ename']; ?>" value="<?php echo $vo['value']; ?>">
-                                </div>
-                            </div>
-                            <?php break; case "2": ?>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label"><?php echo $vo['cname']; ?>：</label>
-                                <div class="col-sm-9">
-                                    <?php if(is_array($radio) || $radio instanceof \think\Collection || $radio instanceof \think\Paginator): if( count($radio)==0 ) : echo "" ;else: foreach($radio as $key=>$ro): ?>
-                                    <label class="radio-inline">
-                                        <input type="radio" name="<?php echo $vo['ename']; ?>" <?php if($vo['value'] == $ro): ?>checked<?php endif; ?> value="<?php echo $ro; ?>">
-                                        <?php echo $ro; ?>
-                                    </label>
-                                    <?php endforeach; endif; else: echo "" ;endif; ?>
-                                </div>
-                            </div>
-                            <?php break; case "3": ?>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label"><?php echo $vo['cname']; ?>：</label>
-                                <div class="col-sm-9">
-                                    <div class="col-sm-9">
-                                        <?php if(is_array($checkbox) || $checkbox instanceof \think\Collection || $checkbox instanceof \think\Paginator): if( count($checkbox)==0 ) : echo "" ;else: foreach($checkbox as $key=>$v): ?>
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox" name="<?php echo $vo['ename']; ?>[]" <?php if(in_array($v, $checkboxValue)): ?>checked<?php endif; ?> value="<?php echo $v; ?>">
-                                            <?php echo $v; ?>
+                                    <?php if($v['dt_type']==1):?> <!-- 单行文本 -->
+                                    <input class="form-control" name="<?php echo $v['ename'];?>"  value="<?php echo $v['value'];?>" type="text">
+                                    <?php endif;if($v['dt_type']==2):
+                                            $valuesArr=explode(',', $v['values']);
+                                            foreach($valuesArr as $k1=>$v1):
+                                    ?> <!-- 单选按钮 -->
+                                    <div class="radio-inline">
+                                        <label>
+                                            <input <?php if($v1 == $v['value']): ?> checked="checked" <?php endif; ?> name="<?php echo $v['ename'];?>" value="<?php echo $v1;?>" type="radio">
+                                            <?php echo $v1;?>
                                         </label>
-                                        <?php endforeach; endif; else: echo "" ;endif; ?>
                                     </div>
-                                </div>
-                            </div>
-                            <?php break; case "4": ?>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label"><?php echo $vo['cname']; ?>：</label>
-                                <div class="col-sm-9">
-                                    <select name="<?php echo $vo['ename']; ?>" class="form-control">
-                                        <option value=""> 请选择 </option>
-                                        <?php if(is_array($selected) || $selected instanceof \think\Collection || $selected instanceof \think\Paginator): if( count($selected)==0 ) : echo "" ;else: foreach($selected as $key=>$v): ?>
-                                        <option <?php if($vo['value'] == $v): ?>selected<?php endif; ?> value="<?php echo $v; ?>"> <?php echo $v; ?> </option>
-                                        <?php endforeach; endif; else: echo "" ;endif; ?>
+                                    <?php endforeach; endif;if($v['dt_type']==3):
+                                            $valuesArr=explode(',', $v['values']);
+                                            $valueArr=explode(',', $v['value']);
+                                            foreach($valuesArr as $k1=>$v1):
+                                    ?> <!-- 复选框 -->
+                                    <div class="checkbox-inline">
+                                        <label>
+                                            <input name="<?php echo $v['ename'];?>[]" <?php if(in_array($v1, $valueArr)){echo 'checked="checked"';}?> value="<?php echo $v1;?>"  type="checkbox">
+                                            <?php echo $v1;?>
+                                        </label>
+                                    </div>
+                                    <?php endforeach; endif;if($v['dt_type']==4):?> <!-- 下拉菜单 -->
+                                    <select name="<?php echo $v['ename'];?>" class="form-control">
+                                        <option value="">请选择</option>
+                                        <?php $valuesArr=explode(',', $v['values']);
+                                                foreach($valuesArr as $k1=>$v1):
+                                        ?>
+                                        <option <?php if($v1==$v['value']){echo 'selected="selected"';}?> value="<?php echo $v1;?>"><?php echo $v1;?></option>
+                                        <?php endforeach;?>
                                     </select>
+                                    <?php endif;if($v['dt_type']==5):?> <!-- 文本域 -->
+                                    <textarea name="<?php echo $v['ename'];?>" class="form-control" cols="3"> <?php echo $v['value'];?> </textarea>
+                                    <?php endif;if($v['dt_type']==6):?> <!-- 附件类型 -->
+                                    <input class="form-control" value=""  name="<?php echo $v['ename'];?>"  type="file">
+                                    <?php if($v['value']): ?><img height="30" src="<?php echo $v['value']; ?>"><?php else: endif; endif;?>
                                 </div>
                             </div>
-                            <?php break; case "5": ?>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label"><?php echo $vo['cname']; ?>：</label>
-                                <div class="col-sm-9">
-                                    <textarea name="<?php echo $vo['ename']; ?>" class="form-control" cols="30" rows="3"><?php echo $vo['value']; ?></textarea>
-                                </div>
-                            </div>
-                            <?php break; case "6": ?>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label"><?php echo $vo['cname']; ?>：</label>
-                                <div class="col-sm-9">
-                                    <input type="file" name="<?php echo $vo['ename']; ?>" value="" class="form-control">
-                                    <img src="<?php echo $vo['value']; ?>" style="width: 100px; padding-top:10px;">
-                                </div>
-                            </div>
-                            <?php break; endswitch; endforeach; endif; else: echo "" ;endif; ?>
+                            <?php endif;endforeach;?>
                         </div>
                         <div class="tab-pane" id="tab_3">
-                            <?php if(is_array($seo) || $seo instanceof \think\Collection || $seo instanceof \think\Paginator): if( count($seo)==0 ) : echo "" ;else: foreach($seo as $key=>$vo): switch($vo['dt_type']): case "1": ?>
+                            <?php foreach( $confRes as $k=>$v):if($v['cf_type']==3):?>
                             <div class="form-group">
-                                <label class="col-sm-2 control-label"><?php echo $vo['cname']; ?>：</label>
+                                <label class="col-sm-2 control-label"><?php echo $v['cname'];?>：</label>
                                 <div class="col-sm-9">
-                                    <input type="text" class="form-control" name="<?php echo $vo['ename']; ?>" value="<?php echo $vo['value']; ?>">
-                                </div>
-                            </div>
-                            <?php break; case "2": ?>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label"><?php echo $vo['cname']; ?>：</label>
-                                <div class="col-sm-9">
-                                    <?php if(is_array($radio) || $radio instanceof \think\Collection || $radio instanceof \think\Paginator): if( count($radio)==0 ) : echo "" ;else: foreach($radio as $key=>$ro): ?>
-                                    <label class="radio-inline">
-                                        <input type="radio" name="<?php echo $vo['ename']; ?>" <?php if($vo['value'] == $ro): ?>checked<?php endif; ?> value="<?php echo $ro; ?>">
-                                        <?php echo $ro; ?>
-                                    </label>
-                                    <?php endforeach; endif; else: echo "" ;endif; ?>
-                                </div>
-                            </div>
-                            <?php break; case "3": ?>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label"><?php echo $vo['cname']; ?>：</label>
-                                <div class="col-sm-9">
-                                    <div class="col-sm-9">
-                                        <?php if(is_array($checkbox) || $checkbox instanceof \think\Collection || $checkbox instanceof \think\Paginator): if( count($checkbox)==0 ) : echo "" ;else: foreach($checkbox as $key=>$v): ?>
-                                        <label class="checkbox-inline">
-                                            <input type="checkbox" name="<?php echo $vo['ename']; ?>[]" <?php if(in_array($v, $checkboxValue)): ?>checked<?php endif; ?> value="<?php echo $v; ?>">
-                                            <?php echo $v; ?>
+                                    <?php if($v['dt_type']==1):?> <!-- 单行文本 -->
+                                    <input class="form-control" name="<?php echo $v['ename'];?>"  value="<?php echo $v['value'];?>" type="text">
+                                    <?php endif;if($v['dt_type']==2):
+                                            $valuesArr=explode(',', $v['values']);
+                                            foreach($valuesArr as $k1=>$v1):
+                                    ?> <!-- 单选按钮 -->
+                                    <div class="radio-inline">
+                                        <label>
+                                            <input <?php if($v1 == $v['value']): ?> checked="checked" <?php endif; ?> name="<?php echo $v['ename'];?>" value="<?php echo $v1;?>" type="radio">
+                                            <?php echo $v1;?>
                                         </label>
-                                        <?php endforeach; endif; else: echo "" ;endif; ?>
                                     </div>
-                                </div>
-                            </div>
-                            <?php break; case "4": ?>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label"><?php echo $vo['cname']; ?>：</label>
-                                <div class="col-sm-9">
-                                    <select name="<?php echo $vo['ename']; ?>" class="form-control">
-                                        <option value=""> 请选择 </option>
-                                        <?php if(is_array($selected) || $selected instanceof \think\Collection || $selected instanceof \think\Paginator): if( count($selected)==0 ) : echo "" ;else: foreach($selected as $key=>$v): ?>
-                                        <option <?php if($vo['value'] == $v): ?>selected<?php endif; ?> value="<?php echo $v; ?>"> <?php echo $v; ?> </option>
-                                        <?php endforeach; endif; else: echo "" ;endif; ?>
+                                    <?php endforeach; endif;if($v['dt_type']==3):
+                                            $valuesArr=explode(',', $v['values']);
+                                            $valueArr=explode(',', $v['value']);
+                                            foreach($valuesArr as $k1=>$v1):
+                                    ?> <!-- 复选框 -->
+                                    <div class="checkbox-inline">
+                                        <label>
+                                            <input name="<?php echo $v['ename'];?>[]" <?php if(in_array($v1, $valueArr)){echo 'checked="checked"';}?> value="<?php echo $v1;?>"  type="checkbox">
+                                            <?php echo $v1;?>
+                                        </label>
+                                    </div>
+                                    <?php endforeach; endif;if($v['dt_type']==4):?> <!-- 下拉菜单 -->
+                                    <select name="<?php echo $v['ename'];?>" class="form-control">
+                                        <option value="">请选择</option>
+                                        <?php $valuesArr=explode(',', $v['values']);
+                                                foreach($valuesArr as $k1=>$v1):
+                                        ?>
+                                        <option <?php if($v1==$v['value']){echo 'selected="selected"';}?> value="<?php echo $v1;?>"><?php echo $v1;?></option>
+                                        <?php endforeach;?>
                                     </select>
+                                    <?php endif;if($v['dt_type']==5):?> <!-- 文本域 -->
+                                    <textarea name="<?php echo $v['ename'];?>" class="form-control" cols="3"> <?php echo $v['value'];?> </textarea>
+                                    <?php endif;if($v['dt_type']==6):?> <!-- 附件类型 -->
+                                    <input class="form-control" value=""  name="<?php echo $v['ename'];?>"  type="file">
+                                    <?php if($v['value']): ?><img height="30" src="<?php echo $v['value']; ?>"><?php else: endif; endif;?>
                                 </div>
                             </div>
-                            <?php break; case "5": ?>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label"><?php echo $vo['cname']; ?>：</label>
-                                <div class="col-sm-9">
-                                    <textarea name="<?php echo $vo['ename']; ?>" class="form-control" cols="30" rows="3"><?php echo $vo['value']; ?></textarea>
-                                </div>
-                            </div>
-                            <?php break; case "6": ?>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label"><?php echo $vo['cname']; ?>：</label>
-                                <div class="col-sm-9">
-                                    <input type="file" name="<?php echo $vo['ename']; ?>" value="" >
-                                    <img src="<?php echo $vo['value']; ?>" style="width: 100px; padding-top:10px;">
-                                </div>
-                            </div>
-                            <?php break; endswitch; endforeach; endif; else: echo "" ;endif; ?>
+                            <?php endif;endforeach;?>
                         </div>
                     </div>
                     <div class="box-footer">

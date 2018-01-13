@@ -3,7 +3,7 @@
 namespace app\admin\controller;
 
 use app\admin\model\Archives as ArchivesModel;
-
+use think\Image;
 
 /**
  * 文档管理控制器类
@@ -81,11 +81,11 @@ class Archives extends Base
         if ($info) {
             // 返回文件信息
             $imgSrc = DEL_IMG_HOME . $info->getSaveName();
-//            halt($path);
-            // 处理图片剪裁
-            $image = \think\Image::open($imgSrc);
-            // 按照原图的比例生成一个最大为150*150的缩略图并保存为thumb.png
-            $image->thumb(150, 150)->save($imgSrc);
+            // 生成图片缩略图
+            $image = Image::open($imgSrc);
+            // 按照原图的比例生成缩略图并替换原有的上传图片
+            $water = DEL_IMG_HOME . 'water.png';
+            $image->thumb(600, 600)->water($water)->save($imgSrc);
             $path = config('uploadPath') . 'home/' . $info->getSaveName();
             return json_encode(['valid' => 1, 'msg' => $path]);
         } else {
@@ -118,3 +118,32 @@ class Archives extends Base
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
