@@ -84,9 +84,9 @@ class Webset extends Model
                 // 获取上传文件
                 $file = request()->file($v);
                 // 移动文件
-                $info = $file->validate(['size'=>3000000,'ext'=>'jpg,png,gif'])->move(ROOT_PATH . 'public/uploads');
+                $info = $file->validate(['size'=>3000000,'ext'=>'jpg,png,gif'])->move(ROOT_PATH . 'public/uploads/admin');
                 // 获取文件信息，处理文件路径
-                $path = config('uploadPath') . $info->getSaveName();
+                $path = $info->getSaveName();
                 $this->where('ename', $v)->update(['value' => $path]);
             }
         }

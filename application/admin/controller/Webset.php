@@ -13,48 +13,17 @@ class Webset extends Base
 {
     /**
      * 显示配置操作
+     * @param WebsetModel $webset
      * @return \think\response\View
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
      */
     public function confList(WebsetModel $webset)
     {
         // 获取配置所有数据
         $confRes = db('webset')->select();
-        /*
-        // 获取网站基本信息
-        $baseInfo = db('webset')->where('cf_type', 1)->select();
-        // 获取联系方式
-        $ways = db('webset')->where('cf_type', 2)->select();
-        // seo 信息
-        $seo = db('webset')->where('cf_type', 3)->select();
-        // 查询所有需要分割的values数据
-        // 单选
-        $radios = db('webset')->where("dt_type=2")->select();
-        //halt($radios);
-        // 多选
-        $checkboxes = db('webset')->where("dt_type=3")->select();
-        // 下拉框
-        $selects = db('webset')->where("dt_type=4")->select();
-        // 将单选配置内容分割成数组
-        $radio = [];
-        foreach ($radios as $k => $v) {
-            $radio[] = explode(',', $v['values']);
-            foreach ($radio as $k1 => $v1) {
-
-            }
-        }
-        // 将多选配置内容分割成数组
-        $checkbox = [];
-        $checkboxValue = [];
-        foreach ($checkboxes as $k => $v) {
-            $checkbox = explode(',', $v['values']);
-            $checkboxValue = explode(',', $v['value']);
-        }
-        // 将下拉框配置内容分割成数组
-        $selected    = [];
-        foreach ($selects as $k => $v) {
-            $selected    = explode(',', $v['values']);
-        }
-        */
+        //halt($confRes);
         $this->assign([
             'confRes'     => $confRes,
         ]);
@@ -78,9 +47,11 @@ class Webset extends Base
             }
         }
     }
+
     /**
      * 配置列表操作
      * @return \think\response\View
+     * @throws \think\exception\DbException
      */
     public function index()
     {
@@ -113,6 +84,9 @@ class Webset extends Base
      * 编辑系统配置
      * @param WebsetModel $webset
      * @return string|\think\response\View
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
      */
     public function edit(WebsetModel $webset)
     {

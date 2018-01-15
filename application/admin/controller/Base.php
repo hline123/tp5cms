@@ -8,6 +8,7 @@ use think\Request;
 
 class Base extends Controller
 {
+    public $confRes;
     /**
      * 基础控制器初始化
      */
@@ -21,9 +22,11 @@ class Base extends Controller
 //        halt($menu);
         $this->assign('menu', $menu);
         $this->assign('route', $route);
+        $this->getWebset();
+//        halt($this->confRes);
     }
 
-    public function leftMenu ()
+    public function leftMenu()
     {
         // 获取侧边栏数据
         $data = db('menu')->select();
@@ -45,6 +48,16 @@ class Base extends Controller
         // $router = $module . '/' . $controller . '/' . $action;
         $router = $controller;
         return $router;
+    }
+    // 获取所有配置表数据
+    public function getWebset()
+    {
+        $confRes = [];
+        $_confRes = db('webset')->field('ename, value')->select();
+        foreach ($_confRes as $v) {
+            $confRes[$v['ename']] = $v['value'];
+        }
+        $this->confRes = $confRes;
     }
 
 }

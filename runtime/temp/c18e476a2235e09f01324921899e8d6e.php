@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:8:{s:87:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\webset\confList.html";i:1515827224;s:83:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\base.html";i:1512099526;s:89:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\common_css.html";i:1511928198;s:88:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\common_js.html";i:1515144126;s:85:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\header.html";i:1511850195;s:83:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\menu.html";i:1515224134;s:85:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\footer.html";i:1510538016;s:86:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\sidebar.html";i:1510537129;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:8:{s:87:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\webset\confList.html";i:1515988894;s:83:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\base.html";i:1512099526;s:89:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\common_css.html";i:1511928198;s:88:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\common_js.html";i:1515144126;s:85:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\header.html";i:1511850195;s:83:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\menu.html";i:1515224134;s:85:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\footer.html";i:1510538016;s:86:"D:\phpStudy\PHPTutorial\WWW\tpcms\public/../application/admin\view\public\sidebar.html";i:1510537129;}*/ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -222,9 +222,10 @@ $(function () {
   <div class="content-wrapper">
     
 <style>
-    .checkbox-inline, .radio-inline {
+    .form-horizontal .checkbox-inline,  .form-horizontal .radio-inline {
         padding-left: 0;
         padding-right: 20px;
+        margin-left: 0;
     }
 </style>
 <section class="content-header">
@@ -291,7 +292,14 @@ $(function () {
                                         <textarea name="<?php echo $v['ename'];?>" class="form-control" cols="3"> <?php echo $v['value'];?> </textarea>
                                     <?php endif;if($v['dt_type']==6):?> <!-- 附件类型 -->
                                         <input class="form-control" value=""  name="<?php echo $v['ename'];?>"  type="file">
-                                        <?php if($v['value']): ?><img height="30" src="<?php echo $v['value']; ?>"><?php else: endif; endif;?>
+                                    <div class="input-group" style="margin-top:5px;">
+                                        <?php if($v['value']): ?>
+                                        <img src="http://tpcms.com/uploads/admin/<?php echo $v['value']; ?>" class="img-responsive img-thumbnail" width="150">
+                                        <?php else: ?>
+                                        <img src="/static/admin/images/nopic.jpg" class="img-responsive img-thumbnail" width="150">
+                                        <?php endif; ?>
+                                    </div>
+                                    <?php endif;?>
                                 </div>
                             </div>
                             <?php endif;endforeach;?>
@@ -337,7 +345,14 @@ $(function () {
                                     <textarea name="<?php echo $v['ename'];?>" class="form-control" cols="3"> <?php echo $v['value'];?> </textarea>
                                     <?php endif;if($v['dt_type']==6):?> <!-- 附件类型 -->
                                     <input class="form-control" value=""  name="<?php echo $v['ename'];?>"  type="file">
-                                    <?php if($v['value']): ?><img height="30" src="<?php echo $v['value']; ?>"><?php else: endif; endif;?>
+                                    <div class="input-group" style="margin-top:5px;">
+                                        <?php if($v['value']): ?>
+                                        <img src="http://tpcms.com/uploads/admin/<?php echo $v['value']; ?>" class="img-responsive img-thumbnail" width="150">
+                                        <?php else: ?>
+                                        <img src="/static/admin/images/nopic.jpg" class="img-responsive img-thumbnail" width="150">
+                                        <?php endif; ?>
+                                    </div>
+                                    <?php endif;?>
                                 </div>
                             </div>
                             <?php endif;endforeach;?>
@@ -383,7 +398,14 @@ $(function () {
                                     <textarea name="<?php echo $v['ename'];?>" class="form-control" cols="3"> <?php echo $v['value'];?> </textarea>
                                     <?php endif;if($v['dt_type']==6):?> <!-- 附件类型 -->
                                     <input class="form-control" value=""  name="<?php echo $v['ename'];?>"  type="file">
-                                    <?php if($v['value']): ?><img height="30" src="<?php echo $v['value']; ?>"><?php else: endif; endif;?>
+                                    <div class="input-group" style="margin-top:5px;">
+                                        <?php if($v['value']): ?>
+                                        <img src="http://tpcms.com/uploads/admin/<?php echo $v['value']; ?>" class="img-responsive img-thumbnail" width="150">
+                                        <?php else: ?>
+                                        <img src="/static/admin/images/nopic.jpg" class="img-responsive img-thumbnail" width="150">
+                                        <?php endif; ?>
+                                    </div>
+                                    <?php endif;?>
                                 </div>
                             </div>
                             <?php endif;endforeach;?>

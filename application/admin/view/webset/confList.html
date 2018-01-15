@@ -1,9 +1,10 @@
 {extend name="public/base" /}
 {block name="content"}
 <style>
-    .checkbox-inline, .radio-inline {
+    .form-horizontal .checkbox-inline,  .form-horizontal .radio-inline {
         padding-left: 0;
         padding-right: 20px;
+        margin-left: 0;
     }
 </style>
 <section class="content-header">
@@ -76,7 +77,13 @@
                                     <?php endif;?>
                                     <?php if($v['dt_type']==6):?> <!-- 附件类型 -->
                                         <input class="form-control" value=""  name="<?php echo $v['ename'];?>"  type="file">
-                                        {if condition="$v['value']"}<img height="30" src="{$v.value}">{else /}{/if}
+                                    <div class="input-group" style="margin-top:5px;">
+                                        {if condition="$v['value']"}
+                                        <img src="http://tpcms.com/uploads/admin/{$v.value}" class="img-responsive img-thumbnail" width="150">
+                                        {else /}
+                                        <img src="/static/admin/images/nopic.jpg" class="img-responsive img-thumbnail" width="150">
+                                        {/if}
+                                    </div>
                                     <?php endif;?>
                                 </div>
                             </div>
@@ -130,7 +137,13 @@
                                     <?php endif;?>
                                     <?php if($v['dt_type']==6):?> <!-- 附件类型 -->
                                     <input class="form-control" value=""  name="<?php echo $v['ename'];?>"  type="file">
-                                    {if condition="$v['value']"}<img height="30" src="{$v.value}">{else /}{/if}
+                                    <div class="input-group" style="margin-top:5px;">
+                                        {if condition="$v['value']"}
+                                        <img src="http://tpcms.com/uploads/admin/{$v.value}" class="img-responsive img-thumbnail" width="150">
+                                        {else /}
+                                        <img src="/static/admin/images/nopic.jpg" class="img-responsive img-thumbnail" width="150">
+                                        {/if}
+                                    </div>
                                     <?php endif;?>
                                 </div>
                             </div>
@@ -184,7 +197,13 @@
                                     <?php endif;?>
                                     <?php if($v['dt_type']==6):?> <!-- 附件类型 -->
                                     <input class="form-control" value=""  name="<?php echo $v['ename'];?>"  type="file">
-                                    {if condition="$v['value']"}<img height="30" src="{$v.value}">{else /}{/if}
+                                    <div class="input-group" style="margin-top:5px;">
+                                        {if condition="$v['value']"}
+                                        <img src="http://tpcms.com/uploads/admin/{$v.value}" class="img-responsive img-thumbnail" width="150">
+                                        {else /}
+                                        <img src="/static/admin/images/nopic.jpg" class="img-responsive img-thumbnail" width="150">
+                                        {/if}
+                                    </div>
                                     <?php endif;?>
                                 </div>
                             </div>
