@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50553
 File Encoding         : 65001
 
-Date: 2018-01-13 15:21:49
+Date: 2018-01-16 10:50:55
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -226,7 +226,7 @@ CREATE TABLE `tp_webset` (
   `dt_type` tinyint(1) NOT NULL DEFAULT '1' COMMENT '配置类型 1：文本框\r\n2：单选\r\n3：复选\r\n4：下拉菜单\r\n5：文本域\r\n6：附件',
   `cf_type` tinyint(1) NOT NULL DEFAULT '1' COMMENT '配置分类1：基本信息\r\n2：联系方式\r\n3：SEO设置',
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=19 DEFAULT CHARSET=utf8 COMMENT='系统配置表';
+) ENGINE=MyISAM AUTO_INCREMENT=23 DEFAULT CHARSET=utf8 COMMENT='系统配置表';
 
 -- ----------------------------
 -- Records of tp_webset
@@ -240,12 +240,16 @@ INSERT INTO `tp_webset` VALUES ('6', '网站logo', 'logo', '', '', '6', '1');
 INSERT INTO `tp_webset` VALUES ('7', '备案号', 'copyright', '1', '', '1', '1');
 INSERT INTO `tp_webset` VALUES ('8', '联系人', 'contact', '1', '', '1', '2');
 INSERT INTO `tp_webset` VALUES ('9', '关键词', 'keywords', '1', '', '1', '3');
-INSERT INTO `tp_webset` VALUES ('10', '站点描述', 'description', '1', '', '5', '3');
+INSERT INTO `tp_webset` VALUES ('10', '站点描述', 'description', '                1                ', '', '5', '3');
 INSERT INTO `tp_webset` VALUES ('11', '开启缓存', 'iscache', '开启', '开启,关闭', '2', '3');
 INSERT INTO `tp_webset` VALUES ('12', '关闭站点', 'closesite', '开启', '关闭,开启', '4', '1');
 INSERT INTO `tp_webset` VALUES ('13', '联系方式', 'contactway', 'email,传真', '电话,QQ,email,传真', '3', '2');
 INSERT INTO `tp_webset` VALUES ('14', '二维码', 'RQcode', '', '', '6', '1');
 INSERT INTO `tp_webset` VALUES ('15', '允许上传缩略图', 'thumb', '是', '是,否', '2', '1');
-INSERT INTO `tp_webset` VALUES ('16', '缩略图宽度', 'thumb_width', '', '', '1', '1');
-INSERT INTO `tp_webset` VALUES ('17', '缩略图高度', 'thumb_height', '', '', '1', '1');
+INSERT INTO `tp_webset` VALUES ('16', '缩略图宽度', 'thumb_width', '400', '', '1', '1');
+INSERT INTO `tp_webset` VALUES ('17', '缩略图高度', 'thumb_height', '400', '', '1', '1');
 INSERT INTO `tp_webset` VALUES ('18', '缩略图裁剪方式', 'thumb_way', '等比例缩放', '等比例缩放,缩放后填充,居中裁剪,左上角裁剪,右下角裁剪,固定尺寸缩放', '2', '1');
+INSERT INTO `tp_webset` VALUES ('19', '是否添加水印', 'water', '是', '是,否', '2', '1');
+INSERT INTO `tp_webset` VALUES ('20', '水印位置', 'water_position', '右下角', '左上角,上居中,右上角,左居中,居中,右居中,左下角,下居中,右下角', '2', '1');
+INSERT INTO `tp_webset` VALUES ('21', '水印透明度', 'water_opacity', '80', '', '1', '1');
+INSERT INTO `tp_webset` VALUES ('22', '水印图', 'water_img', '20180115\\373b86dfb11e88d758376e8ac6cc2f66.png', '', '6', '1');
